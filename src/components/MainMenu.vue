@@ -17,19 +17,19 @@ const linkList = [
   },
   {
     name: "Instagram",
-    link: "https://instagram.com",
+    link: "https://instagram.com/sa8827094?igshid=16tvqfg7syflx",
   },
   {
     name: "Facebook",
-    link: "https://facebook.com",
+    link: "https://zh-tw.facebook.com/rxmdesign",
   },
   {
-    name: "LinkedIn",
-    link: "https://linkedin.com",
+    name: "YouTube",
+    link: "https://www.youtube.com/channel/UCyh_r5QT0oz4kWqhF_0yUUg",
   },
   {
-    name: "LINE@",
-    link: "https://line.me",
+    name: "Pinterest",
+    link: "https://pin.it/6lILgPi",
   },
 ];
 

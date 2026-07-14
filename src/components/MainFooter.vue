@@ -6,19 +6,19 @@ const linkGroup = [
     links: [
       {
         name: "住宅空間",
-        link: "/about",
+        link: "/works?category=1",
       },
       {
         name: "建築設計",
-        link: "/about",
+        link: "/works?category=2",
       },
       {
         name: "商業空間",
-        link: "/about",
+        link: "/works?category=3",
       },
       {
         name: "公共空間",
-        link: "/about",
+        link: "/works?category=4",
       },
     ],
   },
@@ -31,15 +31,15 @@ const linkGroup = [
       },
       {
         name: "作品列表",
-        link: "/about",
+        link: "/works",
       },
       {
         name: "服務流程",
-        link: "/about",
+        link: "/workflow",
       },
       {
         name: "媒體採訪",
-        link: "/about",
+        link: "/press",
       },
     ],
   },
@@ -48,23 +48,28 @@ const linkGroup = [
     links: [
       {
         name: "部落格",
-        link: "/about",
+        link: "https://blog.rmdesign.com.tw",
+        external: true,
       },
       {
         name: "Instagram",
-        link: "/about",
+        link: "https://instagram.com/sa8827094?igshid=16tvqfg7syflx",
+        external: true,
       },
       {
         name: "Facebook",
-        link: "/about",
+        link: "https://zh-tw.facebook.com/rxmdesign",
+        external: true,
       },
       {
         name: "YouTube",
-        link: "/about",
+        link: "https://www.youtube.com/channel/UCyh_r5QT0oz4kWqhF_0yUUg",
+        external: true,
       },
       {
-        name: "LINE@",
-        link: "/about",
+        name: "Pinterest",
+        link: "https://pin.it/6lILgPi",
+        external: true,
       },
     ],
   },
@@ -145,7 +150,7 @@ const subMenuOpen = ref(false);
             </router-link>
           </li>
           <li>
-            <p to="/about" @click="subMenuOpen = !subMenuOpen">
+            <p @click="subMenuOpen = !subMenuOpen">
               <span>作品列表</span>
               <svg
                 width="40"
@@ -172,27 +177,27 @@ const subMenuOpen = ref(false);
               </svg>
             </p>
             <div class="sub-link-box" :class="subMenuOpen ? 'active' : ''">
-              <router-link to="/about">
+              <router-link to="/works?category=1">
                 <span>住宅空間</span>
               </router-link>
-              <router-link to="/about">
+              <router-link to="/works?category=2">
                 <span>建築設計</span>
               </router-link>
-              <router-link to="/about">
+              <router-link to="/works?category=3">
                 <span>商業空間</span>
               </router-link>
-              <router-link to="/about">
+              <router-link to="/works?category=4">
                 <span>公共空間</span>
               </router-link>
             </div>
           </li>
           <li>
-            <router-link to="/about">
+            <router-link to="/workflow">
               <span>服務流程</span>
             </router-link>
           </li>
           <li>
-            <router-link to="/about">
+            <router-link to="/press">
               <span>媒體採訪</span>
             </router-link>
           </li>
@@ -211,7 +216,35 @@ const subMenuOpen = ref(false);
               v-for="(link, linkIndex) in group.links"
               :key="`link-${linkIndex}`"
             >
-              <router-link :to="link.link">
+              <a :href="link.link" v-if="link.external" target="_blank" rel="noopener noreferrer">
+                <span>{{ link.name }}</span>
+                <span>{{ link.name }}</span>
+                <svg
+                  v-if="groupIndex == 2"
+                  width="80"
+                  height="80"
+                  viewBox="0 0 80 80"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20.5543 59.4429L60.5543 19.4429"
+                    stroke="currentColor"
+                    stroke-width="5"
+                    stroke-linecap="square"
+                    stroke-linejoin="round"
+                  />
+                  <mask id="path-2-inside-1_96_231" fill="currentColor">
+                    <path d="M15 15L65 15V65" />
+                  </mask>
+                  <path
+                    d="M15 10H10V20H15V15V10ZM65 15H70C70 12.2386 67.7614 10 65 10V15ZM60 65V70H70V65H65H60ZM15 15V20L65 20V15V10L15 10V15ZM65 15L60 15V65H65H70V15H65Z"
+                    fill="currentColor"
+                    mask="url(#path-2-inside-1_96_231)"
+                  />
+                </svg>
+              </a>
+              <router-link :to="link.link" v-else>
                 <span>{{ link.name }}</span>
                 <span>{{ link.name }}</span>
                 <svg
@@ -373,11 +406,9 @@ const subMenuOpen = ref(false);
       </div>
 
       <div class="copyright-box">
-        <p class="copyright-text">
-            RM Design Co., Ltd © 2026
-        </p>
+        <p class="copyright-text">RM Design Co., Ltd © 2026</p>
         <div class="link-box">
-            <router-link to="/privacy-policy">隱私權政策</router-link>
+          <router-link to="/privacy-policy">隱私權政策</router-link>
         </div>
       </div>
     </div>
