@@ -1,0 +1,17 @@
+#workflow-page{
+    @apply w-full relative z-10;
+}
+#workflow-page > .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5 lg:pt-30 sm:pt-20 pt-15;
+    @apply flex items-stretch justify-start lg:flex-nowrap flex-wrap;
+}
+
+
+#workflow-page > .main-container .background-box{
+    @apply w-full h-full absolute top-75 left-0 z-0;
+    @apply lg:block hidden;
+}
+#workflow-page > .main-container .background-box img{
+    @apply sticky top-32 left-0 w-180 block z-0;
+    @apply transform -translate-x-25
+}

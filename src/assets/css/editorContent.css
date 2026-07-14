@@ -1,0 +1,91 @@
+
+.editor-content img.fr-dib {
+  width: 100% !important;
+}
+
+.editor-content span.fr-emoticon.fr-emoticon-img {
+  background-repeat: no-repeat !important;
+  font-size: inherit;
+  height: 1em;
+  width: 1em;
+  min-height: 20px;
+  min-width: 20px;
+  display: inline-block;
+  margin: -0.1em 0.1em 0.1em;
+  line-height: 1;
+  vertical-align: middle;
+}
+.editor-content span.fr-emoticon {
+  font-weight: normal;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji",
+    "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
+  display: inline;
+  line-height: 0;
+}
+
+.editor-content .fr-video.fr-dvb {
+  display: block;
+  clear: both;
+}
+.editor-content .fr-video {
+  text-align: center;
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.editor-content .fr-video > * {
+  display: block;
+  width: 100% !important;
+  height: 100%;
+  max-width: 100%;
+  border: none;
+}
+
+.editor-content p {
+  color: currentColor;
+  margin-bottom: 10px;
+  width: 100%;
+  display: block;
+}
+
+.editor-content img {
+  width: 100%;
+  display: block;
+}
+
+.editor-content ol,ul{
+  padding-left: 20px;
+}
+.editor-content ol{
+  list-style: decimal;
+}
+.editor-content ul{
+  list-style: disc;
+}
+
+.editor-content ul li::marker,
+.editor-content ol li::marker {
+  color: #CC1415;
+}
+
+.editor-content .editor-cta-block{
+  border-top: 1px solid #CC1415;
+  border-bottom: 1px solid #CC1415;
+  padding: 32px 0px;
+  text-align: center;
+}
+.editor-content .editor-cta-block .editor-cta-title{
+  font-size:24px;
+  font-weight:bold;
+  display: block;
+  margin-bottom: 16px;
+}
+.editor-content .editor-cta-block .editor-cta-button{
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  background: #CC1415;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+}

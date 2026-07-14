@@ -1,0 +1,49 @@
+#site-privacy-dialog{
+    @apply fixed top-0 left-0 w-full h-full z-[9999] bg-black/50;
+    @apply flex items-end justify-center;
+}
+
+#site-privacy-dialog .content-box{
+    @apply flex flex-wrap items-center justify-between;
+    @apply w-full px-5 py-5 shadow-xl md:px-10 md:flex-nowrap bg-brand-cream;
+}
+#site-privacy-dialog .content-box > p{
+    @apply block w-full mb-5 text-sm  md:text-base md:w-auto md:mb-0;
+    @apply font-medium tracking-widest leading-loose
+}
+
+#site-privacy-dialog .content-box > p a{
+    @apply text-brand-red underline;
+}
+
+#site-privacy-dialog .button-box{
+    @apply shrink-0 w-full text-center md:ml-5 md:w-auto;
+}
+
+#site-privacy-dialog.active .content-box{
+    animation: close-site-privacy-dialog-content 0.3s ease-in-out forwards;
+}
+#site-privacy-dialog.active{
+    animation: close-site-privacy-dialog 0.5s ease-in-out forwards;
+}
+
+@keyframes close-site-privacy-dialog {
+    0% {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    99% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0);
+        display:none;
+    }
+}
+@keyframes close-site-privacy-dialog-content {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}

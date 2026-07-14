@@ -1,0 +1,157 @@
+#main-header{
+    @apply flex justify-center;
+    @apply fixed top-0 left-0 w-full z-40 sm:h-20 h-15;
+    @apply transition-all duration-300 ease-out;
+    @apply flex items-center justify-between;
+    @apply md:px-12.5 sm:px-10 px-5;
+}
+
+
+#main-header .logo-box{
+    @apply block relative md:w-20 md:h-20 w-15 h-15;
+    @apply transform md:translate-y-5 translate-y-2;
+}
+#main-header .logo-box img{
+    @apply w-full h-full object-contain block;
+}
+
+
+#main-header .menu-list{
+    @apply lg:flex hidden items-center justify-center;
+    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+}
+#main-header .menu-list li a,
+#main-header .menu-list li button.project-dropdown-trigger{
+    @apply flex items-center 2xl:px-5 px-3;
+}
+#main-header .menu-list li a i,
+#main-header .menu-list li button.project-dropdown-trigger i{
+    @apply w-1.5 h-1.5 rounded-full;
+    @apply mr-3 opacity-0;
+    @apply transition-all duration-300 ease-out;
+}
+#main-header .menu-list li p{
+    @apply block overflow-hidden ;
+    @apply 2xl:h-4.5 h-4 whitespace-nowrap;
+}
+#main-header .menu-list li p span{
+    @apply block text-white;
+    @apply font-dm-sans font-medium 2xl:text-lg text-base leading-none;
+    @apply transition-all duration-300 ease-out;
+}
+
+#main-header .menu-list li.active a i{
+    @apply opacity-100 bg-white;
+}
+#main-header .menu-list li:hover a i{
+    @apply opacity-100 bg-brand-red;
+}
+#main-header .menu-list li:hover button.project-dropdown-trigger i,
+#main-header .menu-list li button.project-dropdown-trigger.active i{
+    @apply opacity-100 bg-brand-red;
+}
+#main-header .menu-list li:hover > a p span{
+    @apply transform -translate-y-full;
+}
+#main-header .menu-list li:hover button.project-dropdown-trigger p span,
+#main-header .menu-list li button.project-dropdown-trigger.active p span{
+    @apply transform -translate-y-full;
+}
+
+#main-header .menu-list li button.project-dropdown-trigger{
+    @apply bg-transparent border-0 cursor-pointer;
+}
+
+#main-header .menu-list li.project-menu-item{
+    @apply relative;
+}
+
+#main-header .menu-list li .project-dropdown{
+    @apply absolute left-1/2 top-full mt-10 w-171.25 rounded-xl overflow-hidden;
+    @apply bg-black flex items-start p-10;
+    @apply transform -translate-x-1/2 translate-y-2;
+    @apply opacity-0 pointer-events-none;
+    @apply transition-all duration-200 ease-out;
+}
+
+#main-header .menu-list li .project-dropdown.open{
+    @apply translate-y-0 opacity-100 pointer-events-auto;
+}
+
+#main-header .menu-list li .project-dropdown .image-box{
+    @apply w-50 aspect-200/250 rounded-lg overflow-hidden;
+    @apply mr-15;
+}
+#main-header .menu-list li .project-dropdown .image-box img{
+    @apply w-full h-full object-cover;
+}
+
+
+#main-header .menu-list li .project-dropdown .link-box{
+    @apply flex-1
+}
+#main-header .menu-list li .project-dropdown .link-box .sub-title{
+    @apply font-dm-sans font-bold text-brand-red text-base;
+}
+
+#main-header .menu-list li .project-dropdown a{
+    @apply block py-5 text-xl text-white px-0;
+}
+#main-header .menu-list li .project-dropdown a:not(:last-child){
+    @apply border-b border-white/20;
+}
+#main-header .menu-list li .project-dropdown a p span{
+    @apply text-white
+}
+#main-header .menu-list li .project-dropdown a:hover p span{
+    @apply transform -translate-y-full text-brand-red;
+}
+
+
+#main-header.cream{
+    @apply bg-brand-cream;
+}
+#main-header.cream .menu-list li p span{
+    @apply text-black;
+}
+#main-header.cream .menu-list li.active a i{
+    @apply opacity-100 bg-black;
+}
+
+
+#main-header.black{
+    @apply bg-black;
+}
+#main-header.black .menu-list li p span{
+    @apply text-white;
+}
+#main-header.black .menu-list li.active a i{
+    @apply opacity-100 bg-white;
+}
+
+
+#main-header .button-box{
+    @apply flex items-center justify-end gap-4 ;
+}
+#main-header .button-box .main-btn{
+    @apply transition-all duration-300 ease-out;
+}
+#main-header .button-box .menu-btn{
+    @apply lg:hidden block;
+}
+#main-header .button-box .menu-btn svg path{
+    @apply transition-all duration-300 ease-out;
+}
+
+#main-header .button-box .menu-btn.active svg path:nth-of-type(1){
+    @apply opacity-0;
+}
+#main-header .button-box .menu-btn.active svg path:nth-of-type(2){
+    @apply origin-center;
+    @apply transform -rotate-45;
+    @apply translate-y-1.25 translate-x-1.25;
+}
+#main-header .button-box .menu-btn.active svg path:nth-of-type(3){
+    @apply transform rotate-45;
+    @apply -translate-y-3.25 translate-x-6.25;
+}

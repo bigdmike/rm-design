@@ -1,0 +1,184 @@
+#main-footer{
+    @apply w-full bg-black;
+}
+
+#main-footer .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5 2xl:py-30 sm:py-20 py-10;
+    @apply flex items-start justify-start flex-wrap;
+}
+
+#main-footer .title-box{
+    @apply flex items-end justify-between w-full mb-10;
+    @apply border-b border-zinc-500 relative;
+}
+
+#main-footer .title-box .title{
+    @apply 2xl:text-[120px] md:text-[100px] sm:text-[72px] text-[48px] text-white;
+    @apply relative z-10 md:mb-10 mb-5;
+}
+#main-footer .title-box .title span{
+    @apply sm:inline-block block;
+}
+
+#main-footer .title-box img{
+    @apply w-50 absolute bottom-0 right-0 z-0 2xl:block hidden;
+}
+
+#main-footer .link-list-box{
+    @apply 2xl:w-2/5 w-full flex items-start justify-start flex-wrap;
+    @apply md:mb-0 sm:mb-15 mb-10
+}
+
+#main-footer .link-list-box .link-box{
+    @apply w-1/2 md:mb-20 sm:mb-10;
+}
+#main-footer .link-list-box .link-box .title{
+    @apply font-dm-sans font-bold text-zinc-500 sm:text-base text-sm;
+    @apply md:mb-10 sm:mb-7.5 mb-5;
+}
+#main-footer .link-list-box .link-box ol{
+    @apply flex flex-col gap-4;
+}
+#main-footer .link-list-box .link-box ol li a{
+    @apply text-white md:text-lg tracking-widest;
+    @apply relative overflow-hidden block;
+    @apply flex items-center justify-start gap-3;
+}
+#main-footer .link-list-box .link-box ol li a span{
+    @apply transition-all duration-300 block;
+}
+#main-footer .link-list-box .link-box ol li a span:nth-of-type(1){
+    @apply block;
+}
+#main-footer .link-list-box .link-box ol li a span:nth-of-type(2){
+    @apply absolute left-0 top-full text-brand-red;
+}
+#main-footer .link-list-box .link-box ol li a svg{
+    @apply w-3.5 h-3.5;
+    @apply transition-all duration-300 ;
+}
+
+#main-footer .link-list-box .link-box ol li a:hover{
+    @apply text-brand-red;
+}
+#main-footer .link-list-box .link-box ol li a:hover span{
+    @apply -translate-y-full;
+}
+
+#main-footer .link-list-box .link-box:nth-of-type(1),
+#main-footer .link-list-box .link-box:nth-of-type(2){
+    @apply sm:block hidden
+}
+#main-footer .link-list-box .link-box:nth-of-type(3){
+    @apply w-full md:mb-10 sm:mb-15 mb-10;
+}
+#main-footer .link-list-box .link-box:nth-of-type(3) ol{
+    @apply flex items-center justify-start flex-row sm:gap-7.5 gap-5 xl:flex-nowrap flex-wrap;
+}
+#main-footer .link-list-box .link-box:nth-of-type(3) ol li{
+    @apply xl:shrink-0
+}
+#main-footer .link-list-box .link-box:nth-of-type(3) ol li a{
+    @apply  sm:text-base text-sm
+}
+
+
+#main-footer .info-list-box{
+    @apply 2xl:w-3/5 w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-10 md:gap-y-20 sm:gap-y-10 gap-y-5;
+    @apply 2xl:mb-0 sm:mb-15 mb-10
+}
+#main-footer .info-list-box .info-box {
+    @apply sm:pb-0 pb-5;
+    @apply sm:border-b-0 border-b border-zinc-500;
+}
+#main-footer .info-list-box .info-box:nth-of-type(3){
+    @apply border-b-0 pb-0;
+}
+#main-footer .info-list-box .info-box .sub-title{
+    @apply font-dm-sans font-bold text-zinc-500 uppercase mb-2;
+    @apply sm:text-base text-sm
+}
+#main-footer .info-list-box .info-box .title{
+    @apply md:text-2xl sm:text-xl text-lg text-white font-medium tracking-widest font-dm-sans;
+    @apply md:mb-10 sm:mb-7.5 mb-5;
+}
+#main-footer .info-list-box .info-box ol{
+    @apply flex flex-col sm:gap-4 gap-3;
+}
+#main-footer .info-list-box .info-box ol li a,
+#main-footer .info-list-box .info-box ol li span{
+    @apply flex items-start justify-start gap-3;
+    @apply text-white text-base font-dm-sans;
+}
+#main-footer .info-list-box .info-box ol li span{
+    @apply md:text-lg tracking-widest 
+}
+#main-footer .info-list-box .info-box ol li svg{
+    @apply w-6 h-6 shrink-0;
+}
+
+#main-footer .menu-box{
+    @apply w-full sm:hidden grid  grid-cols-1 mb-5;
+}
+#main-footer .menu-box .title{
+    @apply font-dm-sans font-bold text-zinc-500 text-sm;
+    @apply mb-5;
+}
+#main-footer .menu-box li:not(:last-child) {
+    @apply border-b border-zinc-500;
+}
+#main-footer .menu-box li > a,
+#main-footer .menu-box li > p{
+    @apply py-5 text-white tracking-widest;
+    @apply flex items-center justify-between;
+}
+#main-footer .menu-box li > p svg{
+    @apply w-7.5 h-7.5;
+}
+
+#main-footer .menu-box .sub-link-box{
+    @apply grid grid-cols-1;
+    @apply max-h-0 overflow-hidden;
+    @apply transition-all duration-300;
+}
+#main-footer .menu-box .sub-link-box.active{
+    @apply max-h-50 pb-5;
+}
+#main-footer .menu-box .sub-link-box a{
+    @apply py-3 text-white text-sm tracking-widest
+}
+
+
+#main-footer .slogan-box{
+    @apply w-full flex items-center justify-start md:gap-10 sm:gap-5;
+}
+#main-footer .slogan-box i{
+    @apply flex-1 h-0.5 bg-zinc-500
+}
+#main-footer .slogan-box p{
+    @apply text-white md:text-2xl sm:text-xl text-lg font-medium tracking-widest;
+    @apply flex items-center md:gap-5 sm:gap-3 gap-2;
+}
+#main-footer .slogan-box p span{
+    @apply md:text-[40px] sm:text-[30px] text-[28px] tracking-widest font-black text-brand-red
+}
+
+
+#main-footer .copyright-box{
+    @apply w-full flex items-center justify-start flex-wrap;
+    @apply md:gap-20 sm:gap-10 gap-1;
+}
+#main-footer .copyright-box .copyright-text{
+    @apply text-zinc-400 tracking-widest;
+}
+#main-footer .copyright-box .link-box{
+    @apply flex items-center justify-start gap-5;
+    @apply sm:w-auto w-full;
+}
+#main-footer .copyright-box .link-box a{
+    @apply text-zinc-300 tracking-widest font-bold;
+    @apply transition-all duration-300;
+}
+#main-footer .copyright-box .link-box a:hover{
+    @apply text-brand-red;
+}

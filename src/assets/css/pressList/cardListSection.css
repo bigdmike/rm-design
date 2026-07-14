@@ -1,0 +1,45 @@
+#press-list-card-list-section{
+    @apply md:w-auto w-full md:flex-1 relative z-10;
+}
+
+#press-list-card-list-section .card-list{
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-x-10 md:gap-y-20;
+}
+
+
+#press-list-card-list-section .card-list .card .thumbnail{
+    @apply w-full rounded-lg overflow-hidden aspect-video mb-5;
+    @apply relative;
+}
+#press-list-card-list-section .card-list .card .thumbnail .cover{
+    @apply absolute top-0 left-0 w-full h-full bg-black/0 z-10;
+    @apply flex items-center justify-center;
+    @apply transition-all duration-300 ease-in-out;
+}
+#press-list-card-list-section .card-list .card .thumbnail .cover .play-button-box{
+    @apply flex items-center justify-center overflow-hidden;
+    @apply w-10 h-10 rounded-full bg-white/70;
+}
+#press-list-card-list-section .card-list .card .thumbnail img{
+    @apply w-full h-full object-cover block relative z-0;
+    @apply transition-all duration-500 ease-in-out;
+}
+
+#press-list-card-list-section .card-list .card .info h3{
+    @apply xl:text-xl text-lg font-medium font-dm-sans leading-none tracking-widest;
+    @apply mb-3
+}
+#press-list-card-list-section .card-list .card .info p{
+    @apply font-dm-sans leading-none tracking-widest text-zinc-500;
+}
+
+#press-list-card-list-section .card-list .card:hover .thumbnail .cover{
+    @apply bg-black/40;
+}
+#press-list-card-list-section .card-list .card:hover .thumbnail .cover .text-box p,
+#press-list-card-list-section .card-list .card:hover .thumbnail .cover .text-box svg{
+    @apply translate-y-0;
+}
+#press-list-card-list-section .card-list .card:hover .thumbnail img{
+    @apply scale-110
+}

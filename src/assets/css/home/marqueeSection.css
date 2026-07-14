@@ -1,0 +1,28 @@
+#home-marquee-section{
+    @apply w-full overflow-hidden relative px-5 sm:py-10 py-4;
+    @apply flex items-center;
+}
+
+#home-marquee-section .marquee-box{
+    animation: home-marquee-animation 20s linear infinite;
+    @apply flex items-center  shrink-0;
+}
+#home-marquee-section .marquee-box .marquee-item{
+    @apply shrink-0 flex items-center pr-15
+}
+#home-marquee-section .marquee-box .marquee-item p{
+    @apply text-lg tracking-widest mr-15;
+}
+#home-marquee-section .marquee-box .marquee-item i{
+    @apply w-2.5 h-2.5 rounded-full bg-brand-red block;
+}
+
+
+@keyframes home-marquee-animation{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-100%);
+    }
+}

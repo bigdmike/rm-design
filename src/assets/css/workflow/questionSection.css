@@ -1,0 +1,58 @@
+#workflow-question-section{
+    @apply w-full relative z-10 md:py-30 sm:py-20 py-15;
+    @apply bg-[#EBE7DA];
+}
+#workflow-question-section .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+    @apply flex items-start md:flex-nowrap flex-wrap
+}
+
+#workflow-question-section .header-box{
+    @apply md:mr-30 md:w-auto w-full md:mb-0 sm:mb-15 mb-10
+}
+#workflow-question-section .header-box .sub-title{
+    @apply font-dm-sans font-bold uppercase sm:text-base text-sm;
+    @apply text-brand-red md:mb-5 mb-2
+}
+#workflow-question-section .header-box .title{
+    @apply md:text-[44px] sm:text-[40px] text-[26px] tracking-wider leading-snug;
+}
+
+#workflow-question-section .question-box{
+    @apply flex-1;
+}
+
+
+#workflow-question-section .question-box li{
+    @apply py-5
+}
+#workflow-question-section .question-box li:not(:last-child){
+    @apply border-b border-zinc-300;
+}
+
+#workflow-question-section .question-box li .title-box{
+    @apply flex items-center cursor-pointer select-none;
+}
+#workflow-question-section .question-box li .title-box svg{
+    @apply ml-auto shrink-0
+}
+#workflow-question-section .question-box li .title-box span{
+    @apply font-dm-sans font-bold text-brand-red sm:text-base text-sm;
+    @apply mr-3 shrink-0
+}
+#workflow-question-section .question-box li .title-box h4{
+    @apply text-lg font-bold mr-5
+}
+
+#workflow-question-section .question-box li .content-box{
+  display: grid;
+  grid-template-rows: 0fr; /* 預設高度為 0 */
+  transition: grid-template-rows 0.3s ease-out;
+}
+#workflow-question-section .question-box li .content-box .content{
+    @apply overflow-hidden leading-relaxed tracking-widest
+}
+#workflow-question-section .question-box li.active .content-box{
+    grid-template-rows: 1fr;
+     @apply pt-5;
+}

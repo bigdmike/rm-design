@@ -1,0 +1,37 @@
+#home-work-intro-section{
+    @apply w-full md:pt-30 sm:pt-20 pt-15;
+    @apply relative;
+}
+
+#home-work-intro-section .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+    @apply md:py-30 sm:py-20 py-15;
+    @apply flex md:justify-center items-center flex-wrap;
+    @apply relative z-10;
+}
+
+#home-work-intro-section .text-box{
+    @apply relative z-10 max-w-5xl w-full;
+    @apply md:text-center;
+}
+
+#home-work-intro-section .text-box .sub-title{
+    @apply font-bold font-dm-sans text-brand-red;
+    @apply sm:mb-10 mb-5 sm:text-base text-sm;
+}
+#home-work-intro-section .text-box .content{
+    @apply whitespace-pre-line sm:mb-10 mb-5 leading-normal;
+    @apply md:text-2xl sm:text-xl text-lg font-medium tracking-wider;
+}
+
+#home-work-intro-section .button-box{
+    @apply flex md:justify-center;
+}
+
+#home-work-intro-section .background-box{
+    @apply absolute top-0 left-1/2 z-0;
+    @apply -translate-x-1/2 w-full max-w-[600px] h-full;
+}
+#home-work-intro-section .background-box img{
+    @apply w-full h-full object-contain;
+}

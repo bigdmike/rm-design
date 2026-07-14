@@ -1,0 +1,30 @@
+#main-pagination{
+  @apply relative z-10;
+}
+#main-pagination .pagination-container {
+  @apply flex md:gap-2.5 gap-1;
+}
+
+
+#main-pagination .paginate-buttons{
+  @apply w-7.5 h-7.5 rounded-full;
+}
+#main-pagination .number-buttons,
+#main-pagination .last-button,
+#main-pagination .first-button {
+  @apply flex items-center justify-center;
+  @apply text-black font-dm-sans text-lg font-medium;
+  @apply transition duration-300 ease-in-out;
+}
+
+#main-pagination .number-buttons:hover,
+#main-pagination .last-button:hover,
+#main-pagination .first-button:hover {
+    @apply bg-black text-white;
+}
+
+#main-pagination .active-page {
+  @apply bg-black text-white;
+}
+
+

@@ -1,0 +1,24 @@
+#work-list-side-category-nav{
+    @apply pr-20 w-60 relative z-10;
+    @apply md:block hidden;
+}
+
+#work-list-side-category-nav .category-box{
+    @apply sticky top-32;
+}
+#work-list-side-category-nav .category-box ol{
+    @apply grid grid-cols-1 gap-7.5;
+}
+#work-list-side-category-nav .category-box ol li a{
+    @apply font-medium text-xl leading-none;
+    @apply flex items-start;
+    @apply transition-all duration-300 ease-in-out;
+}
+#work-list-side-category-nav .category-box ol li a:hover,
+#work-list-side-category-nav .category-box ol li a.active{
+    @apply text-brand-red;
+}
+#work-list-side-category-nav .category-box ol li a span{
+    @apply text-base font-medium font-dm-sans leading-none;
+    @apply ml-2
+}

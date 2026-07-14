@@ -1,0 +1,25 @@
+#about-content-section{
+    @apply w-full md:pt-30 sm:pt-20 sm:pb-20 py-15
+}
+#about-content-section .main-container{
+    @apply relative z-10;
+    @apply 2xl:px-0 sm:px-10 px-5;
+    @apply flex items-start lg:justify-between lg:flex-nowrap flex-wrap
+}
+
+
+#about-content-section .title-box{
+    @apply lg:w-1/2 w-full
+}
+#about-content-section .title-box .sub-title{
+    @apply font-dm-sans font-medium;
+    @apply text-brand-red md:mb-5 mb-2
+}
+#about-content-section .title-box .title{
+    @apply md:text-[44px] sm:text-[40px] text-[26px] tracking-wider leading-snug;
+    @apply sm:mb-10 mb-5
+}
+#about-content-section .content{
+    @apply lg:w-1/2 w-full lg:mt-10;
+    @apply md:text-lg tracking-widest leading-relaxed;
+}

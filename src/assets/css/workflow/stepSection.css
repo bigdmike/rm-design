@@ -1,0 +1,53 @@
+#workflow-step-section{
+    @apply w-full relative z-10 flex-1;
+}
+
+#workflow-step-section .header-box{
+    @apply sm:pb-10 pb-5 border-b-4 border-black lg:mb-20 mb-10;
+}
+#workflow-step-section .header-box .sub-title{
+    @apply font-dm-sans font-bold uppercase sm:text-base text-sm;
+    @apply text-brand-red md:mb-5 mb-2
+}
+#workflow-step-section .header-box .title{
+    @apply md:text-[44px] sm:text-[40px] text-[26px] tracking-wider leading-snug;
+}
+
+
+#workflow-step-section .step-box{
+    @apply w-full flex items-center sm:flex-nowrap flex-wrap;
+    @apply sm:pb-10 sm:mb-10 pb-5 mb-5;
+}
+#workflow-step-section .step-box:not(:last-child){
+    @apply border-b border-zinc-300;
+}
+#workflow-step-section .step-box .index-box{
+    @apply md:w-40 sm:w-30 w-25 mr-5 relative pl-5;
+}
+#workflow-step-section .step-box .index-box::before{
+    content: '';
+    @apply absolute bottom-0 left-0 w-1.5 top-0 bg-brand-red;
+}
+
+#workflow-step-section .step-box .index-box .index{
+    @apply font-dm-sans sm:text-base text-sm font-medium;
+    @apply relative inline-block;
+}
+#workflow-step-section .step-box .index-box .index span{
+    @apply font-medium font-dm-sans text-base leading-none;
+    @apply ml-2 transform md:scale-350 sm:scale-280 scale-200 origin-bottom-left inline-block;
+    @apply md:translate-y-2 translate-y-1
+}
+#workflow-step-section .step-box .index-box .sub-title{
+    @apply font-dm-sans font-medium sm:text-base text-sm text-gray-500;
+    @apply uppercase;
+}
+
+#workflow-step-section .step-box .title{
+    @apply lg:w-60 md:w-40 sm:w-37.5 sm:text-xl text-lg font-medium tracking-widest;
+    @apply sm:flex-auto flex-1
+}
+#workflow-step-section .step-box .content{
+    @apply sm:flex-1 sm:w-auto w-full lg:ml-20 sm:ml-10 sm:mt-0 mt-5;
+    @apply leading-loose tracking-widest;
+}

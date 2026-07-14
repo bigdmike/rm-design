@@ -1,0 +1,48 @@
+#contact-page-form-section{
+    @apply w-full relative z-10;
+}
+
+#contact-page-form-section form{
+    @apply w-full grid grid-cols-6 md:gap-10 gap-5;
+}
+
+#contact-page-form-section .form-group{
+    @apply w-full col-span-6;
+}
+#contact-page-form-section .form-group.group-2{
+    @apply  col-span-6 md:col-span-3;
+}
+#contact-page-form-section .form-group.group-3{
+    @apply  col-span-6 md:col-span-2 sm:col-span-3;
+}
+#contact-page-form-section .form-group.group-4{
+    @apply  col-span-6 md:col-span-4 sm:col-span-3;
+}
+
+
+#contact-page-form-section .form-group label{
+    @apply text-lg tracking-widest mb-3 block;
+}
+#contact-page-form-section .form-group input{
+    @apply w-full sm:p-5 p-4 bg-white rounded-lg;
+    @apply border border-gray-300;
+}
+
+#contact-page-form-section .form-group .select-box{
+    @apply w-full relative
+}
+#contact-page-form-section .form-group .select-box svg{
+    @apply absolute sm:right-5 right-4 top-1/2 -translate-y-1/2 pointer-events-none z-10;
+}
+#contact-page-form-section .form-group .select-box select{
+    @apply w-full relative z-0 sm:p-5 p-4 bg-white rounded-lg appearance-none;
+    @apply border border-gray-300;
+}
+#contact-page-form-section .form-group .error-message{
+    @apply text-red-700 text-sm mt-2;
+}
+
+
+#contact-page-form-section .button-box{
+    @apply w-full flex justify-center  col-span-6 ;
+}

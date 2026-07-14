@@ -1,0 +1,60 @@
+#work-page {
+    @apply sm:pt-20 pt-15;
+}
+#work-page .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+}
+#work-page .cover-image-box{
+    @apply w-full md:h-150 sm:h-114.5 h-65 lg:px-12.5 sm:px-10 relative;
+}
+#work-page .cover-image-box::before{
+    @apply content-[''] absolute bottom-0 left-0 w-full h-1/2 bg-black z-0;
+}
+#work-page .cover-image-box .image-box{
+    @apply w-full h-full sm:rounded-xl overflow-hidden;
+    @apply relative z-10;
+}
+#work-page .cover-image-box .image-box img{
+    @apply w-full h-full object-cover;
+}
+
+#work-page .article-header{
+    @apply bg-black md:pt-20 sm:pt-15 pt-10;
+}
+#work-page .article-header .article-sub-title{
+    @apply text-brand-red font-dm-sans font-bold mb-5;
+}
+#work-page .article-header .article-title{
+    @apply text-white font-dm-sans md:text-[44px] text-[40px] tracking-wider mb-5;
+}
+#work-page .article-header .article-location{
+    @apply text-white font-dm-sans md:text-2xl text-xl font-medium tracking-wider mb-10;
+}
+#work-page .article-header .article-slogan{
+    @apply text-white font-dm-sans sm:text-lg text-base tracking-wider;
+}
+
+#work-page .article-content{
+    @apply bg-black md:pb-30 sm:pb-20 pb-15 pt-5;
+}
+#work-page .article-content .content-box{
+    @apply max-w-full w-300;
+    @apply flex items-end justify-between flex-wrap;
+}
+#work-page .article-content .content-box .content{
+    @apply font-dm-sans md:text-lg tracking-wider leading-relaxed text-white;
+    @apply max-w-200
+}
+#work-page .article-content .content-box .button-box a{
+    @apply mt-10
+}
+
+#work-page .article-gallery{
+    @apply md:py-30 sm:py-20 py-15 md:px-12.5 sm:px-10 px-5 relative;
+}
+#work-page .article-gallery::after{
+    @apply content-[''] absolute top-0 left-0 w-full h-250 max-h-full bg-black z-0;
+}
+#work-page .article-gallery .image-box{
+    @apply relative z-10
+}

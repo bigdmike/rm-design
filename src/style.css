@@ -1,0 +1,93 @@
+@import "tailwindcss";
+@import "./assets/css/button.css";
+@import "./assets/css/mainHeader.css";
+@import "./assets/css/mainMenu.css";
+@import "./assets/css/mainFooter.css";
+@import "./assets/css/mainPagination.css";
+@import "./assets/css/editorContent.css";
+@import "./assets/css/sitePrivacyDialog.css";
+
+
+/* home */
+@import "./assets/css/home/bannerSection.css";
+@import "./assets/css/home/marqueeSection.css";
+@import "./assets/css/home/aboutSection.css";
+@import "./assets/css/home/workIntroSection.css";
+@import "./assets/css/home/workSection.css";
+@import "./assets/css/home/coreValueSection.css";
+@import "./assets/css/home/videoSection.css";
+
+/* workList */
+@import "./assets/css/workList/index.css";
+@import "./assets/css/workList/headerSection.css";
+@import "./assets/css/workList/sideCategoryNav.css";
+@import "./assets/css/workList/categoryNav.css";
+@import "./assets/css/workList/cardListSection.css";
+
+/* workPage */
+@import "./assets/css/workPage/index.css";
+@import "./assets/css/workPage/imageModal.css";
+
+/* pressList */
+@import "./assets/css/pressList/index.css";
+@import "./assets/css/pressList/cardListSection.css";
+
+/* contact */
+@import "./assets/css/contact/index.css";
+@import "./assets/css/contact/formSection.css";
+
+/* about */
+@import "./assets/css/about/coverSection.css";
+@import "./assets/css/about/contentSection.css";
+@import "./assets/css/about/qualitySection.css";
+@import "./assets/css/about/promiseSection.css";
+@import "./assets/css/about/contactSection.css";
+
+/* workflow */
+@import "./assets/css/workflow/index.css";
+@import "./assets/css/workflow/stepSection.css";
+@import "./assets/css/workflow/sideCategoryNav.css";
+@import "./assets/css/workflow/categoryNav.css";
+@import "./assets/css/workflow/questionSection.css";
+
+/* terms */
+@import "./assets/css/terms/index.css";
+
+
+* {
+  font-family: "Noto Sans TC", "DM Sans", sans-serif;
+}
+
+.font-dm-sans {
+  font-family: "DM Sans", "Noto Sans TC", sans-serif;
+}
+
+#app{
+  @apply bg-brand-cream min-h-dvh;
+}
+
+.main-container{
+  @apply w-[1600px] mx-auto max-w-full;
+}
+
+@theme {
+  /* 1. 基礎品牌色 (Primitive) */
+  --color-brand-red: #cc333a;
+  --color-brand-red-dark: #a3292e;
+  --color-brand-cream: #f4efe3;
+
+  --font-dm-sans:"DM Sans", "Noto Sans TC", sans-serif;
+
+  /* 2. 語意化按鈕顏色 (Semantic) */
+  --color-btn-primary-bg: var(--color-brand-red);
+  --color-btn-primary-hover: var(--color-brand-red-dark);
+  --color-btn-primary-text: var(--color-brand-white);
+
+  --color-btn-dark-bg: var(--color-brand-black);
+  --color-btn-dark-hover: #1a1a1a;
+  --color-btn-dark-text: var(--color-brand-white);
+
+  --color-btn-cream-bg: var(--color-brand-cream);
+  --color-btn-cream-hover: #eae5da;
+  --color-btn-cream-text: var(--color-brand-black);
+}

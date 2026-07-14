@@ -1,0 +1,220 @@
+#main-menu{
+    @apply fixed top-0 left-full w-full h-full z-30;
+    @apply sm:pt-40 pt-25 sm:px-10 px-5 sm:pb-20 pb-10;
+    @apply flex flex-col
+}
+
+#main-menu .background-box{
+    @apply w-full h-full bg-black absolute top-0 left-0 z-0;
+    @apply transition-all duration-300 ease-out;
+}
+
+#main-menu .menu-list{
+    @apply relative z-10 sm:flex-1;
+}
+#main-menu .menu-list li:not(:last-child){
+    @apply border-b-1 border-zinc-500
+}
+#main-menu .menu-list li .menu-item{
+    @apply flex items-end font-dm-sans;
+    @apply py-6 relative;
+}
+#main-menu .menu-list li .menu-item p{
+    @apply text-white sm:text-xl text-lg mr-3;
+    @apply font-medium tracking-widest
+}
+#main-menu .menu-list li .menu-item span{
+    @apply text-sm text-zinc-500 font-medium;
+}
+#main-menu .menu-list li .menu-item svg{
+    @apply sm:w-10 sm:h-10 w-7.5 h-7.5;
+    @apply absolute top-1/2 right-0 transform -translate-y-1/2;
+    @apply transition-all duration-300 ease-out;
+}
+#main-menu .menu-list li .menu-item svg.active path{
+    @apply transition-all duration-300 ease-out;
+}
+#main-menu .menu-list li .menu-item svg.active{
+    @apply transform rotate-90;
+}
+#main-menu .menu-list li .menu-item svg.active path:nth-of-type(2){
+    @apply opacity-0;
+}
+
+#main-menu .menu-list li .sub-menu-list{
+    @apply max-h-0 transition-all duration-300 ease-out;
+    @apply overflow-hidden opacity-0;
+}
+#main-menu .menu-list li .sub-menu-list.open{
+    @apply max-h-50 pb-5 opacity-100;
+}
+#main-menu .menu-list li .sub-menu-list a{
+    @apply py-3 flex items-end;
+}
+#main-menu .menu-list li .sub-menu-list a p{
+    @apply text-white mr-3;
+    @apply tracking-widest
+}
+#main-menu .menu-list li .sub-menu-list a span{
+    @apply text-sm text-zinc-500 font-medium;
+}
+
+#main-menu .contact-box{
+    @apply relative z-10 sm:hidden block flex-1;
+}
+#main-menu .contact-box .main-btn{
+    @apply w-full
+}
+#main-menu .contact-box .main-btn:hover i:nth-of-type(2){
+    scale:150;
+}
+
+#main-menu .connect-box{
+    @apply relative z-10;
+}
+#main-menu .connect-box > p{
+    @apply text-sm text-zinc-500;
+    @apply font-dm-sans font-bold;
+    @apply mb-7.5;
+}
+#main-menu .link-list{
+    @apply flex items-center gap-7.5 flex-wrap;
+}
+#main-menu .link-list li a{
+    @apply text-white font-medium;
+    @apply flex items-center;
+}
+#main-menu .link-list li a span{
+    @apply sm:mr-4 mr-2 sm:text-base text-sm;
+}
+
+
+#main-menu.open{
+    animation:menu-open 0s forwards;
+}
+
+#main-menu.open .background-box{
+    animation:menu-open-background 0.3s ease-out forwards;
+}
+#main-menu.open .connect-box{
+    opacity:0;
+    animation:menu-open-connect-box 0.3s  forwards;
+    animation-delay:0.15s;
+}
+#main-menu.open .menu-list,
+#main-menu.open .contact-box{
+    opacity:0;
+    animation:menu-open-menu-list 0.2s  forwards;
+    animation-delay:0.3s;
+}
+
+@keyframes menu-open{
+    0%{
+        transform:translateX(0%);
+    }
+    100%{
+        transform:translateX(-100%);
+    }
+}
+
+@keyframes menu-open-background{
+    0%{
+        opacity:0;
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+    30%{
+        opacity:1;
+        transform: scaleY(.3);
+        transform-origin: top;
+    }
+    100%{
+        opacity:1;
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+}
+
+@keyframes menu-open-connect-box{
+    0%{
+        opacity:1;  
+        transform: translateY(-100%);
+    }
+    100%{
+        opacity:1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes menu-open-menu-list{
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+}
+
+
+#main-menu.close{
+    transform:translateX(-100%);
+    animation:menu-close 0s forwards;
+    animation-delay:0.5s;
+}
+
+#main-menu.close .background-box{
+    animation:menu-close-background 0.4s forwards;
+    animation-delay:0.3s;
+}
+#main-menu.close .connect-box{
+    opacity:1;
+    animation:menu-close-connect-box 0.3s  forwards;
+    animation-delay:0.2s;
+}
+#main-menu.close .menu-list,
+#main-menu.close .contact-box{
+    opacity:1;
+    animation:menu-close-menu-list 0.2s  forwards;
+}
+
+@keyframes menu-close{
+    0%{
+        transform:translateX(-100%);
+    }
+    100%{
+        transform:translateX(0%);
+    }
+}
+
+@keyframes menu-close-background{
+    0%{
+        opacity:1;
+        transform: scaleY(1);
+        transform-origin: top;
+    }
+    100%{
+        opacity:0;
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+}
+
+@keyframes menu-close-connect-box{
+    0%{
+        opacity:1;  
+        transform: translateY(0%);
+    }
+    100%{
+        opacity:0;
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes menu-close-menu-list{
+    0%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+    }
+}

@@ -1,0 +1,21 @@
+#workflow-category-nav{
+    @apply w-full relative z-10;
+    @apply lg:hidden block mb-15;
+}
+#workflow-category-nav ol{
+    @apply flex flex-wrap items-center sm:justify-between justify-start gap-5;
+ }
+ 
+#workflow-category-nav ol li button{
+    @apply sm:text-xl text-lg font-medium sm:leading-none leading-none;
+    @apply flex items-start;
+    @apply transition-all duration-300 ease-in-out;
+}
+#workflow-category-nav ol li button span{
+    @apply text-sm font-dm-sans font-medium leading-none;
+    @apply ml-1 mt-0.5
+}
+#workflow-category-nav ol li button:hover,
+#workflow-category-nav ol li button.active{
+    @apply text-brand-red;
+}

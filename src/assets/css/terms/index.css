@@ -1,0 +1,20 @@
+#terms-page{
+    @apply w-full relative z-10;
+    @apply md:pb-40 sm:pb-20 pb-15 sm:pt-40 pt-30;
+}
+
+#terms-page .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+}
+
+#terms-page .sub-title{
+    @apply font-dm-sans font-medium md:text-2xl sm:text-xl;
+    @apply text-brand-red
+}
+#terms-page .title{
+    @apply md:text-[80px] sm:text-[64px] text-[48px] font-medium tracking-wider;
+    @apply sm:mb-10 mb-5;
+}
+#terms-page .content{
+    @apply md:text-lg tracking-widest leading-relaxed;
+}

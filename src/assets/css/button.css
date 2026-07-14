@@ -1,0 +1,128 @@
+
+.main-btn{
+  @apply md:py-4 md:px-6 py-3 px-5;
+  @apply rounded-full py-4 px-6 relative overflow-hidden;
+  @apply flex items-center justify-between;
+}
+.main-btn p{
+  @apply relative z-10 overflow-hidden md:mr-6.5 mr-4.5;
+}
+.main-btn p span{
+  @apply font-dm-sans font-medium leading-none md:text-base text-sm;
+  @apply transition-all duration-300 ease-out;
+}
+.main-btn p span:nth-of-type(1){
+  @apply relative block;
+}
+.main-btn p span:nth-of-type(2){
+  @apply absolute top-full left-0 block;
+}
+.main-btn i:nth-of-type(1){
+  @apply block w-1.5 h-1.5 rounded-full;
+  @apply absolute top-1/2 md:right-6 right-5 -translate-y-1/2 z-20;
+  @apply transition-all duration-300 ease-out;
+}
+.main-btn i:nth-of-type(2){
+  @apply transform aspect-square rounded-full h-1.5 w-1.5;
+  @apply origin-center absolute top-1/2 md:right-6 right-5 -translate-y-1/2 z-0;
+  @apply transition-all duration-300 ease-out;
+  @apply opacity-0;
+}
+
+.main-btn:hover i:nth-of-type(2){
+  scale:80;
+  @apply opacity-100;
+}
+
+/* small */
+.main-btn.small{
+    @apply py-3 px-5;
+}
+.main-btn.small p{
+    @apply mr-4.5;
+}
+.main-btn.small p span{
+    @apply text-sm;
+}
+.main-btn.small i:nth-of-type(1),
+.main-btn.small i:nth-of-type(2){
+    @apply right-5
+}
+
+/* cream */
+.main-btn.cream{
+  @apply bg-brand-cream;
+}
+.main-btn.cream p span:nth-of-type(2){
+  @apply text-brand-cream;
+}
+.main-btn.cream i{
+  @apply bg-brand-red;
+}
+.main-btn.cream:hover i:nth-of-type(1){
+  @apply bg-brand-cream;
+}
+.main-btn.cream:hover p span{
+  @apply transform -translate-y-full;
+}
+
+/* primary */
+.main-btn.primary{
+  @apply bg-brand-red;
+}
+.main-btn.primary p span:nth-of-type(1),
+.main-btn.primary p span:nth-of-type(2){
+  @apply text-white;
+}
+.main-btn.primary i{
+  @apply bg-white;
+}
+.main-btn.primary i:nth-of-type(2){
+    @apply bg-brand-red-dark;
+}
+.main-btn.primary:hover i:nth-of-type(1){
+  @apply bg-white;
+}
+.main-btn.primary:hover p span{
+  @apply transform -translate-y-full;
+}
+
+/* black */
+.main-btn.black{
+  @apply bg-black;
+}
+.main-btn.black p span:nth-of-type(1){
+  @apply text-white;
+}
+.main-btn.black p span:nth-of-type(2){
+  @apply text-black;
+}
+.main-btn.black i{
+  @apply bg-white;
+}
+.main-btn.black:hover i:nth-of-type(1){
+  @apply bg-black;
+}
+.main-btn.black:hover p span{
+  @apply transform -translate-y-full;
+}
+
+/* white */
+.main-btn.white{
+  @apply bg-white;
+}
+.main-btn.white p span:nth-of-type(1){
+  @apply text-black;
+}
+.main-btn.white p span:nth-of-type(2){
+  @apply text-white;
+}
+.main-btn.white i{
+  @apply bg-black;
+}
+.main-btn.white:hover i:nth-of-type(1){
+  @apply bg-white;
+}
+.main-btn.white:hover p span{
+  @apply transform -translate-y-full;
+}

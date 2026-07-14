@@ -1,0 +1,24 @@
+#work-list-page{
+    @apply w-full relative z-10;
+    @apply md:pb-40 sm:pb-20 pb-15;
+}
+#work-list-page > .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+    @apply flex items-stretch justify-start flex-wrap;
+}
+#work-list-page > .main-container > .pagination-box{
+    @apply w-full md:pl-60 md:mt-20 sm:mt-15 mt-10;
+}
+#work-list-page > .main-container > .pagination-box #main-pagination{
+    @apply flex items-center justify-center w-full;
+}
+
+
+#work-list-page .background-box{
+    @apply w-full h-full absolute top-75 left-0 z-0;
+    @apply md:block hidden;
+}
+#work-list-page .background-box img{
+    @apply sticky top-32 left-0 w-180 block z-0;
+    @apply transform -translate-x-25
+}

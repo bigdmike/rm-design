@@ -1,0 +1,41 @@
+#about-promise-section{
+    @apply w-full md:py-30 sm:py-20 py-15;
+    @apply relative z-10;
+}
+
+#about-promise-section .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+}
+
+#about-promise-section .title-box{
+    @apply md:mb-20 sm:mb-15 mb-10
+}
+#about-promise-section .title-box .sub-title{
+    @apply font-dm-sans font-bold;
+    @apply text-brand-red md:mb-5 mb-2
+}
+#about-promise-section .title-box .title{
+    @apply md:text-[44px] sm:text-[40px] text-[26px] tracking-wider leading-snug;
+}
+
+#about-promise-section .promise-list{
+    @apply grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-5 md:gap-y-15 sm:gap-y-10 gap-y-5
+}
+#about-promise-section .promise-item .image-box{
+    @apply w-full rounded-lg overflow-hidden sm:mb-5 mb-3;
+}
+#about-promise-section .promise-item .image-box img{
+    @apply w-full h-full object-cover;
+}
+
+
+#about-promise-section .promise-item p{
+    @apply sm:text-xl text-lg;
+}
+#about-promise-section .promise-item p span{
+    @apply font-medium font-dm-sans
+}
+#about-promise-section .promise-item p::before{
+    content:"";
+    @apply w-1.5 sm:h-5 h-4.5 bg-brand-red inline-block sm:mr-6 mr-4;
+}

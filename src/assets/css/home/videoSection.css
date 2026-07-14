@@ -1,0 +1,33 @@
+#home-video-section{
+    @apply w-full relative z-10 h-dvh;
+    @apply bg-black flex items-center justify-center;
+}
+
+#home-video-section .main-container{
+    @apply relative md:h-245 sm:h-233 h-194;
+    @apply md:px-5 sm:px-3 px-2 md:pb-5 sm:pb-3 pb-2 sm:pt-20 pt-15;
+    @apply flex items-center justify-center;
+}
+
+#home-video-section .video-box{
+    @apply rounded-lg overflow-hidden;
+    @apply absolute z-0;
+    @apply sm:top-20 top-15 md:left-5 sm:left-3 left-2 md:right-5 sm:right-3 right-2 md:bottom-5 sm:bottom-3 bottom-2;
+}
+#home-video-section .video-box video{
+    @apply w-full h-full object-cover opacity-70;
+}
+
+#home-video-section .index-text{
+    @apply absolute sm:top-30 top-22.5 left-1/2 md:px-7 px-3;
+    @apply transform -translate-x-1/2 z-10;
+    @apply font-bold font-dm-sans text-white sm:text-base text-sm;
+}
+
+#home-video-section .text-box{
+    @apply relative z-10 sm:text-center w-full;
+    @apply flex flex-col items-center
+}
+#home-video-section .text-box .title{
+    @apply md:text-[80px] sm:text-[64px] text-[40px] font-medium font-dm-sans text-white mb-5;
+}

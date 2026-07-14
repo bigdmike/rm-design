@@ -1,0 +1,23 @@
+#work-list-header-section{
+    @apply w-full relative z-10 sm:pt-40 pt-30;
+    @apply md:mb-40 sm:mb-10 mb-5;
+}
+#work-list-header-section.no-content{
+    @apply md:mb-20 sm:mb-15 mb-10;
+}
+
+#work-list-header-section .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+}
+
+#work-list-header-section .sub-title{
+    @apply font-dm-sans font-medium md:text-2xl sm:text-xl;
+    @apply text-brand-red
+}
+#work-list-header-section .title{
+    @apply md:text-[80px] sm:text-[64px] text-[48px] font-medium tracking-wider;
+    @apply sm:mb-10 mb-5;
+}
+#work-list-header-section .content{
+    @apply md:text-lg tracking-widest leading-relaxed;
+}

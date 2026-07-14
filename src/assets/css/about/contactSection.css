@@ -1,0 +1,44 @@
+#about-contact-section{
+    @apply w-full md:py-47 sm:py-40 py-25.5 bg-black ;
+    @apply relative z-10;
+}
+#about-contact-section .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+    @apply flex flex-col justify-center items-start md:items-center;
+    @apply relative z-10;
+}
+
+
+#about-contact-section .sub-title{
+    @apply font-dm-sans text-brand-red uppercase;
+    @apply  md:mb-5 mb-2
+}
+#about-contact-section .title{
+    @apply md:text-[44px] sm:text-[40px] text-[26px] tracking-wider leading-snug text-white;
+    @apply sm:mb-10 mb-5
+}
+#about-contact-section .content{
+    @apply md:text-lg tracking-widest leading-relaxed;
+    @apply sm:mb-10 mb-5 text-white
+}
+
+#about-contact-section .background-box{
+    @apply absolute top-0 left-0 w-full h-full z-0;
+    @apply opacity-0 transition-all duration-500 ease-out;
+}
+#about-contact-section .background-box.hover{
+    @apply opacity-100;
+}
+#about-contact-section .background-box img{
+    @apply w-full h-full object-cover;
+}
+
+#about-contact-section .background-box img:nth-of-type(1){
+    @apply md:block hidden
+}
+#about-contact-section .background-box img:nth-of-type(2){
+    @apply md:hidden sm:block hidden
+}
+#about-contact-section .background-box img:nth-of-type(3){
+    @apply md:hidden sm:hidden block
+}

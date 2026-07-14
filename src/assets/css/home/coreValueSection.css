@@ -1,0 +1,35 @@
+#home-core-value-section{
+    @apply bg-black w-full;
+}
+
+#home-core-value-section .main-container{
+    
+    @apply 2xl:px-0 sm:px-10 px-5 md:py-30 sm:pt-20 pt-15 sm:pb-60 pb-50 relative z-10;
+}
+
+#home-core-value-section .text-box{
+    @apply relative z-10;
+}
+#home-core-value-section .text-box .sub-title{
+    @apply font-bold font-dm-sans text-brand-red;
+    @apply mb-2 sm:text-base text-sm;
+}
+#home-core-value-section .text-box .title{
+    @apply md:text-[44px] sm:text-[40px] text-[26px] font-dm-sans text-white;
+    @apply sm:mb-10 mb-5;
+}
+#home-core-value-section .text-box .content-box{
+    @apply flex flex-wrap items-end justify-between;
+    @apply w-240 max-w-full;
+}
+#home-core-value-section .text-box .content{
+    @apply text-white md:text-lg font-dm-sans;
+    @apply tracking-wider leading-relaxed lg:mb-0 sm:mb-10 mb-5;
+    @apply md:w-auto w-full;
+}
+#home-core-value-section .background-box{
+    @apply absolute md:right-40 md:top-0 md:bottom-auto right-0 bottom-0 md:w-120 sm:w-100 w-60 z-0;
+}
+#home-core-value-section .background-box img{
+    @apply w-full block
+}

@@ -1,0 +1,57 @@
+#home-work-section{
+    @apply w-full relative z-10 ;
+}
+
+#home-work-section .main-container{
+    @apply relative p-5 md:h-270 sm:h-256 h-211;
+    @apply flex items-center justify-center;
+}
+
+#home-work-section .background-box{
+    @apply absolute sm:p-5  z-0;
+    @apply top-0 left-0 right-0 bottom-0;
+}
+#home-work-section .background-box .image-box{
+    @apply bg-black w-full h-full sm:rounded-lg overflow-hidden;
+}
+#home-work-section .background-box img{
+    @apply w-full h-full object-cover opacity-60;
+}
+
+#home-work-section .index-text{
+    @apply absolute top-15 left-1/2;
+    @apply transform -translate-x-1/2 z-10;
+    @apply font-bold font-dm-sans text-white sm:text-base text-sm;
+}
+
+#home-work-section .text-box{
+    @apply relative z-10 sm:text-center w-full max-w-200;
+    @apply md:px-0 sm:px-2
+}
+#home-work-section .text-box .sub-title{
+    @apply bg-black text-white;
+    @apply px-3 py-1 rounded-full inline-block;
+}
+
+#home-work-section .text-box .title-box{
+    @apply flex items-center sm:justify-center;
+    @apply mb-5;
+}
+#home-work-section .text-box .title-box{
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:text-brand-red text-white;
+}
+#home-work-section .text-box .title{
+    @apply md:text-[80px] sm:text-[64px] text-[40px] font-medium font-dm-sans  mr-3;
+}
+#home-work-section .text-box .title-box svg{
+    @apply md:w-20 md:h-20 sm:w-15 sm:h-15 w-12 h-12;
+}
+#home-work-section .text-box .slogan{
+    @apply md:text-lg font-dm-sans text-white font-bold;
+    @apply tracking-widest leading-relaxed
+}
+#home-work-section .text-box .content{
+    @apply md:text-lg font-dm-sans text-white;
+    @apply tracking-widest leading-relaxed
+}

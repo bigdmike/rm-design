@@ -1,0 +1,56 @@
+#home-banner-section{
+    @apply w-full md:aspect-video sm:h-auto h-dvh sm:aspect-768/1024 relative bg-black;
+    @apply flex items-center justify-center px-10;
+}
+
+#home-banner-section .background-box{
+    @apply w-full h-full absolute top-0 left-0 z-0 opacity-60;
+}
+#home-banner-section .background-box img{
+    @apply w-full h-full object-cover;
+}
+#home-banner-section .background-box img:nth-child(1){
+    @apply hidden md:block;
+}
+#home-banner-section .background-box img:nth-child(2){
+    @apply hidden sm:block md:hidden;
+}
+#home-banner-section .background-box img:nth-child(3){
+    @apply block sm:hidden;
+}
+
+
+#home-banner-section .text-box{
+    @apply relative z-10 text-center md:w-auto w-full;
+}
+#home-banner-section .text-box .sub-title{
+    @apply md:text-2xl sm:text-xl font-medium font-dm-sans text-brand-red;
+    @apply mb-2;
+}
+#home-banner-section .text-box .title{
+    @apply 2xl:text-[80px] md:text-[64px] sm:text-[64px] text-[48px] font-medium tracking-widest text-white;
+    @apply mb-10 leading-none;
+}
+#home-banner-section .text-box .title span{
+    @apply sm:inline block sm:mt-0 mt-2;
+}
+#home-banner-section .text-box i{
+    @apply block h-px bg-white mb-5;
+}
+#home-banner-section .text-box .content{
+    @apply flex items-center justify-center md:gap-5 gap-2;
+}
+#home-banner-section .text-box .content span{
+    @apply md:text-[40px] sm:text-[36px] text-[28px] font-black tracking-widest text-brand-red;
+}
+#home-banner-section .text-box .content{
+    @apply md:text-2xl sm:text-xl text-lg font-medium text-white tracking-widest;
+}
+
+#home-banner-section .cta-text{
+    @apply absolute z-10 md:bottom-12.5 md:right-12.5;
+    @apply sm:bottom-10 bottom-7.5 sm:right-10 right-1/2;
+    @apply transform sm:translate-x-0 translate-x-1/2;
+    @apply font-dm-sans font-medium text-white uppercase;
+    @apply sm:text-base text-sm;
+}

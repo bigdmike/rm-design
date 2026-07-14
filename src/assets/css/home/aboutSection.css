@@ -1,0 +1,38 @@
+#home-about-section{
+    @apply w-full md:py-30 sm:py-20 py-15;
+}
+
+#home-about-section .main-container{
+    @apply 2xl:px-0 sm:px-10 px-5;
+    @apply flex items-center flex-wrap;
+}
+
+#home-about-section .main-container .image-box{
+    @apply md:w-1/2 w-full aspect-square rounded-xl overflow-hidden;
+    @apply mb-15 md:mb-0;
+}
+#home-about-section .main-container .image-box img{
+    @apply w-full h-full object-cover;
+}
+
+
+#home-about-section .main-container .text-box{
+    @apply md:w-1/2 w-full 2xl:pl-40 md:pl-20
+}
+#home-about-section .main-container .text-box .sub-title{
+    @apply font-bold font-dm-sans text-brand-red;
+    @apply mb-2 sm:text-base text-sm;
+}
+#home-about-section .main-container .text-box .title{
+    @apply 2xl:text-5xl sm:text-3xl text-2xl;
+    @apply mb-10 tracking-wider leading-normal
+}
+#home-about-section .main-container .text-box .title span{
+    @apply block
+}
+#home-about-section .main-container .text-box .content{
+    @apply whitespace-pre-line sm:mb-10 mb-5 leading-normal;
+}
+#home-about-section .main-container .text-box a{
+    @apply inline-block
+}
