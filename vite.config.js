@@ -3,7 +3,11 @@ import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1]
+const githubPagesBase = repositoryName ? `/${repositoryName}/` : '/'
+
 export default defineConfig({
+  base: process.env.VITE_BASE_PATH || (process.env.GITHUB_ACTIONS ? githubPagesBase : '/'),
   plugins: [
     vue(),
     tailwindcss()

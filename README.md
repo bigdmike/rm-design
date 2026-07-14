@@ -1,5 +1,33 @@
-# Vue 3 + Vite
+# rm-design
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Vue 3 + Vite project.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Deploy to GitHub Pages
+
+This repository includes a workflow at `.github/workflows/deploy-pages.yml`.
+
+1. Push this project to a GitHub repository.
+2. In GitHub, open repository Settings > Pages.
+3. Set Source to GitHub Actions.
+4. Push to the `main` branch (or run the workflow manually).
+
+After deployment, the site URL is:
+
+`https://<your-github-username>.github.io/<your-repository-name>/`
+
+Notes:
+- Vite `base` is configured automatically from `GITHUB_REPOSITORY` in GitHub Actions.
+- `dist/404.html` is generated from `dist/index.html` for SPA route refresh fallback on GitHub Pages.
