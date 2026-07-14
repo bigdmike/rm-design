@@ -9,6 +9,7 @@ const toggleMenu = () => {
 const menuStatus = computed(() => uiStore.menuOpen);
 const menuStatusClass = ref('')
 const subMenuStatus = ref(false);
+const headerStyleTmp = ref(uiStore.headerStyle);
 
 const linkList = [
   {
@@ -36,9 +37,12 @@ const linkList = [
 watch(menuStatus, (newValue) => {
   if (newValue) {
     menuStatusClass.value = "open";
+    headerStyleTmp.value = uiStore.headerStyle;
+    uiStore.setHeaderStyle("black");
   } else {
     subMenuStatus.value = false;
     menuStatusClass.value = "close";
+    uiStore.setHeaderStyle(headerStyleTmp.value);
   }
 });
 </script>
