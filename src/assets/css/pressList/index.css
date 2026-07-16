@@ -6,7 +6,7 @@
     @apply 2xl:px-0 sm:px-10 px-5;
 }
 #press-list-page > .main-container > .pagination-box{
-    @apply w-full md:pl-60 md:mt-20 sm:mt-15 mt-10;
+    @apply w-full md:mt-20 sm:mt-15 mt-10;
 }
 #press-list-page > .main-container > .pagination-box #main-pagination{
     @apply flex items-center justify-center w-full;

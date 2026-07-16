@@ -45,7 +45,7 @@
 
 #workflow-step-section .step-box .title{
     @apply lg:w-60 md:w-40 sm:w-37.5 sm:text-xl text-lg font-medium tracking-widest;
-    @apply sm:flex-auto flex-1
+    @apply sm:flex-none flex-1
 }
 #workflow-step-section .step-box .content{
     @apply sm:flex-1 sm:w-auto w-full lg:ml-20 sm:ml-10 sm:mt-0 mt-5;

@@ -40,10 +40,12 @@
     @apply transition-all duration-300 ease-out;
 }
 
-#main-header .menu-list li.active a i{
+#main-header .menu-list li.active a i,
+#main-header .menu-list li.active button i{
     @apply opacity-100 bg-white;
 }
-#main-header .menu-list li:hover a i{
+#main-header .menu-list li:hover a i,
+#main-header .menu-list li:hover button i{
     @apply opacity-100 bg-brand-red;
 }
 #main-header .menu-list li:hover button.project-dropdown-trigger i,
@@ -114,8 +116,9 @@
 #main-header.cream .menu-list li p span{
     @apply text-black;
 }
-#main-header.cream .menu-list li.active a i{
-    @apply opacity-100 bg-black;
+#main-header.cream .menu-list li.active a i,
+#main-header.cream .menu-list li.active button i{
+    @apply opacity-100 bg-brand-red;
 }
 
 
@@ -125,7 +128,8 @@
 #main-header.black .menu-list li p span{
     @apply text-white;
 }
-#main-header.black .menu-list li.active a i{
+#main-header.black .menu-list li.active a i,
+#main-header.black .menu-list li.active button i{
     @apply opacity-100 bg-white;
 }
 

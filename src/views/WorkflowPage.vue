@@ -174,7 +174,7 @@ const activeCategory = ref(0)
 const headerScrollRules = [
     { selector: "#about-cover-section", style: "", offset: 0 },
     { selector: "#workflow-step-section", style: "cream", offset: 0 },
-    { selector: "#about-quality-section", style: "", offset: 0 },
+    { selector: "#about-quality-section", style: "black", offset: 0 },
     { selector: "#workflow-question-section", style: "cream", offset: 0 },
     { selector: "#about-promise-section", style: "cream", offset: 0 },
     { selector: "#about-contact-section", style: "black", offset: 0 },

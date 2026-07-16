@@ -12,9 +12,9 @@ import VideoSection from "../components/home/VideoSection.vue";
 const headerScrollRules = [
   { selector: "#home-banner-section", style: "", offset: 0 },
   { selector: "#home-marquee-section", style: "cream", offset: 0 },
-  { selector: "#home-work-section", style: "", offset: 0 },
+  { selector: "#home-work-section", style: "black", offset: 0 },
   { selector: "#home-core-value-section", style: "black", offset: 0 },
-  { selector: "#home-video-section", style: "", offset: 0 },
+  { selector: "#home-video-section", style: "black", offset: 0 },
 ];
 
 useHeaderStyleScrollHandler(headerScrollRules);

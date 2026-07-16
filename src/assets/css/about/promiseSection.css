@@ -30,12 +30,14 @@
 
 
 #about-promise-section .promise-item p{
-    @apply sm:text-xl text-lg;
+    @apply sm:text-xl text-lg  sm:pl-6 pl-4;
+    @apply relative;
 }
 #about-promise-section .promise-item p span{
     @apply font-medium font-dm-sans
 }
 #about-promise-section .promise-item p::before{
     content:"";
-    @apply w-1.5 sm:h-5 h-4.5 bg-brand-red inline-block sm:mr-6 mr-4;
+    @apply absolute top-1 left-0 transform;
+    @apply w-1.5 sm:h-5 h-4.5 bg-brand-red inline-block;
 }

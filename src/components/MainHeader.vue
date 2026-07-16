@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
     </RouterLink>
 
     <ol class="menu-list">
-      <li class="active">
+      <li>
         <RouterLink to="/about">
           <i></i>
           <p>
@@ -52,7 +52,7 @@ onBeforeUnmount(() => {
           </p>
         </RouterLink>
       </li>
-      <li class="project-menu-item" ref="projectMenuRef">
+      <li class="project-menu-item active" ref="projectMenuRef">
         <button
           type="button"
           class="project-dropdown-trigger"

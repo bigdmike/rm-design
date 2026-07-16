@@ -11,7 +11,7 @@
 }
 
 #work-page-image-modal .image-container .image-box {
-  @apply md:flex-auto flex-1 md:max-w-[70dvw] md:w-300 h-dvh md:max-h-[80dvh] max-h-[50dvh] relative;
+  @apply md:flex-none flex-1 md:max-w-[70dvw] md:w-300 h-dvh md:max-h-[80dvh] max-h-[50dvh] relative;
 }
 #work-page-image-modal .image-container .image-box img {
   @apply w-full h-full object-contain;

@@ -12,10 +12,10 @@ import ContactSection from "../components/about/ContactSection.vue";
 const headerScrollRules = [
     { selector: "#about-cover-section", style: "", offset: 0 },
     { selector: "#about-content-section", style: "cream", offset: 0 },
-    { selector: "#about-quality-section", style: "", offset: 0 },
+    { selector: "#about-quality-section", style: "black", offset: 0 },
     { selector: "#about-promise-section", style: "cream", offset: 0 },
     { selector: "#home-core-value-section", style: "black", offset: 0 },
-    { selector: "#home-video-section", style: "", offset: 0 },
+    { selector: "#home-video-section", style: "black", offset: 0 },
     { selector: "#about-contact-section", style: "black", offset: 0 },
 ];
 

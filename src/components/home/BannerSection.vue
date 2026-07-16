@@ -1,4 +1,13 @@
-<script setup></script>
+<script setup>
+
+const scrollToSection = (sectionId) => {
+  const section = document.querySelector(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
+</script>
 
 <template>
   <section id="home-banner-section">
@@ -11,9 +20,9 @@
       </p>
     </div>
 
-    <p class="cta-text">
+    <a @click="scrollToSection('#home-about-section')" class="cta-text">
     ( Scroll to explore )
-    </p>
+    </a>
 
     <div class="background-box">
       <img src="/img/home/banner.jpg" />
