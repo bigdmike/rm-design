@@ -6,6 +6,8 @@
 @import "./assets/css/mainPagination.css";
 @import "./assets/css/editorContent.css";
 @import "./assets/css/sitePrivacyDialog.css";
+@import "./assets/css/mainDialog.css";
+@import "./assets/css/mainLoading.css";
 
 
 /* home */
@@ -56,6 +58,11 @@
 
 * {
   font-family: "Noto Sans TC", "DM Sans", sans-serif;
+}
+
+a::focus,
+a:active {
+  outline: none;
 }
 
 .font-dm-sans {

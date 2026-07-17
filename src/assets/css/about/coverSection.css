@@ -1,5 +1,5 @@
 #about-cover-section{
-    @apply w-full md:h-160 sm:h-256 h-211;
+    @apply w-full md:h-160 h-dvh;
     @apply relative flex items-end z-10;
 }
 

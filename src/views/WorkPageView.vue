@@ -3,9 +3,12 @@ import { computed, onBeforeUnmount, onMounted, watch,ref } from "vue";
 import { useRoute } from "vue-router";
 import { MasonryGrid, MasonryGridItem } from 'vue3-masonry-css';
 import { useHeaderStyleScrollHandler } from "../common/headerStyleScrollHandler";
+import { usePageMetaHead } from "../common/usePageMetaHead";
+import { useUIStore } from "../store";
 import ImageModal from "../components/workPage/ImageModal.vue";
 
 const route = useRoute();
+const uiStore = useUIStore();
 const ImageModalRef = ref(null);
 
 const headerScrollRules = [
@@ -129,6 +132,17 @@ const toAbsoluteUrl = (path) => {
 };
 
 const articleUrl = computed(() => `${baseUrl.value}/works/${workId.value}`);
+
+usePageMetaHead({
+    uiStore,
+    route,
+    customMeta: {
+        title: computed(() => workData.value.title),
+        description: computed(() => workData.value.description),
+        image: computed(() => toAbsoluteUrl(workData.value.coverImage || workData.value.images?.[0])),
+        url: articleUrl,
+    },
+});
 
 const articleSchema = computed(() => ({
     "@context": "https://schema.org",

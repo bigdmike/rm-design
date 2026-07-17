@@ -93,7 +93,7 @@
     @apply flex-1
 }
 #main-header .menu-list li .project-dropdown .link-box .sub-title{
-    @apply font-dm-sans font-bold text-brand-red text-base;
+    @apply font-dm-sans font-bold text-brand-red text-base mb-3;
 }
 
 #main-header .menu-list li .project-dropdown a{

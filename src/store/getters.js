@@ -11,6 +11,6 @@ export default {
     if (key == "") {
       return "";
     }
-    return import.meta.env.VITE_API_URL + "/" + key;
+    return import.meta.env.VITE_API_URL + key;
   },
 };

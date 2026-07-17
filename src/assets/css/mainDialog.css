@@ -1,0 +1,48 @@
+#main-dialog{
+    @apply fixed top-0 left-full w-full h-full z-40;
+    @apply flex justify-center items-center;
+}
+#main-dialog .background-box {
+  @apply absolute top-0 left-0 w-full h-full bg-black/80 z-0;
+}
+
+#main-dialog .dialog-box{
+    @apply relative z-10 w-130 p-10 pt-20 max-w-full;
+    @apply bg-black rounded-2xl text-center;
+    @apply flex flex-col items-center justify-center;
+}
+
+#main-dialog .dialog-box .content{
+    @apply text-white mb-10;
+    @apply tracking-widest leading-relaxed
+}
+
+
+
+#main-dialog.open {
+  animation: work-page-image-model-open 0s forwards;
+}
+#main-dialog.open .background-box {
+  opacity: 0;
+  animation: work-page-image-model-background-open 0.3s ease-in-out forwards;
+}
+#main-dialog.open .dialog-box {
+  transform: translateY(100%);
+  opacity: 0;
+  animation: work-page-image-model-image-box-open 0.2s ease-in-out forwards;
+}
+
+#main-dialog.close {
+  transform: translateX(-100%);
+  animation: work-page-image-model-close 0s forwards;
+  animation-delay: 0.3s;
+}
+#main-dialog.close .background-box {
+  opacity: 1;
+  animation: work-page-image-model-background-close 0.3s ease-in-out forwards;
+}
+#main-dialog.close .dialog-box {
+  transform: translateY(0%);
+  opacity: 1;
+  animation: work-page-image-model-image-box-close 0.2s ease-in-out forwards;
+}
