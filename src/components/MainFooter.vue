@@ -53,7 +53,7 @@ const linkGroup = [
       },
       {
         name: "Instagram",
-        link: "https://instagram.com/sa8827094?igshid=16tvqfg7syflx",
+        link: "https://www.instagram.com/rmdesigntw/",
         external: true,
       },
       {
@@ -290,7 +290,7 @@ const subMenuOpen = ref(false);
               v-for="(content, contentIndex) in info.content"
               :key="`info-content-${contentIndex}`"
             >
-              <span v-if="content.type === 'address'">
+              <a v-if="content.type === 'address'" :href="`https://www.google.com/maps/place/${content.value}`" target="_blank" rel="noopener noreferrer">
                 <svg
                   width="24"
                   height="24"
@@ -323,7 +323,7 @@ const subMenuOpen = ref(false);
                   </defs>
                 </svg>
                 {{ content.value }}
-              </span>
+              </a>
               <a
                 v-else-if="content.type === 'email'"
                 :href="`mailto:${content.value}`"
