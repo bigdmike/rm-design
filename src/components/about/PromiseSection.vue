@@ -42,7 +42,7 @@ const promiseList = [
   },
   {
     title: "設置沉澱桶",
-    image: "/rm-design/img/about/promise-9.png",
+    image: "/rm-design/img/about/promise-9.png?ver=2",
     link: "https://blog.rmdesign.com.tw/2023/09/blog-post_44.html",
   },
   {

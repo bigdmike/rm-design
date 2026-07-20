@@ -193,9 +193,9 @@ activeCategory.value = categoryList.value[0].id
             <CategoryNav :category-list="categoryList" v-model="activeCategory"  />
             <StepSection :workflow-list="workflowList" :active-category="activeCategory" />
 
-            <div class="background-box">
+            <!-- <div class="background-box">
                 <img src="/img/home/background.png" class="bg-image" />
-            </div>
+            </div> -->
         </div>
         <PromiseSection />
         <QuestionSection :question-list="questionList" />

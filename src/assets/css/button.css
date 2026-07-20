@@ -1,5 +1,7 @@
 
 .main-btn{
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
   @apply md:py-4 md:px-6 py-3 px-5;
   @apply rounded-full py-4 px-6 relative overflow-hidden;
   @apply flex items-center justify-between;
