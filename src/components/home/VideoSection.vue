@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import MainButton from "../MainButton.vue";
+</script>
 
 <template>
   <section id="home-video-section">
@@ -6,14 +8,8 @@
     <div class="main-container">
       <div class="text-box">
         <h4 class="title">THE MAKING OF RM</h4>
-        <router-link to="/press" class="main-btn white">
-          <p>
-            <span>VIEW PRESS</span>
-            <span>VIEW PRESS</span>
-          </p>
-          <i></i>
-          <i></i>
-        </router-link>
+
+        <MainButton type="link" link="/press" color="white" text="VIEW PRESS" />
       </div>
     </div>
     <div class="video-box">

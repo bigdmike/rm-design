@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from "vue";
+import MainButton from "../MainButton.vue";
 
 const buttonHover = ref(false);
 </script>
@@ -13,14 +14,9 @@ const buttonHover = ref(false);
                 不論是空間或建築，第一次的會勘與方向討論完全免費。
             </p>
 
-            <router-link to="/contact" class="main-btn cream" @mouseenter="buttonHover=true" @mouseleave="buttonHover=false">
-                <p>
-                    <span>CONTACT US</span>
-                    <span>CONTACT US</span>
-                </p>
-                <i></i>
-                <i></i>
-            </router-link>
+         
+            
+            <MainButton type="link" link="/contact" color="cream" text="CONTACT US" @mouseenter="buttonHover=true" @mouseleave="buttonHover=false" />
         </div>
 
         <div class="background-box" :class="buttonHover?'hover':''">

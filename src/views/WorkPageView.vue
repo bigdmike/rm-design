@@ -6,6 +6,7 @@ import { useHeaderStyleScrollHandler } from "../common/headerStyleScrollHandler"
 import { usePageMetaHead } from "../common/usePageMetaHead";
 import { useUIStore } from "../store";
 import ImageModal from "../components/workPage/ImageModal.vue";
+import MainButton from "../components/MainButton.vue";
 
 const route = useRoute();
 const uiStore = useUIStore();
@@ -222,14 +223,9 @@ onBeforeUnmount(() => {
                     <div class="content-box">
                         <p class="content" v-html="workData.content"></p>
                         <div class="button-box">
-                            <a class="main-btn cream" href="https://blog.rmdesign.com.tw/" target="_blank">
-                                <p>
-                                    <span>查看設計細節</span>
-                                    <span>查看設計細節</span>
-                                </p>
-                                <i></i>
-                                <i></i>
-                            </a>
+
+                            
+          <MainButton type="external" link="https://blog.rmdesign.com.tw/" color="cream" text="查看設計細節" />
                         </div>
                     </div>
                 </div>

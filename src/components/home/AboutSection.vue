@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+  import MainButton from "../MainButton.vue";
+</script>
 
 <template>
   <section id="home-about-section">
@@ -20,16 +22,11 @@
           
           我們傾聽關於您的回憶與喜好，為您的空間描繪出專屬的輪廓。
           在阜居，我們用空間說著一段又一段的人生故事。
+
+          
         </div>
 
-        <router-link to="/about" class="main-btn black">
-            <p>
-                <span>VIEW ABOUT US</span>
-                <span>VIEW ABOUT US</span>
-            </p>
-            <i></i>
-            <i></i>
-        </router-link>
+        <MainButton type="link" link="/about" color="black" text="VIEW ABOUT US" />
       </div>
     </div>
   </section>

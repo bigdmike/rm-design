@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import MainButton from "../MainButton.vue";
+</script>
 
 <template>
   <section id="home-core-value-section">
@@ -12,14 +14,12 @@
             <br />準備好開啟人生的新篇幅了嗎？<br />阜居期待與您將故事繼續寫下去...
           </p>
 
-          <router-link to="/workflow" class="main-btn white">
-            <p>
-              <span>VIEW SERVICE</span>
-              <span>VIEW SERVICE</span>
-            </p>
-            <i></i>
-            <i></i>
-          </router-link>
+          <MainButton
+            type="link"
+            link="/workflow"
+            color="white"
+            text="VIEW SERVICE"
+          />
         </div>
       </div>
 

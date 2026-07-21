@@ -65,11 +65,8 @@
 #main-menu .contact-box{
     @apply relative z-10 sm:hidden block flex-1 mb-10;
 }
-#main-menu .contact-box .main-btn{
+#main-menu .contact-box #main-btn{
     @apply w-full
-}
-#main-menu .contact-box .main-btn:hover i:nth-of-type(2){
-    scale:150;
 }
 
 #main-menu .connect-box{

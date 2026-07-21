@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useUIStore } from "../store/index";
+import MainButton from "./MainButton.vue";
 const uiStore = useUIStore();
 
 const toggleMenu = () => {
@@ -26,6 +27,15 @@ const handleClickOutside = (event) => {
     closeProjectDropdown();
   }
 };
+
+const contactColor = computed(() => {
+  if (headerStyle.value === "cream") {
+    return "primary";
+  } else if (headerStyle.value === "black" || headerStyle.value === "") {
+    return "cream";
+  }
+  return ""; // Default color if none of the conditions match
+});
 
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);
@@ -134,22 +144,13 @@ onBeforeUnmount(() => {
     </ol>
 
     <div class="button-box">
-      <RouterLink
-        to="/contact"
-        class="main-btn cream"
-        :class="{
-          'opacity-0 pointer-events-none': menuStatus,
-          cream: headerStyle === 'black' || headerStyle === '',
-          primary: headerStyle === 'cream',
-        }"
-      >
-        <p>
-          <span>CONTACT US</span>
-          <span>CONTACT US</span>
-        </p>
-        <i></i>
-        <i></i>
-      </RouterLink>
+      <MainButton
+          type="link"
+          link="/contact"
+          :class="{'opacity-0 pointer-events-none': menuStatus}"
+          :color="contactColor"
+          text="CONTACT US"
+        />
 
       <button
         class="menu-btn"

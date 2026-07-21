@@ -1,11 +1,12 @@
 <script setup>
 import { ref } from "vue";
+import MainButton from "./MainButton.vue";
 
 const accepted = ref(false);
 </script>
 
 <template>
-  <div id="site-privacy-dialog" :class="accepted?'active':''">
+  <div id="site-privacy-dialog" :class="accepted ? 'active' : ''">
     <div class="content-box">
       <p>
         我們使用 Cookie
@@ -13,14 +14,12 @@ const accepted = ref(false);
         <a href="/terms/site_privacy" aria-current="page">隱私政策</a>。
       </p>
       <div class="button-box">
-        <button class="main-btn primary" @click="accepted = true">
-          <p>
-            <span>ACCEPT</span>
-            <span>ACCEPT</span>
-          </p>
-          <i></i>
-          <i></i>
-        </button>
+        <MainButton
+          type="button"
+          color="primary"
+          text="ACCEPT"
+          @click="accepted = true"
+        />
       </div>
     </div>
   </div>

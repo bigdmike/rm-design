@@ -2,6 +2,7 @@
 import { computed, ref, watch } from "vue";
 import { useUIStore } from "../store/index";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import MainButton from "./MainButton.vue";
 const uiStore = useUIStore();
 
 const toggleMenu = () => {
@@ -135,14 +136,13 @@ watch(menuStatus, (newValue) => {
         </li>
       </ol>
       <div class="contact-box">
-        <router-link to="/contact" class="main-btn cream" @click="toggleMenu">
-          <p>
-            <span>CONTACT US</span>
-            <span>CONTACT US</span>
-          </p>
-          <i></i>
-          <i></i>
-        </router-link>
+         <MainButton
+          type="link"
+          link="/contact"
+          color="cream"
+          text="CONTACT US"
+          @click="toggleMenu"
+        />
       </div>
       <div class="connect-box">
         <p>( CONNECT )</p>

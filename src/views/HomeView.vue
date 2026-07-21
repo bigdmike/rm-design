@@ -17,6 +17,8 @@ const headerScrollRules = [
   { selector: "#home-video-section", style: "black", offset: 0 },
 ];
 
+
+
 useHeaderStyleScrollHandler(headerScrollRules);
 
 const works = ref([

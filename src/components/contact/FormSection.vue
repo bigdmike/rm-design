@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import MainButton from "../MainButton.vue";
 
 const formData = ref({
     name: '',
@@ -174,14 +175,9 @@ const sendFormData = async () => {
                 </div>
 
                 <div class="button-box">
-                    <button class="main-btn black" type="button" @click="sendFormData">
-                        <p>
-                            <span>SEND</span>
-                            <span>SEND</span>
-                        </p>
-                        <i></i>
-                        <i></i>
-                    </button>
+                   
+
+                        <MainButton type="button" color="black" text="SEND" @click="sendFormData" />
                 </div>
             </form>
         </div>

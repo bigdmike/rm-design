@@ -137,9 +137,6 @@
 #main-header .button-box{
     @apply flex items-center justify-end gap-4 ;
 }
-#main-header .button-box .main-btn{
-    @apply transition-all duration-300 ease-out;
-}
 #main-header .button-box .menu-btn{
     @apply lg:hidden block;
 }

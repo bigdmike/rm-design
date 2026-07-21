@@ -2,6 +2,7 @@
 import { ref, watch, computed } from "vue";
 import { useUIStore } from "../store/index.js";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import MainButton from "./MainButton.vue";
 
 const uiStore = useUIStore();
 const modalStatusClass = ref("");
@@ -38,14 +39,12 @@ watch(
     <div class="dialog-box">
       <p class="content">{{ message }}</p>
 
-      <button class="main-btn primary" @click="close">
-        <p>
-          <span>CLOSE</span>
-          <span>CLOSE</span>
-        </p>
-        <i></i>
-        <i></i>
-      </button>
+      <MainButton
+        text="CLOSE"
+        color="primary"
+        type="button"
+        @click="close"
+      />
     </div>
 
     <div class="background-box" @click="close"></div>

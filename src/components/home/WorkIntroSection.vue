@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import MainButton from "../MainButton.vue";
+</script>
 
 <template>
   <section id="home-work-intro-section">
@@ -12,14 +14,7 @@
         </div>
 
         <div class="button-box">
-          <router-link to="/works" class="main-btn black">
-            <p>
-              <span>VIEW OUR WORKS</span>
-              <span>VIEW OUR WORKS</span>
-            </p>
-            <i></i>
-            <i></i>
-          </router-link>
+          <MainButton type="link" link="/works" color="black" text="VIEW OUR WORKS" />
         </div>
       </div>
     </div>
