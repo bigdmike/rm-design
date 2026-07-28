@@ -4,7 +4,6 @@
     <section id="about-content-section">
         <div class="main-container">
             <div class="title-box">
-                <p class="sub-title">( BRIEF )</p>
                 <h3 class="title">聽見生活的<br />細微聲響</h3>
             </div>
             <div class="content editor-content">

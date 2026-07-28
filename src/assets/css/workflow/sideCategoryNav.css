@@ -1,6 +1,6 @@
 #workflow-side-category-nav{
-    @apply pr-20 relative z-10;
-    @apply w-100 lg:block hidden;
+    @apply xl:pr-20 relative z-10;
+    @apply xl:w-100 w-72 lg:block hidden;
 }
 
 #workflow-side-category-nav .category-box{

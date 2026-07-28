@@ -20,6 +20,6 @@
     @apply sm:mb-10 mb-5
 }
 #about-content-section .content{
-    @apply lg:w-1/2 w-full lg:mt-10;
+    @apply lg:w-1/2 w-full;
     @apply md:text-lg tracking-widest leading-relaxed;
 }

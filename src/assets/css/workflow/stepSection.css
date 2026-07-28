@@ -22,7 +22,7 @@
     @apply border-b border-zinc-300;
 }
 #workflow-step-section .step-box .index-box{
-    @apply md:w-40 sm:w-30 w-25 mr-5 relative pl-5;
+    @apply md:w-60 mr-5 relative pl-5;
 }
 #workflow-step-section .step-box .index-box::before{
     content: '';

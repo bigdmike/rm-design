@@ -4,7 +4,6 @@
     <section id="about-cover-section">
         <div class="main-container">
             <div class="title-box">
-                <p class="sub-title">( ABOUT RM )</p>
                 <h1 class="title">用空間<br/>說業主的故事</h1>
             </div>
             <div class="content">

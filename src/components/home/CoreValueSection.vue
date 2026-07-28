@@ -6,7 +6,6 @@ import MainButton from "../MainButton.vue";
   <section id="home-core-value-section">
     <div class="main-container">
       <div class="text-box">
-        <p class="sub-title">( CORE VALUE )</p>
         <h4 class="title">開啟人生新篇幅</h4>
         <div class="content-box">
           <p class="content">

@@ -4,7 +4,6 @@
     <section id="about-quality-section">
         <div class="main-container">
             <div class="text-box">
-                <p class="sub-title">( Engineering Quality )</p>
             <h3 class="title">看不見的地方，才是真正的設計</h3>
             <div class="content editor-content">
                 <p>
