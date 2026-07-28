@@ -13,7 +13,7 @@
 }
 
 #main-footer .title-box .title{
-    @apply 2xl:text-[120px] md:text-[100px] sm:text-[72px] text-[48px] text-white;
+    @apply text-[48px] text-white;
     @apply relative z-10 md:mb-10 mb-5;
 }
 #main-footer .title-box .title span{
