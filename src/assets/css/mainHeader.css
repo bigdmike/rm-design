@@ -1,14 +1,15 @@
 #main-header{
-    @apply flex justify-center;
     @apply fixed top-0 left-0 w-full z-40 sm:h-20 h-15;
     @apply transition-all duration-300 ease-out;
+}
+#main-header .main-container{
     @apply flex items-center justify-between;
-    @apply md:px-12.5 sm:px-10 px-5;
+    @apply 2xl:px-0 md:px-12.5 sm:px-10 px-5;
 }
 
 
 #main-header .logo-box{
-    @apply block relative md:w-20 md:h-20 w-15 h-15;
+    @apply block relative md:w-20 md:h-20 w-15 h-15 shrink-0;
     @apply transform md:translate-y-5 translate-y-2;
 }
 #main-header .logo-box img{
@@ -17,8 +18,11 @@
 
 
 #main-header .menu-list{
-    @apply lg:flex hidden items-center justify-center;
-    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    @apply xl:flex hidden items-center justify-center mr-auto;
+    /* @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2; */
+}
+#main-header .menu-list li{
+    @apply w-36;
 }
 #main-header .menu-list li a,
 #main-header .menu-list li button.project-dropdown-trigger{
@@ -38,6 +42,9 @@
     @apply block text-white;
     @apply font-dm-sans font-medium 2xl:text-lg text-base leading-none;
     @apply transition-all duration-300 ease-out;
+}
+#main-header .menu-list li p span:nth-of-type(2){
+    @apply 2xl:text-sm text-sm;
 }
 
 #main-header .menu-list li.active a i,
@@ -135,10 +142,10 @@
 
 
 #main-header .button-box{
-    @apply flex items-center justify-end gap-4 ;
+    @apply flex items-center justify-end gap-4 shrink-0;
 }
 #main-header .button-box .menu-btn{
-    @apply lg:hidden block;
+    @apply xl:hidden block;
 }
 #main-header .button-box .menu-btn svg path{
     @apply transition-all duration-300 ease-out;
@@ -155,4 +162,23 @@
 #main-header .button-box .menu-btn.active svg path:nth-of-type(3){
     @apply transform rotate-45;
     @apply -translate-y-3.25 translate-x-6.25;
+}
+
+#main-header .social-box{
+    @apply xl:flex hidden items-center justify-between;
+    @apply px-2 mr-6;
+}
+#main-header .social-box a{
+    @apply  w-7 h-7 mx-3 text-white;
+    @apply flex items-center justify-center;
+    @apply transition-all duration-300 ease-in-out;
+}
+#main-header.cream .social-box a{
+    @apply text-black;
+}
+#main-header.black .social-box a{
+    @apply text-white;
+}
+#main-header .social-box a:hover{
+    @apply text-brand-red;
 }
