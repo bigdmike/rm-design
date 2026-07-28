@@ -26,10 +26,10 @@ const activeWorkflow = computed(()=>{
 
         <div class="step-box" v-for="(item,itemIndex) in activeWorkflow.steps" :key="`step-${itemIndex}`">
             <div class="index-box">
-                <p class="index">STEP <span>{{ itemIndex + 1 }}.</span></p>
+                <!-- <p class="index">STEP <span>{{ itemIndex + 1 }}.</span></p> -->
+                <h4 class="title" v-html="item.title"></h4>
                 <p class="sub-title">{{ item.subTitle }}</p>
             </div>
-            <h4 class="title" v-html="item.title"></h4>
             <div class="content editor-content" v-html="item.content"></div>
         </div>
     </section>
