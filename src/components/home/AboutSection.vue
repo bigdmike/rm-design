@@ -9,7 +9,7 @@
         <img src="/img/home/about.jpg" />
       </div>
       <div class="text-box">
-        <p class="sub-title">( ABOUT RM )</p>
+        <!-- <p class="sub-title">( ABOUT RM )</p> -->
         <h2 class="title">
           <span>我們不談風格，聊的是故事</span>
           <span>我們用空間，說業主的故事</span>

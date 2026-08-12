@@ -21,7 +21,7 @@ const openQuestion = (index) => {
     <section id="workflow-question-section">
         <div class="main-container">
             <div class="header-box">
-                <p class="sub-title">( FAQ )</p>
+                <!-- <p class="sub-title">( FAQ )</p> -->
                 <h3 class="title">關於流程<br class="md:block hidden" />您可能想問</h3>
             </div>
 

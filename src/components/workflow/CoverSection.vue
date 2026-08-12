@@ -4,7 +4,7 @@
     <section id="about-cover-section">
         <div class="main-container">
             <div class="title-box">
-                <p class="sub-title">( WORKFLOW )</p>
+                <!-- <p class="sub-title">( WORKFLOW )</p> -->
                 <h1 class="title">服務流程</h1>
             </div>
             <div class="content">

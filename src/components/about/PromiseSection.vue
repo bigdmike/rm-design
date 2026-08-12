@@ -50,6 +50,16 @@ const promiseList = [
     image: "/rm-design/img/about/promise-10.png",
     link: "https://blog.rmdesign.com.tw/2023/10/blog-post_26.html",
   },
+  {
+    title: "木作F1角料",
+    image: "/rm-design/img/about/promise-11.png",
+    link: "https://blog.rmdesign.com.tw/2023/10/blog-post_26.html",
+  },
+  {
+    title: "設立滅火器與急救箱",
+    image: "/rm-design/img/about/promise-12.png",
+    link: "https://blog.rmdesign.com.tw/2023/10/blog-post_26.html",
+  },
 ];
 </script>
 
@@ -57,8 +67,8 @@ const promiseList = [
   <section id="about-promise-section">
     <div class="main-container">
       <div class="title-box">
-        <p class="sub-title">( 10 STANDARDS WE NEVER COMPROMISE )</p>
-        <h3 class="title">十項工程堅持</h3>
+        <!-- <p class="sub-title">( 10 STANDARDS WE NEVER COMPROMISE )</p> -->
+        <h3 class="title">十二項工程堅持</h3>
       </div>
 
       <ol class="promise-list">

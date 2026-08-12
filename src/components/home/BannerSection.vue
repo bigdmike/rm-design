@@ -12,7 +12,7 @@ const scrollToSection = (sectionId) => {
 <template>
   <section id="home-banner-section">
     <div class="text-box">
-      <p class="sub-title">( RM DESIGN STUDIO )</p>
+      <!-- <p class="sub-title">( RM DESIGN STUDIO )</p> -->
       <h1 class="title">阜居空間<span>創意設計</span></h1>
       <i></i>
       <p class="content">

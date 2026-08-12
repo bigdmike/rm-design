@@ -4,7 +4,7 @@ import MainButton from "../MainButton.vue";
 
 <template>
   <section id="home-video-section">
-    <p class="index-text">( VIDEO )</p>
+    <!-- <p class="index-text">( VIDEO )</p> -->
     <div class="main-container">
       <div class="text-box">
         <h4 class="title">THE MAKING OF RM</h4>

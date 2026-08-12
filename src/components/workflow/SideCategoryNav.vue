@@ -20,7 +20,8 @@ const props = defineProps({
                 <li v-for="category in categoryList" :key="category.id">
                     <button @click="$emit('update:modelValue', category.id)"
                     :class="modelValue == category.id ? 'active' : ''">
-                        {{ category.name }} <span>({{ category.count }})</span>
+                        {{ category.name }}
+                         <!-- <span>({{ category.count }})</span> -->
                     </button>
                 </li>
             </ol>

@@ -6,7 +6,7 @@ import MainButton from "../MainButton.vue";
   <section id="home-work-intro-section">
     <div class="main-container">
       <div class="text-box">
-        <p class="sub-title">( SELECT WORKS )</p>
+        <!-- <p class="sub-title">( SELECT WORKS )</p> -->
         <div class="content">
           阜居空間設計由專業設計師主理，深耕建築、住宅與商業空間整合規劃。<br/>
           我們深信設計是提煉個人品味、創造專屬美學的過程。<br/>

@@ -44,6 +44,10 @@
     @apply relative overflow-hidden block;
     @apply flex items-center justify-start gap-3;
 }
+#main-footer .link-list-box .link-box ol li a svg{
+    @apply w-8 h-8 shrink-0;
+    @apply transition-all duration-300 ;
+}
 #main-footer .link-list-box .link-box ol li a span{
     @apply transition-all duration-300 block;
 }
@@ -53,10 +57,9 @@
 #main-footer .link-list-box .link-box ol li a span:nth-of-type(2){
     @apply absolute left-0 top-full text-brand-red;
 }
-#main-footer .link-list-box .link-box ol li a svg{
+/* #main-footer .link-list-box .link-box ol li a svg{
     @apply w-3.5 h-3.5;
-    @apply transition-all duration-300 ;
-}
+} */
 
 #main-footer .link-list-box .link-box ol li a:hover{
     @apply text-brand-red;

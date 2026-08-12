@@ -20,7 +20,7 @@ const activeWorkflow = computed(()=>{
 <template>
     <section id="workflow-step-section">
         <div class="header-box">
-            <p class="sub-title">( {{ activeWorkflow.subTitle }} )</p>
+            <!-- <p class="sub-title">( {{ activeWorkflow.subTitle }} )</p> -->
             <h2 class="title">{{ activeWorkflow.title }}</h2>
         </div>
 

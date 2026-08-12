@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
   <section id="home-work-section">
     <div class="main-container">
-      <p class="index-text">( {{ props.index + 1 }}. SELECTED WORKS )</p>
+      <!-- <p class="index-text">( {{ props.index + 1 }}. SELECTED WORKS )</p> -->
       <div class="text-box">
         <p class="sub-title">{{ props.categoryTitle }}</p>
         <router-link :to="`/works/${props.index}`" class="title-box">
