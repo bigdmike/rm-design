@@ -62,9 +62,9 @@
   list-style: disc;
 }
 
-.editor-content ul li::marker,
-.editor-content ol li::marker {
-  color: #CC1415;
+.editor-content ul li,
+.editor-content ol li {
+  @apply marker:text-brand-red;
 }
 
 .editor-content .editor-cta-block{

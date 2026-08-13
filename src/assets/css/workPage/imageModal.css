@@ -11,7 +11,15 @@
 }
 
 #work-page-image-modal .image-container .image-box {
-  @apply md:flex-none flex-1 md:max-w-[70dvw] md:w-300 h-dvh md:max-h-[80dvh] max-h-[50dvh] relative;
+  @apply md:flex-none flex-1 relative;
+  @apply md:max-w-[70vw] h-screen md:w-300;
+  @apply max-h-[50vh] md:max-h-[80vh];
+  @supports (height: 100dvh) {
+    @apply max-h-[50dvh] md:max-h-[80dvh] h-dvh;
+  }
+  @supports (width: 100dvw) {
+    @apply md:max-w-[70dvw];
+  }
 }
 #work-page-image-modal .image-container .image-box img {
   @apply w-full h-full object-contain;

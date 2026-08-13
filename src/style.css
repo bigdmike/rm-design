@@ -62,7 +62,7 @@
 
 a::focus,
 a:active {
-  outline: none;
+  @apply outline-none;
 }
 
 .font-dm-sans {

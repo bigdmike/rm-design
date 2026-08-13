@@ -46,7 +46,7 @@
 
 #workflow-question-section .question-box li .content-box{
   display: grid;
-  grid-template-rows: 0fr; /* 預設高度為 0 */
+  grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s ease-out;
 }
 #workflow-question-section .question-box li .content-box .content{
