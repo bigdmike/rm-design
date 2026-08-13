@@ -1,0 +1,25 @@
+{
+  "name": "Vue3 + PHP74 Dev",
+  "image": "vue3-php74:1.0",
+  // "workspaceFolder": "/var/www/html",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bmewburn.vscode-intelephense-client",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "remoteUser": "root",
+  "postCreateCommand": "git config --global user.email \"piggy5272@gmail.com\" && git config --global user.name \"bigdmike\""
+}

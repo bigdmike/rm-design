@@ -12,4 +12,15 @@ export default defineConfig({
     vue(),
     tailwindcss()
   ],
+  server: {
+    port: 3000,
+    host: "0.0.0.0", // 允許從外部訪問
+    // proxy: {
+    //   "/admin-api": {
+    //     target: "https://api.shark-factory.com.tw",
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/admin-api/, ""),
+    //   },
+    // },
+  },
 })
