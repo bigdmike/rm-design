@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./assets/css/button.css";
+@import "./assets/css/breadcrumbs.css";
 @import "./assets/css/mainHeader.css";
 @import "./assets/css/mainMenu.css";
 @import "./assets/css/mainFooter.css";
@@ -8,6 +9,7 @@
 @import "./assets/css/sitePrivacyDialog.css";
 @import "./assets/css/mainDialog.css";
 @import "./assets/css/mainLoading.css";
+@import "./assets/css/notFound.css";
 
 
 /* home */
@@ -57,16 +59,16 @@
 
 
 * {
-  font-family: "Noto Sans TC", "DM Sans", sans-serif;
+  font-family: "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
 }
 
-a::focus,
+a:focus,
 a:active {
   outline: none;
 }
 
 .font-dm-sans {
-  font-family: "DM Sans", "Noto Sans TC", sans-serif;
+  font-family: "DM Sans", "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
 }
 
 #app{
@@ -81,9 +83,10 @@ a:active {
   /* 1. 基礎品牌色 (Primitive) */
   --color-brand-red: #cc333a;
   --color-brand-red-dark: #a3292e;
+  --color-brand-red-light: #e35d62;
   --color-brand-cream: #f4efe3;
 
-  --font-dm-sans:"DM Sans", "Noto Sans TC", sans-serif;
+  --font-dm-sans:"DM Sans", "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
 
   /* 2. 語意化按鈕顏色 (Semantic) */
   --color-btn-primary-bg: var(--color-brand-red);
@@ -98,3 +101,7 @@ a:active {
   --color-btn-cream-hover: #eae5da;
   --color-btn-cream-text: var(--color-brand-black);
 }
+
+/* Shared by PHP first paint and the lazy-loaded Vue picture component. */
+.responsive-picture { display: block; width: 100%; height: 100%; }
+.responsive-picture img { display: block; width: 100%; height: 100%; object-fit: cover; }

@@ -37,10 +37,10 @@
     @apply ml-auto shrink-0
 }
 #workflow-question-section .question-box li .title-box span{
-    @apply font-dm-sans font-bold text-brand-red sm:text-base text-sm;
+    @apply font-dm-sans font-bold text-brand-red-dark sm:text-base text-sm;
     @apply mr-3 shrink-0
 }
-#workflow-question-section .question-box li .title-box h4{
+#workflow-question-section .question-box li .title-box h3{
     @apply text-lg font-bold mr-5
 }
 

@@ -1,20 +1,19 @@
-<script setup></script>
+<script setup>
+import ResponsivePicture from "../ResponsivePicture.vue";
+defineProps({ section: { type: Object, required: true } });
+</script>
 
 <template>
     <section id="about-cover-section">
         <div class="main-container">
             <div class="title-box">
-                <h1 class="title">用空間<br/>說業主的故事</h1>
+                <h1 class="title" style="white-space: pre-line" v-text="section.content.title"></h1>
             </div>
-            <div class="content">
-                我們不談風格，因為「美」之於設計團隊只是基本功力。<br/>形隨機能而生，每一條線都融入業主的故事。
-            </div>
+            <div class="content preserve-whitespace">{{ section.content.body_text }}</div>
         </div>
 
         <div class="image-box">
-            <img src="/img/about/cover.png" />
-            <img src="/img/about/cover-md.png" />
-            <img src="/img/about/cover-sm.png" />
+            <ResponsivePicture :desktop="section.images.hero_desktop" :tablet="section.images.hero_tablet" :mobile="section.images.hero_mobile" loading="eager" priority="high" />
         </div>
     </section>
 </template>

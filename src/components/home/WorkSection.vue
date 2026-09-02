@@ -1,11 +1,15 @@
 <script setup>
+import { imageAttributes } from "../../common/responsiveImage.js";
 const props = defineProps({
   index: Number,
   title: String,
   slogan: String,
   content: String,
   image: String,
+  imageData: Object,
   categoryTitle: String,
+  link: String,
+  imageAlt: String,
 });
 </script>
 
@@ -15,8 +19,8 @@ const props = defineProps({
       <!-- <p class="index-text">( {{ props.index + 1 }}. SELECTED WORKS )</p> -->
       <div class="text-box">
         <p class="sub-title">{{ props.categoryTitle }}</p>
-        <router-link :to="`/works/${props.index}`" class="title-box">
-          <h4 class="title">{{ props.title }}</h4>
+        <router-link :to="props.link" class="title-box">
+          <h2 class="title">{{ props.title }}</h2>
           <svg
             width="80"
             height="80"
@@ -42,13 +46,13 @@ const props = defineProps({
           </svg>
         </router-link>
 
-        <p class="slogan">{{ props.slogan }}</p>
-        <p class="content" v-html="props.content"></p>
+        <p class="slogan preserve-whitespace">{{ props.slogan }}</p>
+        <div class="content preserve-whitespace">{{ props.content }}</div>
       </div>
     </div>
     <div class="background-box">
       <div class="image-box">
-        <img :src="props.image" />
+        <img v-bind="imageAttributes(props.imageData || { url: props.image })" :alt="props.imageAlt ?? props.title" />
       </div>
     </div>
   </section>

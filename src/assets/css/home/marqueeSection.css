@@ -26,3 +26,9 @@
         transform: translateX(-100%);
     }
 }
+
+#home-marquee-section.is-paused .marquee-box { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+    #home-marquee-section .marquee-box { animation: none; flex-wrap: wrap; flex-shrink: 1; gap: 12px 0; }
+    #home-marquee-section .marquee-box[aria-hidden="true"] { display: none; }
+}

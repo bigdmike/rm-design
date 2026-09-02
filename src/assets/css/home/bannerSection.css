@@ -9,15 +9,6 @@
 #home-banner-section .background-box img{
     @apply w-full h-full object-cover;
 }
-#home-banner-section .background-box img:nth-child(1){
-    @apply hidden md:block;
-}
-#home-banner-section .background-box img:nth-child(2){
-    @apply hidden sm:block md:hidden;
-}
-#home-banner-section .background-box img:nth-child(3){
-    @apply block sm:hidden;
-}
 
 
 #home-banner-section .text-box{

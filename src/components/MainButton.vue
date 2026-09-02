@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 const props = defineProps({
+  disabled: { type: Boolean, default: false },
   text: {
     type: String,
     default: "VIEW ABOUT US",
@@ -48,6 +49,8 @@ const resetEvent = () => {
 <template>
   <button
     v-if="type == 'button'"
+    :disabled="disabled"
+    type="button"
     id="main-btn"
     ref="mainBtnRef"
     :class="color"

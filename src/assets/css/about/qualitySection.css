@@ -16,15 +16,6 @@
 #about-quality-section .background-box img{
     @apply w-full h-full object-cover;
 }
-#about-quality-section .background-box img:nth-child(1){
-    @apply hidden md:block;
-}
-#about-quality-section .background-box img:nth-child(2){
-    @apply hidden sm:block md:hidden;
-}
-#about-quality-section .background-box img:nth-child(3){
-    @apply block sm:hidden;
-}
 
 #about-quality-section .main-container{
     @apply relative z-10 text-white;

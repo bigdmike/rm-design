@@ -18,7 +18,7 @@ const activeWorkflow = computed(()=>{
 </script>
 
 <template>
-    <section id="workflow-step-section">
+    <section v-if="activeWorkflow" id="workflow-step-section">
         <div class="header-box">
             <!-- <p class="sub-title">( {{ activeWorkflow.subTitle }} )</p> -->
             <h2 class="title">{{ activeWorkflow.title }}</h2>
@@ -27,7 +27,7 @@ const activeWorkflow = computed(()=>{
         <div class="step-box" v-for="(item,itemIndex) in activeWorkflow.steps" :key="`step-${itemIndex}`">
             <div class="index-box">
                 <!-- <p class="index">STEP <span>{{ itemIndex + 1 }}.</span></p> -->
-                <h4 class="title" v-html="item.title"></h4>
+                <h3 class="title preserve-whitespace" v-text="item.title.replace(/<br\s*\/?\s*>/gi, '\n')"></h3>
                 <p class="sub-title">{{ item.subTitle }}</p>
             </div>
             <div class="content editor-content" v-html="item.content"></div>

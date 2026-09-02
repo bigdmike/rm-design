@@ -53,5 +53,5 @@
 }
 #home-work-section .text-box .content{
     @apply md:text-lg font-dm-sans text-white;
-    @apply tracking-widest leading-relaxed
+    @apply tracking-widest leading-relaxed whitespace-pre-wrap;
 }

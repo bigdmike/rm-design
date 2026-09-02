@@ -11,6 +11,7 @@ export const useUIStore = defineStore('ui', {
       message: "",
     },
     loadingCount: 0,
+    pageLoadingCount: 0,
     themeColumns: [],
     announcementList: [],
     workList: {

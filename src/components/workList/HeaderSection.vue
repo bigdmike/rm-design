@@ -22,7 +22,7 @@ const props = defineProps({
         <div class="main-container">
             <!-- <p class="sub-title">{{ subTitle }}</p> -->
             <h1 class="title">{{ title }}</h1>
-            <p class="content" v-html="content"></p>
+            <p class="content preserve-whitespace">{{ content }}</p>
         </div>
     </section>
 </template>

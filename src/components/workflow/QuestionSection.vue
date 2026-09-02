@@ -4,7 +4,8 @@ const props = defineProps({
     questionList: {
         type: Array,
         default: () => []
-    }
+    },
+    section: { type: Object, default: null }
 })
 const openList = ref([])
 
@@ -22,7 +23,7 @@ const openQuestion = (index) => {
         <div class="main-container">
             <div class="header-box">
                 <!-- <p class="sub-title">( FAQ )</p> -->
-                <h3 class="title">關於流程<br class="md:block hidden" />您可能想問</h3>
+                <h2 class="title" style="white-space: pre-line" v-text="section?.content?.title || '常見問題'"></h2>
             </div>
 
             <div class="question-box">
@@ -30,7 +31,7 @@ const openQuestion = (index) => {
                     <li v-for="(question, index) in questionList" :key="`question-${index}`" :class="openList.includes(index)?'active':''">
                         <div class="title-box" @click="openQuestion(index)">
                             <span>Q{{ index + 1 }}.</span>
-                            <h4>{{ question.title }}</h4>
+                            <h3>{{ question.title }}</h3>
                             <svg width="30" height="30" viewBox="0 0 40 40" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path :class="openList.includes(index) ? 'hidden' : ''" d="M20 13V27" stroke="black"

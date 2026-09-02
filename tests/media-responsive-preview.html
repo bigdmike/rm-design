@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>暫時性響應式驗收</title></head><body>
+<h1>響應式封面驗收</h1>
+<h2>手機 390px</h2><iframe title="手機首頁" src="/" width="390" height="844"></iframe><iframe title="手機關於" src="/about" width="390" height="844"></iframe><iframe title="手機流程" src="/workflow" width="390" height="844"></iframe>
+<h2>平板 700px</h2><iframe title="平板首頁" src="/" width="700" height="800"></iframe><iframe title="平板關於" src="/about" width="700" height="800"></iframe><iframe title="平板流程" src="/workflow" width="700" height="800"></iframe>
+<h2>桌機 1280px</h2><iframe title="桌機首頁" src="/" width="1280" height="720"></iframe><iframe title="桌機關於" src="/about" width="1280" height="720"></iframe><iframe title="桌機流程" src="/workflow" width="1280" height="720"></iframe>
+<h2>實際 DOM 驗收資料</h2><pre id="results">等待子頁面渲染</pre>
+<script>
+setInterval(() => {
+  document.getElementById('results').textContent = JSON.stringify([...document.querySelectorAll('iframe')].map(frame => {
+    const doc=frame.contentDocument, hero=doc.querySelector('#home-banner-section img, #about-cover-section img');
+    return {title:frame.title,viewport:frame.contentWindow.innerWidth,heroCount:doc.querySelectorAll('#home-banner-section img, #about-cover-section img').length,src:hero?.currentSrc,height:hero?.getBoundingClientRect().height,video:doc.querySelector('video')?.getAttribute('src')};
+  }),null,2);
+},1000);
+</script></body></html>

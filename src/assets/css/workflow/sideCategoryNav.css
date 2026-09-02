@@ -9,16 +9,16 @@
 #workflow-side-category-nav .category-box ol{
     @apply grid grid-cols-1 gap-7.5;
 }
-#workflow-side-category-nav .category-box ol li button{
+#workflow-side-category-nav .category-box ol li :is(button, a){
     @apply font-medium text-xl leading-none;
     @apply flex items-start;
     @apply transition-all duration-300 ease-in-out;
 }
-#workflow-side-category-nav .category-box ol li button:hover,
-#workflow-side-category-nav .category-box ol li button.active{
-    @apply text-brand-red;
+#workflow-side-category-nav .category-box ol li :is(button, a):hover,
+#workflow-side-category-nav .category-box ol li :is(button, a).active{
+    @apply text-brand-red-dark;
 }
-#workflow-side-category-nav .category-box ol li button span{
+#workflow-side-category-nav .category-box ol li :is(button, a) span{
     @apply text-base font-medium font-dm-sans leading-none;
     @apply ml-2
 }

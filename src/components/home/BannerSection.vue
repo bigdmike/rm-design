@@ -1,4 +1,6 @@
 <script setup>
+import ResponsivePicture from "../ResponsivePicture.vue";
+defineProps({ section: { type: Object, required: true } });
 
 const scrollToSection = (sectionId) => {
   const section = document.querySelector(sectionId);
@@ -13,21 +15,19 @@ const scrollToSection = (sectionId) => {
   <section id="home-banner-section">
     <div class="text-box">
       <!-- <p class="sub-title">( RM DESIGN STUDIO )</p> -->
-      <h1 class="title">阜居空間<span>創意設計</span></h1>
+      <h1 class="title">{{ section.content.title_parts.main }}<span>{{ section.content.title_parts.accent }}</span></h1>
       <i></i>
-      <p class="content">
-        <span>『</span> 用空間    說故事 <span>』</span>
+      <p class="content preserve-whitespace">
+        {{ section.content.body_text }}
       </p>
     </div>
 
-    <a @click="scrollToSection('#home-about-section')" class="cta-text">
-    ( Scroll to explore )
-    </a>
+    <button type="button" @click="scrollToSection('#home-about-section')" class="cta-text">
+    ( {{ section.content.cta_label }} )
+    </button>
 
     <div class="background-box">
-      <img src="/img/home/banner.jpg" />
-      <img src="/img/home/banner-md.png" />
-      <img src="/img/home/banner-sm.png" />
+      <ResponsivePicture :desktop="section.images.hero_desktop" :tablet="section.images.hero_tablet" :mobile="section.images.hero_mobile" loading="eager" priority="high" />
     </div>
   </section>
 </template>

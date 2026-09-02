@@ -4,6 +4,8 @@
 }
 
 #home-video-section .main-container{
+    z-index: 1;
+    pointer-events: none;
     @apply relative md:h-245 sm:h-233 h-194;
     @apply md:px-5 sm:px-3 px-2 md:pb-5 sm:pb-3 pb-2 sm:pt-20 pt-15;
     @apply flex items-center justify-center;
@@ -31,3 +33,7 @@
 #home-video-section .text-box .title{
     @apply md:text-[80px] sm:text-[64px] text-[40px] font-medium font-dm-sans text-white mb-5;
 }
+#home-video-section .text-box { pointer-events: auto; }
+#home-video-section .video-playback { color: white; margin-top: 20px; padding: 8px 16px; border: 1px solid #ffffff80; border-radius: 999px; font-size: 16px; cursor: pointer; }
+#home-video-section .video-playback:focus-visible { outline: 2px solid white; outline-offset: 4px; }
+#home-video-section .video-error { color: white; margin-top: 12px; }

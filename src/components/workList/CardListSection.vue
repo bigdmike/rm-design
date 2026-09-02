@@ -1,67 +1,13 @@
 <script setup>
-const works = [
-  {
-    id: 1,
-    title: "我住在森林裡",
-    location: "台南市",
-    thumbnail: "/rm-design/img/works/works_1.png",
-  },
-  {
-    id: 2,
-    title: "Runway",
-    location: "新北市",
-    thumbnail: "/rm-design/img/works/works_2.png",
-  },
-  {
-    id: 3,
-    title: "Atti 咖啡研究工訪",
-    location: "高雄市",
-    thumbnail: "/rm-design/img/works/works_3.png",
-  },
-  {
-    id: 4,
-    title: "Runway",
-    location: "新北市",
-    thumbnail: "/rm-design/img/works/works_2.png",
-  },
-  {
-    id: 5,
-    title: "Atti 咖啡研究工訪",
-    location: "高雄市",
-    thumbnail: "/rm-design/img/works/works_3.png",
-  },
-  {
-    id: 6,
-    title: "我住在森林裡",
-    location: "台南市",
-    thumbnail: "/rm-design/img/works/works_1.png",
-  },
-  {
-    id: 7,
-    title: "Atti 咖啡研究工訪",
-    location: "高雄市",
-    thumbnail: "/rm-design/img/works/works_3.png",
-  },
-  {
-    id: 8,
-    title: "Runway",
-    location: "新北市",
-    thumbnail: "/rm-design/img/works/works_2.png",
-  },
-  {
-    id: 9,
-    title: "我住在森林裡",
-    location: "台南市",
-    thumbnail: "/rm-design/img/works/works_1.png",
-  },
-];
+import { imageAttributes, cardSizes } from "../../common/responsiveImage.js";
+defineProps({ works: { type: Array, required: true } });
 </script>
 
 <template>
   <section id="work-list-card-list-section">
     <div class="card-list">
       <router-link
-        v-for="work in works"
+        v-for="(work, index) in works"
         :key="work.id"
         :to="'/works/' + work.id"
         class="card"
@@ -95,10 +41,10 @@ const works = [
               </svg>
             </div>
           </div>
-          <img :src="work.thumbnail" :alt="work.title" />
+          <img v-bind="imageAttributes(work.thumbnailImage || { url: work.thumbnail }, { sizes: cardSizes, loading: index < 3 ? 'eager' : 'lazy', priority: index === 0 ? 'high' : 'auto' })" :alt="work.thumbnailImage?.altText ?? work.title" />
         </div>
         <div class="info">
-          <h3>{{ work.title }}</h3>
+          <h2>{{ work.title }}</h2>
           <p>{{ work.location }}</p>
         </div>
       </router-link>

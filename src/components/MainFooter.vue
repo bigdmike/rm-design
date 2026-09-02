@@ -1,26 +1,14 @@
 <script setup>
-import { ref } from "vue";
-const linkGroup = [
+import { computed, ref } from "vue";
+const props = defineProps({
+  categories: { type: Array, default: () => [] },
+  settings: { type: Object, default: null },
+  locations: { type: Array, default: () => [] },
+});
+const linkGroup = computed(() => [
   {
     title: "( CATEGORIES )",
-    links: [
-      {
-        name: "住宅空間",
-        link: "/works?category=1",
-      },
-      {
-        name: "建築設計",
-        link: "/works?category=2",
-      },
-      {
-        name: "商業空間",
-        link: "/works?category=3",
-      },
-      {
-        name: "公共空間",
-        link: "/works?category=4",
-      },
-    ],
+    links: props.categories.length ? props.categories : [{ name: '全部案例', link: '/works' }],
   },
   {
     title: "( SITEMAP )",
@@ -43,8 +31,8 @@ const linkGroup = [
       },
     ],
   },
-];
-const contactInfo = [
+]);
+const fallbackContactInfo = [
   {
     subTitle: "( TAIPEI )",
     title: "台北",
@@ -100,6 +88,16 @@ const contactInfo = [
     ],
   },
 ];
+const contactInfo = computed(() => props.locations.length ? props.locations.map((location) => ({
+  subTitle: `( ${location.subtitle || location.code.toUpperCase()} )`,
+  title: location.name,
+  content: [
+    location.address && { type: 'address', value: location.address, href: location.mapUrl },
+    location.email && { type: 'email', value: location.email, href: `mailto:${location.email}` },
+    location.instagramLabel && { type: 'instagram', value: location.instagramLabel, href: location.instagramUrl },
+    location.phone && { type: 'phone', value: location.phone, href: location.phoneHref },
+  ].filter(Boolean),
+})) : fallbackContactInfo)
 const subMenuOpen = ref(false);
 </script>
 
@@ -107,8 +105,8 @@ const subMenuOpen = ref(false);
   <footer id="main-footer">
     <div class="main-container">
       <div class="title-box">
-        <p class="title"><span>阜居</span>空間創意設計</p>
-        <img src="/img/home/core_value_background.png" />
+        <p class="title"><span>{{ settings?.footerTitleAccent || '阜居' }}</span>{{ settings?.footerTitleMain || '空間創意設計' }}</p>
+        <img src="/img/home/core_value_background.png" alt="" loading="lazy" decoding="async" />
       </div>
 
       <div class="menu-box">
@@ -147,18 +145,8 @@ const subMenuOpen = ref(false);
               </svg>
             </p>
             <div class="sub-link-box" :class="subMenuOpen ? 'active' : ''">
-              <router-link to="/works?category=1">
-                <span>住宅空間</span>
-              </router-link>
-              <router-link to="/works?category=2">
-                <span>建築設計</span>
-              </router-link>
-              <router-link to="/works?category=3">
-                <span>商業空間</span>
-              </router-link>
-              <router-link to="/works?category=4">
-                <span>公共空間</span>
-              </router-link>
+              <router-link v-for="category in categories" :key="category.id" :to="category.link"><span>{{ category.name }}</span></router-link>
+              <router-link v-if="!categories.length" to="/works"><span>全部案例</span></router-link>
             </div>
           </li>
           <li>
@@ -256,7 +244,8 @@ const subMenuOpen = ref(false);
           <ol>
             <li>
               <a
-                href="https://blog.rmdesign.com.tw"
+                :href="settings?.blogUrl || 'https://blog.rmdesign.com.tw'"
+                aria-label="部落格"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -270,7 +259,8 @@ const subMenuOpen = ref(false);
 
             <li>
               <a
-                href="https://www.instagram.com/rmdesigntw/"
+                :href="settings?.instagramUrl || 'https://www.instagram.com/rmdesigntw/'"
+                aria-label="Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -288,7 +278,8 @@ const subMenuOpen = ref(false);
 
             <li>
               <a
-                href="https://zh-tw.facebook.com/rxmdesign"
+                :href="settings?.facebookUrl || 'https://zh-tw.facebook.com/rxmdesign'"
+                aria-label="Facebook"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -307,6 +298,7 @@ const subMenuOpen = ref(false);
             <li>
               <a
                 href="https://www.youtube.com/channel/UCyh_r5QT0oz4kWqhF_0yUUg"
+                aria-label="YouTube"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -340,7 +332,8 @@ const subMenuOpen = ref(false);
             >
               <a
                 v-if="content.type === 'address'"
-                :href="`https://www.google.com/maps/place/${content.value}`"
+                class="preserve-whitespace"
+                :href="content.href || `https://www.google.com/maps/place/${content.value}`"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -379,7 +372,7 @@ const subMenuOpen = ref(false);
               </a>
               <a
                 v-else-if="content.type === 'email'"
-                :href="`mailto:${content.value}`"
+                :href="content.href || `mailto:${content.value}`"
               >
                 <svg
                   width="24"
@@ -409,7 +402,7 @@ const subMenuOpen = ref(false);
               </a>
               <a
                 v-else-if="content.type === 'phone'"
-                :href="`tel:${content.value}`"
+                :href="content.href || `tel:${content.value}`"
               >
                 <svg
                   width="24"
@@ -427,7 +420,7 @@ const subMenuOpen = ref(false);
               </a>
               <a
                 v-else-if="content.type === 'instagram'"
-                :href="`https://www.instagram.com/${content.value}`"
+                :href="content.href || `https://www.instagram.com/${content.value}`"
                 target="_blank"
               >
                 <svg
@@ -459,7 +452,7 @@ const subMenuOpen = ref(false);
       </div>
 
       <div class="copyright-box">
-        <p class="copyright-text">RM Design Co., Ltd © 2026</p>
+        <p class="copyright-text">{{ settings?.copyrightText || 'RM Design Co., Ltd © 2026' }}</p>
         <div class="link-box">
           <router-link to="/privacy-policy">隱私權政策</router-link>
         </div>

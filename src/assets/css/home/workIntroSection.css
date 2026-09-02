@@ -20,7 +20,7 @@
     @apply sm:mb-10 mb-5 sm:text-base text-sm;
 }
 #home-work-intro-section .text-box .content{
-    @apply whitespace-pre-line sm:mb-10 mb-5 leading-normal;
+    @apply whitespace-pre-wrap sm:mb-10 mb-5 leading-normal;
     @apply md:text-2xl sm:text-xl text-lg font-medium tracking-wider;
 }
 

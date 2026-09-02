@@ -218,3 +218,6 @@
         opacity:0;
     }
 }
+#main-menu .menu-list li button.menu-disclosure{
+    @apply w-full text-left bg-transparent border-0 cursor-pointer;
+}

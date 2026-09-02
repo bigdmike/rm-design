@@ -58,3 +58,15 @@
 #work-page .article-gallery .image-box{
     @apply relative z-10
 }
+/* PHP first paint matches vue3-masonry-css's responsive columns and half-gutters. */
+.initial-gallery { --gallery-gutter: 20px; display: flex; margin: calc(var(--gallery-gutter) / -2); }
+.initial-gallery-column { box-sizing: border-box; background-clip: padding-box; width: 33.333333333333336%; }
+.initial-gallery-item { padding: calc(var(--gallery-gutter) / 2); }
+.initial-gallery-two { display: none; }
+@media (width <= 768px) {
+  .initial-gallery { --gallery-gutter: 12px; }
+  .initial-gallery-three { display: none; }
+  .initial-gallery-two { display: flex; }
+  .initial-gallery-column { width: 50%; }
+}
+@media (width <= 640px) { .initial-gallery { --gallery-gutter: 8px; } }

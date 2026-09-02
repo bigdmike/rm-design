@@ -33,7 +33,7 @@
     @apply w-1/2 md:mb-20 sm:mb-10;
 }
 #main-footer .link-list-box .link-box .title{
-    @apply font-dm-sans font-bold text-zinc-500 sm:text-base text-sm;
+    @apply font-dm-sans font-bold text-zinc-400 sm:text-base text-sm;
     @apply md:mb-10 sm:mb-7.5 mb-5;
 }
 #main-footer .link-list-box .link-box ol{
@@ -98,7 +98,7 @@
     @apply border-b-0 pb-0;
 }
 #main-footer .info-list-box .info-box .sub-title{
-    @apply font-dm-sans font-bold text-zinc-500 uppercase mb-2;
+    @apply font-dm-sans font-bold text-zinc-400 uppercase mb-2;
     @apply sm:text-base text-sm
 }
 #main-footer .info-list-box .info-box .title{
@@ -124,7 +124,7 @@
     @apply w-full sm:hidden grid  grid-cols-1 mb-5;
 }
 #main-footer .menu-box .title{
-    @apply font-dm-sans font-bold text-zinc-500 text-sm;
+    @apply font-dm-sans font-bold text-zinc-400 text-sm;
     @apply mb-5;
 }
 #main-footer .menu-box li:not(:last-child) {

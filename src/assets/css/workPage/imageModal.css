@@ -6,6 +6,17 @@
   @apply absolute top-0 left-0 w-full h-full bg-black/80 z-0;
 }
 
+#work-page-image-modal .modal-close {
+  position: absolute; top: 24px; right: 24px; z-index: 20;
+  color: white; font-size: 18px; padding: 12px; cursor: pointer;
+}
+#work-page-image-modal button:focus-visible { outline: 2px solid white; outline-offset: 4px; }
+#work-page-image-modal .modal-image-placeholder { position: absolute; inset: 0; background: #252525; }
+#work-page-image-modal .modal-image-error { position: absolute; inset: 0; display: grid; place-items: center; color: white; padding: 24px; }
+@media (prefers-reduced-motion: reduce) {
+  #work-page-image-modal .image-container, #work-page-image-modal .background-box { animation-duration: 0s !important; }
+}
+
 #work-page-image-modal .image-container {
   @apply relative z-10  flex items-center justify-center md:w-auto w-full;
 }

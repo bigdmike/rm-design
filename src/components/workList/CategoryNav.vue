@@ -22,7 +22,7 @@ const currentCategory = computed(()=>route.query.category || "all")
     <nav id="work-list-category-nav">
         <ol>
             <li v-for="category in categoryList" :key="category.id">
-                <router-link :to="`${baseUrl}?category=${category.id}`" 
+                <router-link :to="category.id === 'all' ? baseUrl : `${baseUrl}?category=${category.id}`"
                 :class="currentCategory == category.id ? 'active' : ''">
                     {{ category.name }} <span>({{ category.count }})</span>
                 </router-link>

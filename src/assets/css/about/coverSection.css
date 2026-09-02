@@ -21,15 +21,6 @@
 #about-cover-section .image-box img{
     @apply w-full h-full object-cover;
 }
-#about-cover-section .image-box img:nth-child(1){
-    @apply hidden md:block;
-}
-#about-cover-section .image-box img:nth-child(2){
-    @apply hidden sm:block md:hidden;
-}
-#about-cover-section .image-box img:nth-child(3){
-    @apply block sm:hidden;
-}
 
 #about-cover-section .title-box .sub-title{
     @apply font-dm-sans font-medium md:text-2xl sm:text-xl;

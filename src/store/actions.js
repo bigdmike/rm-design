@@ -1,32 +1,9 @@
-import { useApi } from "../common/useApi.js";
-const { getSiteData, sendContactForm } = useApi();
-
 export default {
   toggleMenu(action) {
     this.menuOpen = action !== undefined ? action : !this.menuOpen;
   },
   setHeaderStyle(style) {
     this.headerStyle = style;
-  },
-  async getPageData(params) {
-    try {
-      const response = await getSiteData(params);
-      this.setPageData(response);
-      return response;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
-  async sendContactMessage(data){
-    try{
-      const response = await sendContactForm(data);
-      this.setMessageDialog({status:true, message:"信件已送出，感謝您的聯絡，我們會儘快回覆您！"})
-    }
-    catch(error){
-      console.error(error);
-      this.setMessageDialog({status:true, message:"信件送出失敗，請稍後再試！"})
-    }
   },
   getBasePageData(state) {
     Object.keys(window.base_page_data).forEach((key) => {
@@ -81,6 +58,9 @@ export default {
   setMessageDialog(payload) {
     this.messageDialog.open = payload.status;
     this.messageDialog.message = payload.message;
+  },
+  setPageLoadingCount(count) {
+    this.pageLoadingCount = Math.max(0, this.pageLoadingCount + count);
   },
   setLoadingCount(count) {
     const nextCount = this.loadingCount + count;

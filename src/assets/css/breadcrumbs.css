@@ -1,0 +1,42 @@
+.main-breadcrumbs {
+  padding-block: 18px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  display: none;
+}
+.main-breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+.main-breadcrumbs li {
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.main-breadcrumbs li + li::before {
+  content: "/";
+  opacity: 0.45;
+}
+.main-breadcrumbs a {
+  text-underline-offset: 4px;
+}
+.main-breadcrumbs a:hover,
+.main-breadcrumbs a:focus-visible {
+  text-decoration: underline;
+}
+.main-breadcrumbs [aria-current] {
+  opacity: 0.7;
+}
+#work-page .main-breadcrumbs {
+  margin-top: 18px;
+  color: #fff;
+}
+#work-list-page .main-breadcrumbs {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}

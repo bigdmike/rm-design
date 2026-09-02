@@ -1,0 +1,56 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>首次 HTML 與 Vue 版型比對</title>
+<style>body{font:16px sans-serif;margin:20px}iframe{height:900px;border:1px solid #aaa;flex-shrink:0}.pair{display:flex;gap:16px}pre{white-space:pre-wrap}button{font-size:18px;padding:10px}</style>
+<h1>首次 HTML 與 Vue 版型比對（本機唯讀）</h1>
+<p>左：保留 HTML、移除啟動程式；右：正常 Vue 接管。測試頁不會提交表單或修改業務資料。</p>
+<button id="run">開始比對</button><pre id="results">尚未開始</pre><div class="pair" id="frames"></div>
+<script>
+const allPaths=['/','/about','/workflow','/works','/press','/contact','/privacy-policy','/works/6'];
+const selected=new URLSearchParams(location.search);
+const paths=selected.has('path')?[selected.get('path')]:allPaths;
+const widths=selected.has('width')?[Number(selected.get('width'))]:[390,1280];
+const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const output=document.querySelector('#results');
+function rects(doc) {
+  const selectors=['#main-header','h1','main > section','main > .main-container','#main-footer','.card-list','main > article > *','#workflow-category-nav','#workflow-category-nav li','#workflow-step-section','.step-box','.main-breadcrumbs'];
+  const result={};
+  for(const selector of selectors) doc.querySelectorAll(selector).forEach((el,i)=>{
+    const r=el.getBoundingClientRect();
+    result[selector+':'+i]=[r.x,r.y,r.width,r.height].map(n=>Math.round(n*10)/10);
+  });
+  return result;
+}
+async function frame(html,url,width) {
+  const el=document.createElement('iframe'); el.width=width;
+  const ready=new Promise(resolve=>el.onload=resolve);
+  if(html) { if(selected.has('nojs')) el.setAttribute('sandbox','allow-same-origin'); el.srcdoc=html; } else el.src=url;
+  document.querySelector('#frames').append(el); await ready;
+  await el.contentDocument.fonts.ready;
+  return el;
+}
+document.querySelector('#run').onclick=async()=>{
+  document.querySelector('#run').disabled=true;
+  const results=[];
+  try {
+    for(const width of widths) for(const path of paths) {
+      output.textContent=JSON.stringify({running:{width,path},results},null,2);
+      document.querySelector('#frames').replaceChildren();
+      const html=await (await fetch(path,{cache:'no-store'})).text();
+      const parsed=new DOMParser().parseFromString(html,'text/html');
+      parsed.querySelectorAll('script').forEach(el=>el.remove());
+      const before=await frame('<!doctype html>'+parsed.documentElement.outerHTML,null,width);
+      const after=await frame(null,path,width);
+      for(let i=0;i<100 && !after.contentDocument.querySelector('#app[data-v-app]');i++) await pause(100);
+      await after.contentDocument.fonts.ready;
+      for(let i=0;i<200 && after.contentDocument.querySelector('#background-loading, #main-loading');i++) await pause(100);
+      await pause(350);
+      const a=rects(before.contentDocument),b=rects(after.contentDocument);
+      const differences=Object.keys(a).filter(key=>!b[key]||a[key].some((v,i)=>Math.abs(v-b[key][i])>2)).map(key=>({key,html:a[key],vue:b[key]}));
+      const requests=after.contentWindow.performance.getEntriesByType('resource').filter(r=>r.name.includes('/api/v1/')).map(r=>new URL(r.name).pathname);
+      const noJs=selected.has('nojs') ? { alternativeServices:before.contentDocument.querySelectorAll('.initial-alternate-services section').length, faqAnswers:[...before.contentDocument.querySelectorAll('#workflow-question-section .content-box .content')].map(el=>Math.round(el.getBoundingClientRect().height)), links:before.contentDocument.querySelectorAll('main a,footer a').length, h1:before.contentDocument.querySelector('h1')?.textContent } : undefined;
+      results.push({width,path,noJs,mounted:!!after.contentDocument.querySelector('#app[data-v-app]'),requests,differences});
+    }
+    output.textContent=JSON.stringify({complete:true,results},null,2);
+  }catch(error){output.textContent=JSON.stringify({error:String(error),results},null,2)}
+  finally{document.querySelector('#run').disabled=false}
+};
+</script></html>

@@ -39,7 +39,7 @@
     @apply md:translate-y-2 translate-y-1
 }
 #workflow-step-section .step-box .index-box .sub-title{
-    @apply font-dm-sans font-medium sm:text-base text-sm text-gray-500;
+    @apply font-dm-sans font-medium sm:text-base text-sm text-gray-600;
     @apply uppercase;
 }
 

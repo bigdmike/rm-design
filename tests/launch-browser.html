@@ -1,0 +1,101 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>階段五本機瀏覽器驗收</title>
+<style>body{font:16px/1.6 sans-serif;margin:20px;background:#f8f6f1;color:#222}button,select{font:inherit;padding:8px}iframe{height:900px;border:1px solid #999;display:block;margin-top:20px}pre{white-space:pre-wrap;max-height:500px;overflow:auto}label{margin-right:20px}</style></head><body>
+<h1>階段五本機瀏覽器驗收</h1>
+<p>只讀取本機資料，禁止表單送出。以 iframe 寬度驗證版型；不是手機實機或 CPU／網路節流測試。2 秒 API 延遲及 503 為人工注入。</p>
+<label>畫面寬度 <select id="width"><option>390</option><option>768</option><option>1280</option></select></label>
+<label>驗收項目 <select id="suite"><option value="pages">逐頁直入與重新整理</option><option value="spa">站內切頁、返回、前進</option><option value="faults">慢回應、API 失敗與重試</option><option value="menus">手機／平板選單整合（合成鍵盤事件）</option></select></label>
+<button id="run">開始驗收</button> <button id="download" disabled>下載結果</button>
+<pre id="results" role="status">尚未開始</pre><div id="frame"></div>
+<script>
+const output=document.querySelector('#results'), holder=document.querySelector('#frame');
+const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+let results=[],frame,completedReport;
+function check(ok,label){if(!ok)throw new Error(label)}
+async function until(test,label){for(let i=0;i<150;i++){if(test())return;await pause(100)}throw new Error('等待逾時：'+label)}
+const doc=()=>frame.contentDocument,win=()=>frame.contentWindow;
+const busy=()=>!!doc().querySelector('#main-loading,#background-loading');
+async function settled(){await until(()=>doc().querySelector('#app[data-v-app]'),'Vue 啟動');await until(()=>!busy(),'loading 結束');await doc().fonts.ready;await pause(400)}
+async function load(path){holder.replaceChildren();frame=document.createElement('iframe');frame.width=document.querySelector('#width').value;frame.src=path;holder.append(frame);await until(()=>{try{return win().location.pathname===path&&doc().querySelector('#app[data-v-app]')}catch{return false}},path);await settled();return doc()}
+function meta(name){return doc().querySelector(`meta[name="${name}"],meta[property="${name}"]`)?.content||''}
+function snapshot(){return {title:doc().title,canonical:doc().querySelector('link[rel="canonical"]')?.href,description:meta('description'),ogTitle:meta('og:title'),ogDescription:meta('og:description'),ogImage:meta('og:image'),ogType:meta('og:type'),robots:meta('robots'),schemas:[...doc().querySelectorAll('script[type="application/ld+json"]')].map(el=>JSON.parse(el.textContent))}}
+function basic(){check(doc().querySelectorAll('title').length===1,'只能有一個 title');check(doc().querySelectorAll('link[rel="canonical"]').length===1,'只能有一個 canonical');check(doc().querySelectorAll('h1').length===1,'只能有一個 H1');check(doc().querySelector('#main-header'),'header 存在');check(doc().documentElement.scrollWidth<=win().innerWidth+2,'頁面不可水平溢出');check(!busy(),'loading 計數已結束')}
+function parity(){basic();const initial=JSON.parse(doc().querySelector('#rm-initial-state').textContent),actual=snapshot();for(const field of ['title','description','canonical','ogTitle','ogDescription','ogImage','ogType'])check(actual[field]===(initial.seo[field]||''),'PHP/Vue '+field+' 一致');check(JSON.stringify(actual.schemas)===JSON.stringify(initial.seo.jsonLd?[initial.seo.jsonLd]:[]),'PHP/Vue schema 一致');return actual}
+function record(label,details={}){results.push({label,status:'pass',...details});output.textContent=JSON.stringify({running:true,results},null,2)}
+async function accept(){const button=doc().querySelector('#site-privacy-dialog button');if(button)button.click();await pause(550)}
+function link(path){return [...doc().querySelectorAll('a')].find(a=>{const u=new URL(a.href);return u.origin===location.origin&&u.pathname===path&&!u.search})}
+async function navigate(path){const anchor=link(path);check(anchor,'找得到站內連結 '+path);anchor.click();await until(()=>win().location.pathname===path,'站內 '+path);await settled()}
+document.querySelector('#download').onclick=()=>{const blob=new Blob([JSON.stringify(completedReport,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='stage5-browser-'+completedReport.width+'-'+completedReport.suite+'.json';a.click();URL.revokeObjectURL(url)};
+document.querySelector('#run').onclick=async()=>{
+  const run=document.querySelector('#run');run.disabled=true;document.querySelector('#download').disabled=true;results=[];
+  const width=Number(document.querySelector('#width').value),suite=document.querySelector('#suite').value;
+  try{
+    const sitemap=await(await fetch('/sitemap.xml')).text();
+    const paths=[...new DOMParser().parseFromString(sitemap,'application/xml').querySelectorAll('loc')].map(el=>new URL(el.textContent).pathname);
+    check(paths.length>=7&&paths.length<=107,'sitemap 頁數在驗收範圍內');
+    const casePath=paths.find(path=>/^\/works\/[1-9]\d*$/.test(path));
+    if(suite==='pages')for(const path of [...paths,'/__stage5_missing__']){
+      output.textContent=JSON.stringify({running:{width,path},results},null,2);
+      await load(path);const first=parity();
+      const requests=win().__launchFixture.calls.map(call=>call.path);
+      check(requests.every(path=>path==='/api/v1/contact-form'),'首次 HTML 資料不得重抓頁面 API');
+      const previous=doc();win().location.reload();await until(()=>doc()!==previous&&doc().querySelector('#app[data-v-app]'),'重新整理');await settled();
+      check(JSON.stringify(first)===JSON.stringify(parity()),'重新整理 SEO 不變');
+      record('直入與重新整理 '+path,{width,requests,title:first.title});
+    }
+    if(suite==='spa'){
+      await load('/');await accept();const documentReference=doc();
+      const routeOrder=['/about','/workflow','/press','/contact','/privacy-policy','/works',...(casePath?[casePath]:[]),'/'];
+      for(const path of routeOrder){await navigate(path);basic();check(doc()===documentReference,'站內切頁不可重新載入文件');check(new URL(snapshot().canonical).pathname===path,'切頁 canonical 更新');if(!path.match(/^\/works\/[1-9]/))check(!JSON.stringify(snapshot().schemas).includes('CreativeWork'),'離開案例不得殘留 CreativeWork');record('SPA '+path,{width})}
+      win().history.back();await until(()=>win().location.pathname===(casePath||'/works'),'上一頁');await settled();basic();record('上一頁',{path:win().location.pathname});
+      win().history.forward();await until(()=>win().location.pathname==='/','下一頁');await settled();basic();record('下一頁',{path:win().location.pathname});
+    }
+    if(suite==='faults'){
+      await load('/');await accept();const fixture=win().__launchFixture,header=doc().querySelector('#main-header');
+      fixture.mode='delay';fixture.target='/api/v1/pages/about';const anchor=link('/about');check(anchor,'about 連結存在');anchor.click();
+      await until(()=>doc().querySelector('#main-loading'),'逐頁 skeleton');
+      check(doc().querySelector('#main-loading.type-about'),'關於我們專用 skeleton');check(doc().querySelector('#main-header')===header,'延遲時 header 不重建');
+      await settled();basic();record('人工 2 秒延遲、專用 skeleton 與 header 穩定',{width});
+      fixture.mode='error';fixture.target='/api/v1/pages/workflow';await navigate('/workflow');
+      check(doc().body.textContent.includes('頁面內容暫時無法載入'),'503 顯示暫時錯誤');check(/noindex/.test(meta('robots')),'失敗時 noindex');check(!busy(),'失敗清除 loading');check(!doc().querySelector('script[type="application/ld+json"]'),'失敗清除 schema');record('人工 API 503 顯示與 SEO 清除',{width});
+      fixture.mode='normal';const retry=[...doc().querySelectorAll('button')].find(el=>el.textContent.trim()==='重新載入');check(retry,'可重試');retry.click();await until(()=>!doc().body.textContent.includes('頁面內容暫時無法載入'),'重試恢復');await settled();basic();check(new URL(snapshot().canonical).pathname==='/workflow','恢復 canonical');record('重試成功恢復內容與 loading',{width});
+    }
+    if(suite==='menus'){
+      check(width<1280,'選單整合限 390／768px');
+      await load('/');await accept();
+      const menu=doc().querySelector('#main-menu'),trigger=doc().querySelector('#site-menu-toggle');
+      const sub=doc().querySelector('#mobile-category-links'),disclosure=menu.querySelector('button.menu-disclosure');
+      const key=(el,value,shiftKey=false)=>el.dispatchEvent(new (win().KeyboardEvent)('keydown',{key:value,shiftKey,bubbles:true,cancelable:true}));
+      check(menu.hasAttribute('inert')&&menu.getAttribute('aria-hidden')==='true','收合選單不可聚焦');
+      check(trigger.getAttribute('aria-label')==='開啟網站選單'&&trigger.getAttribute('aria-expanded')==='false','開啟按鈕有名稱與狀態');
+      record('收合選單 inert、按鈕名稱與狀態',{width});
+      trigger.focus();trigger.click();await until(()=>!menu.hasAttribute('inert'),'開啟選單');await pause(550);
+      check(doc().activeElement===menu.querySelector('a'),'開啟聚焦第一個選單連結');
+      check(trigger.getAttribute('aria-expanded')==='true'&&trigger.getAttribute('aria-label')==='關閉網站選單','開啟狀態更新');
+      check(sub.hasAttribute('inert')&&disclosure.tagName==='BUTTON','子選單收合且使用原生按鈕');
+      disclosure.click();await until(()=>!sub.hasAttribute('inert'),'展開分類');
+      check(disclosure.getAttribute('aria-expanded')==='true'&&sub.querySelector('a'),'分類連結可用');
+      disclosure.click();await until(()=>sub.hasAttribute('inert'),'收合分類');
+      record('開啟焦點、原生分類按鈕展開／收合',{width});
+      const last=[...menu.querySelectorAll('a,button')].filter(el=>!el.closest('[inert]')&&el.getClientRects().length).at(-1);
+      last.focus();key(last,'Tab');check(doc().activeElement===trigger,'末端 Tab 回到開關');
+      key(trigger,'Tab',true);check(doc().activeElement===last,'開關 Shift+Tab 回到末端');
+      key(last,'Escape');await until(()=>menu.hasAttribute('inert'),'Escape 關閉');
+      check(doc().activeElement===trigger,'Escape 返回開關焦點');
+      record('合成 Tab／Shift+Tab 邊界與 Escape 焦點恢復',{width});
+      trigger.click();await until(()=>!menu.hasAttribute('inert'),'再開啟');await pause(550);
+      const documentReference=doc();menu.querySelector('a[href="/about"]').click();
+      await until(()=>win().location.pathname==='/about','選單導覽');await settled();basic();
+      check(doc()===documentReference&&menu.hasAttribute('inert'),'選單導覽仍為 SPA 且自動關閉');
+      check(doc().body.style.overflow!=='hidden','導覽後解鎖捲動');
+      check(new URL(snapshot().canonical).pathname==='/about','選單導覽 canonical 更新');
+      record('選單連結 SPA 導覽、收合與解鎖',{width});
+      trigger.click();await until(()=>!menu.hasAttribute('inert'),'第三次開啟');await pause(550);
+      frame.width='1280';await until(()=>menu.hasAttribute('inert'),'跨桌機斷點收合');
+      check(doc().body.style.overflow!=='hidden','桌機斷點解鎖捲動');
+      record('切換桌機寬度時關閉選單與解鎖',{width,changedWidth:1280});
+    }
+    completedReport={complete:true,generatedAt:new Date().toISOString(),width,suite,entryScript:doc().querySelector('script[type="module"][src]')?.getAttribute('src'),environment:'Local Chromium iframe; GET proxy. Synthetic API delay/error and menu boundary key events, NOT physical device, native touch, cold/warm network or Lighthouse/CWV.',results};
+  }catch(error){completedReport={complete:false,width,suite,error:String(error),results}}
+  finally{output.textContent=JSON.stringify(completedReport,null,2);document.querySelector('#download').disabled=false;run.disabled=false}
+};
+</script></body></html>

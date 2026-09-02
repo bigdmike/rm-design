@@ -1,0 +1,10 @@
+{
+  "description": "First regression ceilings after Stage 4; file/response bytes, NOT total first-screen network transfer or Lighthouse scores.",
+  "entryJsGzipBytes": 76800,
+  "allJsGzipBytes": 112640,
+  "allCssGzipBytes": 22528,
+  "pageHtmlDecodedBytes": 204800,
+  "pageApiDecodedBytes": 81920,
+  "ogImageBytes": 614400,
+  "priorityImageBytes": 614400
+}

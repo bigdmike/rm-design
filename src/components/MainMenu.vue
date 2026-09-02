@@ -1,9 +1,11 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, nextTick, onMounted, onBeforeUnmount } from "vue";
+import { useRoute } from "vue-router";
 import { useUIStore } from "../store/index";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import MainButton from "./MainButton.vue";
 const uiStore = useUIStore();
+const props = defineProps({ categories: { type: Array, default: () => [] }, settings: { type: Object, default: null } });
 
 const toggleMenu = () => {
   uiStore.toggleMenu();
@@ -12,11 +14,45 @@ const menuStatus = computed(() => uiStore.menuOpen);
 const menuStatusClass = ref("");
 const subMenuStatus = ref(false);
 const headerStyleTmp = ref(uiStore.headerStyle);
+const menuElement = ref(null);
+const route = useRoute();
+let previousFocus;
+let desktopQuery;
 
-const linkList = [
+const closeMenu = () => { if (menuStatus.value) uiStore.toggleMenu(); };
+const focusableMenuItems = () => [document.querySelector('#site-menu-toggle'), ...menuElement.value.querySelectorAll('a, button')]
+  .filter(el => el && !el.closest('[inert]') && el.getClientRects().length);
+const menuKeydown = (event) => {
+  if (!menuStatus.value) return;
+  if (event.key === 'Escape') { event.preventDefault(); closeMenu(); return; }
+  if (event.key !== 'Tab') return;
+  const items = focusableMenuItems();
+  const first = items[0], last = items.at(-1);
+  if (!first) return;
+  if (event.shiftKey && (document.activeElement === first || !items.includes(document.activeElement))) {
+    event.preventDefault(); last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !items.includes(document.activeElement))) {
+    event.preventDefault(); first.focus();
+  }
+};
+const desktopChanged = (event) => { if (event.matches) closeMenu(); };
+watch(() => route.fullPath, closeMenu);
+onMounted(() => {
+  document.addEventListener('keydown', menuKeydown);
+  desktopQuery = window.matchMedia('(min-width: 1280px)');
+  desktopQuery.addEventListener('change', desktopChanged);
+});
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', menuKeydown);
+  desktopQuery?.removeEventListener('change', desktopChanged);
+  const target = menuElement.value?.querySelector('.menu-container');
+  if (target) enableBodyScroll(target);
+});
+
+const linkList = computed(() => [
   {
     name: "部落格",
-    link: "/blog",
+    link: props.settings?.blogUrl || 'https://blog.rmdesign.com.tw',
   },
   {
     name: "Instagram",
@@ -34,16 +70,20 @@ const linkList = [
     name: "Pinterest",
     link: "https://pin.it/6lILgPi",
   },
-];
+]);
 
 watch(menuStatus, (newValue) => {
   if (newValue) {
+    previousFocus = document.activeElement;
     menuStatusClass.value = "open";
     headerStyleTmp.value = uiStore.headerStyle;
 
     const modalElement = document.querySelector("#main-menu .menu-container");
     disableBodyScroll(modalElement);
     uiStore.setHeaderStyle("black");
+    nextTick(() => {
+      if (menuStatus.value) menuElement.value?.querySelector('a')?.focus();
+    });
   } else {
     subMenuStatus.value = false;
     menuStatusClass.value = "close";
@@ -51,12 +91,17 @@ watch(menuStatus, (newValue) => {
     const modalElement = document.querySelector("#main-menu .menu-container");
     enableBodyScroll(modalElement);
     uiStore.setHeaderStyle(headerStyleTmp.value);
+    if (menuElement.value?.contains(document.activeElement)) {
+      const trigger = document.querySelector('#site-menu-toggle');
+      if (trigger?.getClientRects().length) trigger.focus();
+      else if (previousFocus?.isConnected && previousFocus.getClientRects().length) previousFocus.focus();
+    }
   }
 });
 </script>
 
 <template>
-  <aside id="main-menu" :class="menuStatusClass">
+  <aside id="main-menu" ref="menuElement" :class="menuStatusClass" :inert="!menuStatus" :aria-hidden="!menuStatus" aria-label="網站選單">
     <div class="menu-container">
       <ol class="menu-list">
         <li>
@@ -66,7 +111,7 @@ watch(menuStatus, (newValue) => {
           </router-link>
         </li>
         <li>
-          <div class="menu-item" @click="subMenuStatus = !subMenuStatus">
+          <button type="button" class="menu-item menu-disclosure" :aria-expanded="subMenuStatus" aria-controls="mobile-category-links" @click="subMenuStatus = !subMenuStatus">
             <p>作品列表</p>
             <span>WORKS</span>
 
@@ -91,25 +136,14 @@ watch(menuStatus, (newValue) => {
                 stroke-linejoin="round"
               />
             </svg>
-          </div>
+          </button>
 
-          <div class="sub-menu-list" :class="subMenuStatus ? 'open' : ''">
-            <router-link to="/works?category=1" @click="toggleMenu">
-              <p>住宅空間</p>
-              <span>RESIDENTIAL</span>
+          <div id="mobile-category-links" class="sub-menu-list" :class="subMenuStatus ? 'open' : ''" :inert="!subMenuStatus" :aria-hidden="!subMenuStatus">
+            <router-link v-for="category in categories" :key="category.id" :to="category.link" @click="toggleMenu">
+              <p>{{ category.name }}</p>
+              <span>{{ category.english }}</span>
             </router-link>
-            <router-link to="/works?category=2" @click="toggleMenu">
-              <p>建築設計</p>
-              <span>ARCHITECTURE</span>
-            </router-link>
-            <router-link to="/works?category=3" @click="toggleMenu">
-              <p>商業空間</p>
-              <span>COMMERCIAL</span>
-            </router-link>
-            <router-link to="/works?category=4" @click="toggleMenu">
-              <p>公共空間</p>
-              <span>PUBLIC</span>
-            </router-link>
+            <router-link v-if="!categories.length" to="/works" @click="toggleMenu"><p>全部案例</p></router-link>
           </div>
         </li>
         <li>
@@ -126,8 +160,9 @@ watch(menuStatus, (newValue) => {
         </li>
         <li>
           <a
-            href="https://blog.rmdesign.com.tw"
+            :href="settings?.blogUrl || 'https://blog.rmdesign.com.tw'"
             target="_blank"
+            rel="noopener noreferrer"
             class="menu-item"
           >
             <p>部落格</p>

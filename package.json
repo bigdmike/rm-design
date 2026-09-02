@@ -4,8 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:launch": "node tests/check-launch.mjs",
+    "test:public": "node tests/check-public-seo.mjs && node tests/check-content-seo.mjs && node tests/check-page-data.mjs && node tests/check-public-api-errors.mjs && node tests/check-media-delivery.mjs",
+    "test:browser": "node tests/serve-launch-browser.mjs",
+    "test:lighthouse": "node tests/run-lighthouse.mjs",
+    "test:production-package": "node tests/check-production-package.mjs --front=https://rm.chungci-design.com --api=https://rm-api.chungci-design.com",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prepare-php-entry.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -21,6 +27,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.6",
+    "lighthouse": "12.8.2",
     "vite": "^8.0.12"
   }
 }

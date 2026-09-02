@@ -1,96 +1,89 @@
 <script setup>
-import { computed } from "vue";
-import { useUIStore } from "../store/index";
-import { useRoute, useRouter } from "vue-router";
-import { usePageMetaHead } from "../common/usePageMetaHead.js";
-import HeaderSection from "../components/workList/HeaderSection.vue";
-import SideCategoryNav from "../components/workList/SideCategoryNav.vue";
-import CategoryNav from "../components/workList/CategoryNav.vue";
-import CardListSection from "../components/workList/CardListSection.vue";
-import MainPagination from "../components/MainPagination.vue";
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useUIStore } from '../store/index';
+import { useRouteSeo } from '../common/usePageMetaHead.js';
+import { getInitialState } from '../common/initialState.js';
+import { usePublicPage, loadPublicPage } from '../common/usePublicPage.js';
+import { getPublicJson, publicCache, PublicApiError } from '../common/publicApi.js';
+import { useWorkCategories, loadWorkCategories } from '../common/useWorkCategories.js';
+import { parsePublicUrl, outOfRange, isMissing, initialNotFound } from '../common/publicUrl.js';
+import { pageSeo, errorSeo } from '../common/seo.js';
+import { useVisibleRefresh } from '../common/useVisibleRefresh.js';
+import { latestRequest } from '../common/latestRequest.js';
+import MainBreadcrumbs from '../components/MainBreadcrumbs.vue';
+import { workBreadcrumbs } from '../common/breadcrumbs.js';
+import HeaderSection from '../components/workList/HeaderSection.vue';
+import SideCategoryNav from '../components/workList/SideCategoryNav.vue';
+import CategoryNav from '../components/workList/CategoryNav.vue';
+import CardListSection from '../components/workList/CardListSection.vue';
+import MainPagination from '../components/MainPagination.vue';
+import NotFoundView from './NotFoundView.vue';
 
-const uiStore = useUIStore();
-uiStore.setHeaderStyle("cream");
+useUIStore().setHeaderStyle('cream');
 const route = useRoute();
-const router = useRouter();
+const initial = getInitialState();
+const origin = initial?.frontendOrigin || window.location.origin;
+const url = computed(() => parsePublicUrl(route.fullPath));
+const { pageData } = usePublicPage('works');
+const categoryData = useWorkCategories();
+const categoryList = computed(() => [{ name: '全部', id: 'all', count: categoryData.value?.total || 0 }, ...(categoryData.value?.items || [])]);
+const activeCategory = computed(() => categoryData.value?.items.find((item) => String(item.id) === url.value?.category));
+const breadcrumbs = computed(() => workBreadcrumbs(url.value?.canonicalPath || '/works', activeCategory.value));
+const header = computed(() => pageData.value?.sections?.['works.header']);
+const listing = ref(null);
+const missing = ref(false);
+const failed = ref(false);
+const request = latestRequest();
+let initialConsumed = false;
 
-const categoryList = [
-  {
-    name: "全部",
-    id: "all",
-    count: 99,
-  },
-  {
-    name: "建築設計",
-    id: 1,
-    count: 22,
-  },
-  {
-    name: "住宅空間",
-    id: 2,
-    count: 23,
-  },
-  {
-    name: "商業空間",
-    id: 3,
-    count: 31,
-  },
-  {
-    name: "公共空間",
-    id: 4,
-    count: 23,
-  },
-];
-const currentPage = computed({
-  get() {
-    return route.query.page ? parseInt(route.query.page) : 1;
-  },
-  set(value) {
-    const query = { ...route.query, page: value };
-    router.push({ query });
-  },
-});
-const currentCategory = computed({
-  get() {
-    return route.query.category ? route.query.category : "all";
-  },
-  set(value) {
-    const query = { ...route.query, category: value, page: 1 };
-    router.push({ query });
-  },
-});
-
-const activeCategory = computed(() => {
-  return categoryList.find((category) => category.id == currentCategory.value);
-});
-
-usePageMetaHead({
-  uiStore,
-  route,
-  customMeta: {
-    title: computed(() => activeCategory.value?.name != "全部" ? activeCategory.value?.name : ""),
-  },
+function load(force = false) {
+  const location = url.value;
+  if (!location) { request.invalidate(); return; }
+  if (!initialConsumed && initialNotFound(initial, route.fullPath)) {
+    initialConsumed = true; missing.value = true; return;
+  }
+  initialConsumed = true;
+  const path = '/works?' + new URLSearchParams({ category: location.category, page: String(location.page), per_page: '9' });
+  return request.run(async () => {
+    const [result, categories] = await Promise.all([
+      getPublicJson(path, { force }),
+      loadPublicPage('works', { force }).then((page) => page.site.workCategories || loadWorkCategories()),
+    ]);
+    if ((location.category !== 'all' && !categories.items.some((item) => String(item.id) === location.category)) || outOfRange(result.pagination)) {
+      throw new PublicApiError('找不到頁面。', { status: 404 });
+    }
+    return result;
+  }, {
+    start: () => { listing.value = publicCache.peek(path); missing.value = false; failed.value = false; },
+    success: (result) => { listing.value = result; },
+    error: (error) => { listing.value = null; missing.value = isMissing(error); failed.value = !missing.value; },
+  });
+}
+watch(() => url.value?.canonicalPath, () => load(), { immediate: true, flush: 'sync' });
+useVisibleRefresh(() => missing.value ? undefined : load());
+onBeforeUnmount(() => request.invalidate());
+useRouteSeo(() => {
+  const name = pageData.value?.site?.settings?.siteName || initial?.site?.settings?.siteName;
+  if (missing.value || failed.value) return errorSeo(origin, name, missing.value, missing.value ? '/404' : url.value?.canonicalPath);
+  return listing.value && pageData.value ? pageSeo(pageData.value, origin + url.value.canonicalPath, activeCategory.value?.name) : null;
 });
 </script>
 
 <template>
-  <main id="work-list-page">
-    <HeaderSection />
+  <NotFoundView v-if="missing" />
+  <main v-else id="work-list-page">
+    <HeaderSection v-if="header" :title="header.content.title" :sub-title="header.content.subtitle" :content="header.content.body_text" />
     <div class="main-container">
-      <SideCategoryNav :categoryList="categoryList" :baseUrl="`/works`" />
-      <CategoryNav :categoryList="categoryList" :baseUrl="`/works`" />
-      <CardListSection />
-      <div class="pagination-box">
-        <MainPagination
-          :total-items="50"
-          :items-per-page="5"
-          :max-pages-shown="5"
-          v-model="currentPage"
-        />
+      <MainBreadcrumbs :items="breadcrumbs" />
+      <SideCategoryNav :categoryList="categoryList" baseUrl="/works" />
+      <CategoryNav :categoryList="categoryList" baseUrl="/works" />
+      <div v-if="failed" role="alert"><p>案例暫時無法載入，請稍後再試。</p><button type="button" @click="load(true)">重新載入</button></div>
+      <CardListSection v-else :works="listing?.items || []" />
+      <div v-if="listing?.pagination.totalPages > 1" class="pagination-box">
+        <MainPagination :total-items="listing.pagination.total" :items-per-page="9" :max-pages-shown="5" :model-value="url.page" />
       </div>
-      <div class="background-box">
-        <img src="/img/home/background.png" class="bg-image" />
-      </div>
+      <div class="background-box"><img src="/img/home/background.png" class="bg-image" alt="" /></div>
     </div>
   </main>
 </template>

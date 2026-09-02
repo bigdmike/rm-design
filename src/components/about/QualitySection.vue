@@ -1,22 +1,19 @@
-<script setup></script>
+<script setup>
+import ResponsivePicture from "../ResponsivePicture.vue";
+defineProps({ section: { type: Object, required: true } });
+</script>
 
 <template>
     <section id="about-quality-section">
         <div class="main-container">
             <div class="text-box">
-            <h3 class="title">看不見的地方，才是真正的設計</h3>
-            <div class="content editor-content">
-                <p>
-                    從一條電線的品牌、年份、線徑，到一塊磁磚背後的黏著劑，阜居建立了十項工程堅持，把標準寫在工地裡，而不是寫在合約上。
-                </p>
-            </div>
+            <h2 class="title">{{ section.content.title }}</h2>
+            <div class="content"><p class="preserve-whitespace">{{ section.content.body_text }}</p></div>
             </div>
         </div>
 
         <div class="background-box">
-            <img src="/img/about/quality.png" />
-            <img src="/img/about/quality-md.png" />
-            <img src="/img/about/quality-sm.png" />
+            <ResponsivePicture :desktop="section.images.image_desktop" :tablet="section.images.image_tablet" :mobile="section.images.image_mobile" />
         </div>
     </section>
 </template>

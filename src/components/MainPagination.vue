@@ -1,48 +1,27 @@
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { listingPath, parsePublicUrl, paginationPages } from '../common/publicUrl.js';
 
 const props = defineProps({
-  totalItems: {
-    type: Number,
-    required: true,
-    default: 50,
-  },
-  itemsPerPage: {
-    type: Number,
-    required: true,
-    default: 5,
-  },
-  maxPagesShown: {
-    type: Number,
-    required: true,
-    default: 5,
-  },
-  modelValue: {
-    type: Number,
-    required: true,
-    default: 1,
-  },
+  totalItems: { type: Number, required: true },
+  itemsPerPage: { type: Number, required: true },
+  maxPagesShown: { type: Number, default: 5 },
+  modelValue: { type: Number, default: 1 },
 });
-const emit = defineEmits(["update:modelValue"]);
-const currentPage = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit("update:modelValue", value);
-  },
-});
+const route = useRoute();
+const totalPages = computed(() => Math.ceil(props.totalItems / props.itemsPerPage));
+const pages = computed(() => paginationPages(props.modelValue, totalPages.value, props.maxPagesShown));
+const href = (page) => listingPath(route.path, page, parsePublicUrl(route.fullPath)?.category || 'all');
 </script>
 
 <template>
-  <div id="main-pagination">
-  <vue-awesome-paginate
-    :total-items="props.totalItems"
-    :items-per-page="props.itemsPerPage"
-    :max-pages-shown="props.maxPagesShown"
-    :hide-prev-next-when-ends="true"
-    :hide-prev-next="true"
-    v-model="currentPage"
-  />
-  </div>
+  <nav id="main-pagination" aria-label="分頁" v-if="pages.length">
+    <ol class="pagination-container">
+      <li v-for="page in pages" :key="page">
+        <RouterLink :to="href(page)" class="paginate-buttons number-buttons" :class="{ 'active-page': page === modelValue }"
+          :aria-current="page === modelValue ? 'page' : undefined" :aria-label="'第 ' + page + ' 頁'">{{ page }}</RouterLink>
+      </li>
+    </ol>
+  </nav>
 </template>

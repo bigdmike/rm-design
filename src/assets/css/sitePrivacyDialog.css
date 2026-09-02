@@ -13,7 +13,7 @@
 }
 
 #site-privacy-dialog .content-box > p a{
-    @apply text-brand-red underline;
+    @apply text-brand-red-dark underline;
 }
 
 #site-privacy-dialog .button-box{

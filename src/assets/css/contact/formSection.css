@@ -46,3 +46,7 @@
 #contact-page-form-section .button-box{
     @apply w-full flex justify-center  col-span-6 ;
 }
+
+#contact-page-form-section form > .error-message{
+    @apply text-red-700;
+}

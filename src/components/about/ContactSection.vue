@@ -1,27 +1,25 @@
 <script setup>
+import { imageAttributes } from "../../common/responsiveImage.js";
 import {ref} from "vue";
 import MainButton from "../MainButton.vue";
 
 const buttonHover = ref(false);
+defineProps({ section: { type: Object, required: true } });
 </script>
 
 <template>
     <section id="about-contact-section">
         <div class="main-container">
-            <h3 class="title">從一通電話開始，讓我們聽您說</h3>
-            <p class="content">
-                不論是空間或建築，第一次的會勘與方向討論完全免費。
-            </p>
+            <h2 class="title">{{ section.content.title }}</h2>
+            <p class="content preserve-whitespace">{{ section.content.body_text }}</p>
 
          
             
-            <MainButton type="link" link="/contact" color="cream" text="CONTACT US" @mouseenter="buttonHover=true" @mouseleave="buttonHover=false" />
+            <MainButton type="link" :link="section.content.button_href" color="cream" :text="section.content.button_label" @mouseenter="buttonHover=true" @mouseleave="buttonHover=false" />
         </div>
 
         <div class="background-box" :class="buttonHover?'hover':''">
-            <img src="/img/contact/image 2.png" />
-            <img src="/img/contact/hover-bg.png" />
-            <img src="/img/contact/hover-bg (1).png" />
+            <img v-bind="imageAttributes(section.images.image, { sizes: '(min-width: 768px) 50vw, 100vw' })" />
         </div>
     </section>
 </template>

@@ -1,5 +1,6 @@
 <script setup>
 import MainButton from "../MainButton.vue";
+defineProps({ section: { type: Object, required: true } });
 </script>
 
 <template>
@@ -7,20 +8,16 @@ import MainButton from "../MainButton.vue";
     <div class="main-container">
       <div class="text-box">
         <!-- <p class="sub-title">( SELECT WORKS )</p> -->
-        <div class="content">
-          阜居空間設計由專業設計師主理，深耕建築、住宅與商業空間整合規劃。<br/>
-          我們深信設計是提煉個人品味、創造專屬美學的過程。<br/>
-          透過細膩的觀察與穩健的工程美學，為業主構築獨一無二的生活場景。
-        </div>
+        <div class="content preserve-whitespace">{{ section.content.body_text }}</div>
 
         <div class="button-box">
-          <MainButton type="link" link="/works" color="black" text="VIEW OUR WORKS" />
+          <MainButton type="link" :link="section.content.button_href" color="black" :text="section.content.button_label" />
         </div>
       </div>
     </div>
 
     <div class="background-box">
-      <img src="/img/home/background.png"/>
+      <img src="/img/home/background.png" alt=""/>
     </div>
   </section>
 </template>

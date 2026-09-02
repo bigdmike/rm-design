@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useUIStore } from "../store/index";
 import MainButton from "./MainButton.vue";
 const uiStore = useUIStore();
+defineProps({ categories: { type: Array, default: () => [] }, settings: { type: Object, default: null } });
 
 const toggleMenu = () => {
   uiStore.toggleMenu();
@@ -19,6 +20,18 @@ const toggleProjectDropdown = () => {
 
 const closeProjectDropdown = () => {
   projectDropdownOpen.value = false;
+};
+
+const dismissProjectDropdown = (event) => {
+  if (!projectDropdownOpen.value) return;
+  event.preventDefault();
+  event.stopPropagation();
+  closeProjectDropdown();
+  projectMenuRef.value?.querySelector('button')?.focus();
+};
+
+const leaveProjectDropdown = (event) => {
+  if (!projectMenuRef.value?.contains(event.relatedTarget)) closeProjectDropdown();
 };
 
 const handleClickOutside = (event) => {
@@ -50,7 +63,7 @@ onBeforeUnmount(() => {
   <nav id="main-header" :class="headerStyle">
     <div class="main-container">
       <RouterLink to="/" class="logo-box">
-        <img src="/img/nav_logo.svg" />
+        <img src="/img/nav_logo.svg" :alt="settings?.siteName || '阜居空間設計'" />
       </RouterLink>
 
       <ol class="menu-list">
@@ -63,13 +76,13 @@ onBeforeUnmount(() => {
             </p>
           </RouterLink>
         </li>
-        <li class="project-menu-item" ref="projectMenuRef">
+        <li class="project-menu-item" ref="projectMenuRef" @keydown.esc="dismissProjectDropdown" @focusout="leaveProjectDropdown">
           <button
             type="button"
             class="project-dropdown-trigger"
             :class="projectDropdownOpen ? 'active' : ''"
             :aria-expanded="projectDropdownOpen"
-            aria-haspopup="true"
+            aria-controls="project-category-links"
             @click.stop="toggleProjectDropdown"
           >
             <i></i>
@@ -80,50 +93,29 @@ onBeforeUnmount(() => {
           </button>
 
           <div
+            id="project-category-links"
             class="project-dropdown"
             :class="projectDropdownOpen ? 'open' : ''"
+            :inert="!projectDropdownOpen"
+            :aria-hidden="!projectDropdownOpen"
           >
             <div class="image-box">
-              <img src="/img/img-wrap.png" />
+              <img src="/img/img-wrap.png" alt="" loading="lazy" decoding="async" />
             </div>
             <div class="link-box">
               <p class="sub-title">( WORKS )</p>
               <RouterLink
-                to="/works?category=1"
+                v-for="category in categories"
+                :key="category.id"
+                :to="category.link"
                 @click="projectDropdownOpen = false"
               >
                 <p>
-                  <span>住宅空間</span>
-                  <span>RESIDENTIAL</span>
+                  <span>{{ category.name }}</span>
+                  <span>{{ category.english }}</span>
                 </p>
               </RouterLink>
-              <RouterLink
-                to="/works?category=2"
-                @click="projectDropdownOpen = false"
-              >
-                <p>
-                  <span>建築設計</span>
-                  <span>ARCHITECTURE</span>
-                </p>
-              </RouterLink>
-              <RouterLink
-                to="/works?category=3"
-                @click="projectDropdownOpen = false"
-              >
-                <p>
-                  <span>商業空間</span>
-                  <span>COMMERCIAL</span>
-                </p>
-              </RouterLink>
-              <RouterLink
-                to="/works?category=4"
-                @click="projectDropdownOpen = false"
-              >
-                <p>
-                  <span>公共空間</span>
-                  <span>PUBLIC</span>
-                </p>
-              </RouterLink>
+              <RouterLink v-if="!categories.length" to="/works" @click="projectDropdownOpen = false"><p>全部案例</p></RouterLink>
             </div>
           </div>
         </li>
@@ -146,7 +138,7 @@ onBeforeUnmount(() => {
           </RouterLink>
         </li>
         <li>
-          <a href="https://blog.rmdesign.com.tw" target="_blank">
+          <a :href="settings?.blogUrl || 'https://blog.rmdesign.com.tw'" target="_blank" rel="noopener noreferrer">
             <i></i>
             <p>
               <span>部落格</span>
@@ -175,8 +167,13 @@ onBeforeUnmount(() => {
         /> -->
 
         <button
+          id="site-menu-toggle"
+          type="button"
           class="menu-btn"
           :class="menuStatus ? 'active' : ''"
+          :aria-label="menuStatus ? '關閉網站選單' : '開啟網站選單'"
+          :aria-expanded="menuStatus"
+          aria-controls="main-menu"
           @click="toggleMenu"
         >
           <svg

@@ -1,247 +1,105 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, watch,ref } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { MasonryGrid, MasonryGridItem } from 'vue3-masonry-css';
-import { useHeaderStyleScrollHandler } from "../common/headerStyleScrollHandler";
-import { usePageMetaHead } from "../common/usePageMetaHead";
-import { useUIStore } from "../store";
-import ImageModal from "../components/workPage/ImageModal.vue";
-import MainButton from "../components/MainButton.vue";
+import { useHeaderStyleScrollHandler } from '../common/headerStyleScrollHandler';
+import { useRouteSeo } from '../common/usePageMetaHead.js';
+import { getInitialState } from '../common/initialState.js';
+import { getPublicJson, publicCache } from '../common/publicApi.js';
+import { usePublicPage } from '../common/usePublicPage.js';
+import { errorSeo } from '../common/seo.js';
+import { parsePublicUrl, isMissing, initialNotFound } from '../common/publicUrl.js';
+import { useVisibleRefresh } from '../common/useVisibleRefresh.js';
+import { latestRequest } from '../common/latestRequest.js';
+import { imageAttributes, gallerySizes } from '../common/responsiveImage.js';
+import ImageModal from '../components/workPage/ImageModal.vue';
+import MainBreadcrumbs from '../components/MainBreadcrumbs.vue';
+import { workBreadcrumbs } from '../common/breadcrumbs.js';
+import MainButton from '../components/MainButton.vue';
+import NotFoundView from './NotFoundView.vue';
 
 const route = useRoute();
-const uiStore = useUIStore();
+const initial = getInitialState();
+const origin = initial?.frontendOrigin || window.location.origin;
+const { pageData } = usePublicPage('works');
 const ImageModalRef = ref(null);
+const workData = ref(null);
+const notFound = ref(false);
+const failed = ref(false);
+const url = computed(() => parsePublicUrl(route.fullPath));
+const request = latestRequest();
+let initialConsumed = false;
 
-const headerScrollRules = [
-    { selector: "#work-page .cover-image-box .image-box", style: "", offset: 0 },
-    { selector: "#work-page .article-header", style: "black", offset: 0 },
-    { selector: "#work-page .article-content", style: "black", offset: 0 },
-    { selector: "#work-page .article-gallery", style: "black", offset: 0 },
-];
+useHeaderStyleScrollHandler([
+  { selector: '#work-page .cover-image-box .image-box', style: '', offset: 0 },
+  { selector: '#work-page .article-header', style: 'black', offset: 0 },
+  { selector: '#work-page .article-content', style: 'black', offset: 0 },
+  { selector: '#work-page .article-gallery', style: 'black', offset: 0 },
+], 'cream');
 
-useHeaderStyleScrollHandler(headerScrollRules,"cream");
+function loadWork(force = false) {
+  const id = url.value?.id;
+  if (!id) { request.invalidate(); return; }
+  if (!initialConsumed && initialNotFound(initial, route.fullPath)) {
+    initialConsumed = true; notFound.value = true; return;
+  }
+  initialConsumed = true;
+  return request.run(async () => (await getPublicJson('/works/' + id, { force })).work, {
+    start: () => { workData.value = publicCache.peek('/works/' + id)?.work || null; notFound.value = false; failed.value = false; },
+    success: (work) => { workData.value = work; },
+    error: (error) => { workData.value = null; notFound.value = isMissing(error); failed.value = !notFound.value; },
+  });
+}
+watch(() => url.value?.id, () => loadWork(), { immediate: true, flush: 'sync' });
+useVisibleRefresh(() => notFound.value ? undefined : loadWork());
+onBeforeUnmount(() => request.invalidate());
 
-const works = {
-    "1": {
-        title: "我家住在森林裡",
-        location: "台南",
-        slogan: "在城市邊陲，為心靈裁製一方綠意",
-        category: "建築設計",
-        authorName: "RM DESIGN",
-        publisherName: "RM DESIGN",
-        description:
-            "以清水模與自然植栽交織，打造一座可與心靈對話的私人森林住宅，重拾生活節奏與光影日常。",
-        content:
-            "這是一段關於尋回生活節奏的故事。我們以清水模的質樸基調為畫布，大膽地將自然林意引入生活場域，讓建築線條與柔和的植栽景觀交織共生。我們使場域與業主的形象相結合，在城市的邊陲裁製出一方專屬的綠意。<br/>無論是靜謐的午后閱讀，或是與光影共處的瞬間，家，就是一座能與心靈對話的私人森林。",
-        publishDate: "2026-06-28",
-        modifiedDate: "2026-06-28",
-        coverImage: "/rm-design/img/works/1/03-台南邱公館67.jpg",
-        images: [
-            "/rm-design/img/works/1/00-平面合成圖.jpg",
-            "/rm-design/img/works/1/01-外觀合成圖.jpg",
-            "/rm-design/img/works/1/02-台南邱公館01（s）.jpg",
-            "/rm-design/img/works/1/03-台南邱公館67.jpg",
-            "/rm-design/img/works/1/04-台南邱公館06（s）.jpg",
-            "/rm-design/img/works/1/05-台南邱公館81.jpg",
-            "/rm-design/img/works/1/06-台南邱公館80.jpg",
-            "/rm-design/img/works/1/07-台南邱公館155.jpg",
-            "/rm-design/img/works/1/08-台南邱公館484.jpg",
-            "/rm-design/img/works/1/09-台南邱公館471.jpg",
-            "/rm-design/img/works/1/10-台南邱公館497.jpg",
-            "/rm-design/img/works/1/11-台南邱公館11（s）.jpg",
-            "/rm-design/img/works/1/12-台南邱公館12（s）.jpg",
-            "/rm-design/img/works/1/13-台南邱公館63.jpg",
-            "/rm-design/img/works/1/14-台南邱公館14（s）.jpg",
-            "/rm-design/img/works/1/15-台南邱公館15（s）.jpg",
-            "/rm-design/img/works/1/16-台南邱公館03（s）.jpg",
-            "/rm-design/img/works/1/17-台南邱公館05（s）.jpg",
-            "/rm-design/img/works/1/18-台南邱公館08（s）.jpg",
-            "/rm-design/img/works/1/19-台南邱公館136.jpg",
-            "/rm-design/img/works/1/20-台南邱公館148.jpg",
-            "/rm-design/img/works/1/21-台南邱公館272.jpg",
-            "/rm-design/img/works/1/22-台南邱公館275.jpg",
-            "/rm-design/img/works/1/23-台南邱公館644.jpg",
-            "/rm-design/img/works/1/24-台南邱公館112.jpg",
-            "/rm-design/img/works/1/25-台南邱公館117.jpg",
-            "/rm-design/img/works/1/26-台南邱公館209.jpg",
-            "/rm-design/img/works/1/27-台南邱公館265.jpg",
-            "/rm-design/img/works/1/28-台南邱公館255.jpg",
-            "/rm-design/img/works/1/29-台南邱公館642.jpg",
-            "/rm-design/img/works/1/30-台南邱公館628.jpg",
-            "/rm-design/img/works/1/31-台南邱公館02（小檔）.jpg",
-            "/rm-design/img/works/1/32-台南邱公館205.jpg",
-            "/rm-design/img/works/1/33-台南邱公館108.jpg",
-            "/rm-design/img/works/1/34-台南邱公館206.jpg",
-            "/rm-design/img/works/1/35-台南邱公館290.jpg",
-            "/rm-design/img/works/1/36-台南邱公館438.jpg",
-            "/rm-design/img/works/1/37-台南邱公館652.jpg",
-            "/rm-design/img/works/1/38-台南邱公館09（小檔）.jpg",
-            "/rm-design/img/works/1/39-台南邱公館10（小檔）.jpg",
-            "/rm-design/img/works/1/40-台南邱公館13（小檔）.jpg",
-            "/rm-design/img/works/1/41-台南邱公館91.jpg",
-            "/rm-design/img/works/1/42-台南邱公館96.jpg",
-            "/rm-design/img/works/1/43-台南邱公館97.jpg",
-            "/rm-design/img/works/1/44-台南邱公館445.jpg",
-            "/rm-design/img/works/1/45-台南邱公館670.jpg",
-            "/rm-design/img/works/1/46-台南邱公館682.jpg",
-            "/rm-design/img/works/1/47-台南邱公館683.jpg",
-            "/rm-design/img/works/1/48-台南邱公館18.jpg",
-            "/rm-design/img/works/1/49-台南邱公館04（s）.jpg",
-            "/rm-design/img/works/1/50-台南邱公館07（s）.jpg",
-            "/rm-design/img/works/1/51-台南邱公館167.jpg",
-            "/rm-design/img/works/1/52-台南邱公館396.jpg",
-            "/rm-design/img/works/1/53-台南邱公館616.jpg",
-            "/rm-design/img/works/1/54-台南邱公館620.jpg",
-            "/rm-design/img/works/1/55-台南邱公館361.jpg",
-            "/rm-design/img/works/1/56-台南邱公館376.jpg",
-            "/rm-design/img/works/1/57-台南邱公館603.jpg",
-            "/rm-design/img/works/1/58-台南邱公館367.jpg",
-            "/rm-design/img/works/1/59-台南邱公館613.jpg",
-            "/rm-design/img/works/1/60-台南邱公館20.jpg",
-            "/rm-design/img/works/1/61-台南邱公館618.jpg",
-            "/rm-design/img/works/1/62-台南邱公館17.jpg",
-            "/rm-design/img/works/1/63-台南邱公館160.jpg",
-            "/rm-design/img/works/1/64-台南邱公館164.jpg",
-            "/rm-design/img/works/1/65-台南邱公館335.jpg",
-            "/rm-design/img/works/1/66-台南邱公館713.jpg",
-            "/rm-design/img/works/1/67-台南邱公館56.jpg",
-            "/rm-design/img/works/1/68-台南邱公館163.jpg",
-            "/rm-design/img/works/1/69-台南邱公館321.jpg",
-            "/rm-design/img/works/1/70-台南邱公館55.jpg",
-            "/rm-design/img/works/1/71-台南邱公館345.jpg",
-        ],
-    },
-};
-
-const workId = computed(() => String(route.params.id || "1"));
-const workData = computed(() => works[workId.value] || works["1"]);
-const paragraphs = computed(() =>
-    workData.value.content
-        .split("<br/>")
-        .map((text) => text.trim())
-        .filter(Boolean),
-);
-const baseUrl = computed(() => {
-    if (typeof window === "undefined") return "";
-    return window.location.origin;
+useRouteSeo(() => {
+  const siteName = pageData.value?.site?.settings?.siteName || initial?.site?.settings?.siteName;
+  if (notFound.value || failed.value) return errorSeo(origin, siteName, notFound.value, notFound.value ? '/404' : url.value?.canonicalPath);
+  if (workData.value?.id === url.value?.id) return workData.value.seo;
+  // Clear the previous article's schema and sharing image while the next case loads.
+  return { title: '設計案例', description: '', canonical: origin + (url.value?.canonicalPath || '/works'), ogType: 'website', ogImage: '', jsonLd: null };
 });
-
-const toAbsoluteUrl = (path) => {
-    if (!path) return "";
-    if (/^https?:\/\//.test(path)) return path;
-    return `${baseUrl.value}${path}`;
-};
-
-const articleUrl = computed(() => `${baseUrl.value}/works/${workId.value}`);
-
-usePageMetaHead({
-    uiStore,
-    route,
-    customMeta: {
-        title: computed(() => workData.value.title),
-        description: computed(() => workData.value.description),
-        image: computed(() => toAbsoluteUrl(workData.value.coverImage || workData.value.images?.[0])),
-        url: articleUrl,
-    },
-});
-
-const articleSchema = computed(() => ({
-    "@context": "https://schema.org",
-    "@type": "Article",
-    mainEntityOfPage: {
-        "@type": "WebPage",
-        "@id": articleUrl.value,
-    },
-    headline: workData.value.title,
-    description: workData.value.description,
-    image: workData.value.images.slice(0, 10).map((imagePath) => toAbsoluteUrl(imagePath)),
-    datePublished: workData.value.publishDate,
-    dateModified: workData.value.modifiedDate,
-    articleSection: workData.value.category,
-    author: {
-        "@type": "Organization",
-        name: workData.value.authorName,
-    },
-    publisher: {
-        "@type": "Organization",
-        name: workData.value.publisherName,
-    },
-    articleBody: paragraphs.value.join("\n\n"),
-}));
-
-let schemaElement = null;
-
-const renderSchema = () => {
-    if (!schemaElement) return;
-    schemaElement.textContent = JSON.stringify(articleSchema.value);
-};
-const openImageModal = (index) => {
-    if (ImageModalRef.value) {
-        ImageModalRef.value.openModal(index);
-    }
-};
-
-onMounted(() => {
-    schemaElement = document.createElement("script");
-    schemaElement.type = "application/ld+json";
-    schemaElement.id = "work-article-schema";
-    document.head.appendChild(schemaElement);
-    renderSchema();
-});
-
-watch(articleSchema, () => {
-    renderSchema();
-});
-
-onBeforeUnmount(() => {
-    if (schemaElement?.parentNode) {
-        schemaElement.parentNode.removeChild(schemaElement);
-    }
-});
+const breadcrumbs = computed(() => workData.value ? workBreadcrumbs(url.value.canonicalPath, { id: workData.value.categoryId, name: workData.value.category }, workData.value) : []);
+const openImageModal = (index) => ImageModalRef.value?.openModal(index);
 </script>
 
 <template>
-    <main id="work-page">
-        <article>
-            <div class="cover-image-box">
-                <figure class="image-box">
-                    <img :src="workData.coverImage" :alt="`${workData.title} 封面`" />
-                </figure>
-            </div>
-
-            <header class="article-header">
-                <div class="main-container">
-                    <p class="article-sub-title">( WORKS )</p>
-                    <h1 class="article-title">{{ workData.title }}</h1>
-                    <p class="article-location">{{ workData.location }}</p>
-                    <p class="article-slogan">{{ workData.slogan }}</p>
-                </div>
-            </header>
-
-            <section class="article-content">
-                <div class="main-container">
-                    <div class="content-box">
-                        <p class="content" v-html="workData.content"></p>
-                        <div class="button-box">
-
-                            
-          <MainButton type="external" link="https://blog.rmdesign.com.tw/" color="cream" text="查看設計細節" />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="article-gallery" aria-label="作品照片集">
-                <div class="image-box">
-                    <MasonryGrid :columns="{ default: 3, 1024: 3, 768: 2 }" :gutter="{ default: 20, 768: 12, 640: 8 }">
-                        <MasonryGridItem v-for="(image, index) in workData.images" :key="`gallery-image-${index}`">
-                            <img :src="image" :alt="`${workData.title} 作品照片 ${index + 1}`" loading="lazy" @click="openImageModal(index)" />
-                        </MasonryGridItem>
-                    </MasonryGrid>
-                </div>
-            </section>
-        </article>
-
-        <ImageModal ref="ImageModalRef" :image-list="workData.images" :title="workData.title" />
-    </main>
+  <main v-if="workData" id="work-page">
+    <article>
+      <div class="cover-image-box">
+        <figure class="image-box"><img v-bind="imageAttributes(workData.cover || { url: workData.coverImage }, { loading: 'eager', priority: 'high' })" :alt="workData.coverAlt ?? `${workData.title} 封面`" /></figure>
+      </div>
+      <header class="article-header">
+        <div class="main-container">
+          <p class="article-sub-title">( WORKS )</p>
+          <h1 class="article-title">{{ workData.title }}</h1>
+          <p class="article-location">{{ workData.location }}</p>
+          <p class="article-slogan">{{ workData.slogan }}</p>
+          <MainBreadcrumbs :items="breadcrumbs" />
+        </div>
+      </header>
+      <section class="article-content">
+        <div class="main-container"><div class="content-box">
+          <div class="content editor-content" v-html="workData.content"></div>
+          <div v-if="workData.detailLink" class="button-box"><MainButton type="external" :link="workData.detailLink" color="cream" text="查看設計細節" /></div>
+        </div></div>
+      </section>
+      <section class="article-gallery" aria-label="作品照片集"><div class="image-box">
+        <MasonryGrid :columns="{ default: 3, 1024: 3, 768: 2 }" :gutter="{ default: 20, 768: 12, 640: 8 }">
+          <MasonryGridItem v-for="(image, index) in workData.imageItems" :key="image.url">
+            <img v-bind="imageAttributes(image, { sizes: gallerySizes, maxWidth: 1600 })" :alt="image.altText ?? `${workData.title} 作品照片 ${index + 1}`" role="button" tabindex="0" :aria-label="`放大 ${workData.title} 作品照片 ${index + 1}`" @click="openImageModal(index)" @keydown.enter="openImageModal(index)" @keydown.space.prevent="openImageModal(index)" />
+          </MasonryGridItem>
+        </MasonryGrid>
+      </div></section>
+    </article>
+    <ImageModal ref="ImageModalRef" :image-list="workData.images" :title="workData.title" />
+  </main>
+  <NotFoundView v-else-if="notFound" />
+  <main v-else-if="failed" class="main-container py-30" role="alert">
+    <h1 class="text-4xl mb-5">案例暫時無法載入</h1>
+    <p>目前連線或服務暫時發生問題，請稍後再試。</p>
+    <button type="button" @click="loadWork(true)">重新載入</button>
+  </main>
 </template>
