@@ -11,7 +11,7 @@ defineProps({ pressList: { type: Array, default: () => [] } });
           <div class="cover">
               <div class="play-button-box">
                 <svg width="11" height="11" viewBox="0 0 9 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 5.19629L4.64275e-07 10.3924L9.18537e-07 0.000136459L9 5.19629Z" fill="#CC333A" />
+                  <path d="M9 5.19629L4.64275e-07 10.3924L9.18537e-07 0.000136459L9 5.19629Z" fill="currentColor" />
                 </svg>
               </div>
           </div>

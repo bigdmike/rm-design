@@ -1,0 +1,35 @@
+@theme {
+  /* Typography */
+  --font-sans: "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --font-dm-sans: "DM Sans", "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
+
+  /* Brand primitives */
+  --color-brand-red: #cc333a;
+  --color-brand-red-dark: #a3292e;
+  --color-brand-red-light: #e35d62;
+  --color-brand-cream: #f4efe3;
+  --color-brand-black: #000000;
+  --color-brand-white: #ffffff;
+
+  /* Shared surfaces and content colors */
+  --color-surface-workflow: #ebe7da;
+  --color-surface-cream-hover: #eae5da;
+  --color-surface-dark-hover: #1a1a1a;
+  --color-surface-modal-placeholder: #252525;
+  --color-loading-track: #313d36;
+  --color-content-ink: #171717;
+  --color-content-muted: #55514b;
+  --color-content-subtle: #686158;
+  --color-content-border: #cec8bd;
+
+  /* Semantic button colors */
+  --color-btn-primary-bg: var(--color-brand-red);
+  --color-btn-primary-hover: var(--color-brand-red-dark);
+  --color-btn-primary-text: var(--color-brand-white);
+  --color-btn-dark-bg: var(--color-brand-black);
+  --color-btn-dark-hover: var(--color-surface-dark-hover);
+  --color-btn-dark-text: var(--color-brand-white);
+  --color-btn-cream-bg: var(--color-brand-cream);
+  --color-btn-cream-hover: var(--color-surface-cream-hover);
+  --color-btn-cream-text: var(--color-brand-black);
+}

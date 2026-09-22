@@ -7,18 +7,29 @@
 }
 
 #work-page-image-modal .modal-close {
-  position: absolute; top: 24px; right: 24px; z-index: 20;
-  color: white; font-size: 18px; padding: 12px; cursor: pointer;
+  @apply absolute top-6 right-6 z-20 cursor-pointer p-3 text-lg text-white;
 }
 #work-page-image-modal button:focus-visible { outline: 2px solid white; outline-offset: 4px; }
-#work-page-image-modal .modal-image-placeholder { position: absolute; inset: 0; background: #252525; }
-#work-page-image-modal .modal-image-error { position: absolute; inset: 0; display: grid; place-items: center; color: white; padding: 24px; }
+#work-page-image-modal .modal-image-placeholder { @apply absolute inset-0 bg-surface-modal-placeholder; }
+#work-page-image-modal .modal-image-error { @apply absolute inset-0 grid place-items-center p-6 text-white; }
 @media (prefers-reduced-motion: reduce) {
   #work-page-image-modal .image-container, #work-page-image-modal .background-box { animation-duration: 0s !important; }
 }
 
 #work-page-image-modal .image-container {
   @apply relative z-10  flex items-center justify-center md:w-auto w-full;
+}
+
+/* Keep viewport-relative sizing usable if dynamic viewport units are unavailable. */
+#work-page-image-modal .image-container .image-box {
+  height: 100vh;
+  max-height: 50vh;
+}
+
+@media (min-width: 768px) {
+  #work-page-image-modal .image-container .image-box {
+    max-height: 80vh;
+  }
 }
 
 #work-page-image-modal .image-container .image-box {

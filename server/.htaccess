@@ -20,6 +20,15 @@ AddType video/mp4 .mp4
     AddOutputFilterByType DEFLATE application/javascript application/x-javascript text/javascript application/json application/xml image/svg+xml text/css text/html text/plain text/xml
 </IfModule>
 RewriteEngine On
+
+# The production frontend has one canonical public origin. Limit the host
+# condition to RM Design so local previews and any temporary acceptance host
+# continue to work without being redirected to production.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?rmdesign\.com\.tw(?::[0-9]+)?$ [NC]
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\.rmdesign\.com\.tw(?::[0-9]+)?$ [NC]
+RewriteRule ^ https://www.rmdesign.com.tw%{REQUEST_URI} [R=301,END,NE]
+
 RewriteRule ^index\.html$ / [R=301,END]
 RewriteRule ^app-shell\.html$ - [R=404,END]
 RewriteCond %{REQUEST_FILENAME} !-f

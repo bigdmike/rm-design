@@ -1,6 +1,15 @@
 #about-cover-section{
-    @apply w-full md:h-160 h-dvh;
+    height: 100vh;
+    @apply w-full;
     @apply relative flex items-end z-10;
+}
+
+@supports (height: 100dvh) {
+    #about-cover-section { height: 100dvh; }
+}
+
+@media (min-width: 48rem) {
+    #about-cover-section { height: 40rem; }
 }
 
 #about-cover-section .main-container{

@@ -21,7 +21,7 @@
 .editor-content strong { font-weight: 700; }
 .editor-content em { font-style: italic; }
 .editor-content a {
-  color: #cc333a;
+  color: var(--color-brand-red);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: .22em;
@@ -37,11 +37,11 @@
 .editor-content li { padding-left: .25em; }
 .editor-content li + li { margin-top: .42em; }
 .editor-content li > p { margin-bottom: .45em; }
-.editor-content li::marker { color: #cc333a; font-weight: 700; }
+.editor-content li::marker { color: var(--color-brand-red); font-weight: 700; }
 .editor-content blockquote {
   margin: 1.5em 0;
   padding: .15em 0 .15em 1.25em;
-  border-left: 3px solid #cc333a;
+  border-left: 3px solid var(--color-brand-red);
   color: currentColor;
   opacity: .82;
 }

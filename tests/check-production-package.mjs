@@ -3,6 +3,7 @@ import { lstat, mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promis
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
+import { containsLocalOrigin } from './production-artifact-safety.mjs'
 
 const frontendRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const repositoryRoot = path.resolve(frontendRoot, '..')
@@ -68,6 +69,15 @@ async function findText(files, pattern) {
   return matches
 }
 
+async function findLocalOrigins(files) {
+  const matches = []
+  for (const file of await textFiles(files)) {
+    const content = await readFile(file, 'utf8')
+    if (containsLocalOrigin(content)) matches.push(path.relative(repositoryRoot, file).replaceAll('\\', '/'))
+  }
+  return matches
+}
+
 async function totalBytes(files) {
   let bytes = 0
   for (const file of files) bytes += (await stat(file)).size
@@ -105,11 +115,15 @@ await check('frontend public artifact', async () => {
   const entry = await readFile(path.join(frontendRoot, 'dist', 'index.php'), 'utf8')
   assert.match(entry, /dirname\(__DIR__\)\s*\.\s*'\/api\/bootstrap\.php'/, 'Frontend entry must support the cPanel sibling api/ layout')
   assert.match(entry, /dirname\(__DIR__,\s*2\)\s*\.\s*'\/api\/bootstrap\.php'/, 'Frontend entry must retain the local dist layout')
+  const htaccess = await readFile(path.join(frontendRoot, 'dist', '.htaccess'), 'utf8')
+  assert.match(htaccess, /RewriteCond %\{HTTPS\} !=on \[OR\]/, 'Frontend must force HTTPS on the production host')
+  assert.match(htaccess, /RewriteCond %\{HTTP_HOST\} !\^www\\\.rmdesign\\\.com\\\.tw/, 'Frontend must canonicalize the production host to www')
+  assert.match(htaccess, /RewriteRule \^ https:\/\/www\.rmdesign\.com\.tw%\{REQUEST_URI\} \[R=301,END,NE\]/, 'Frontend must preserve the request path when redirecting to the canonical origin')
   return { files: frontendFiles.length, bytes: await totalBytes(frontendFiles) }
 })
 await check('admin public artifact', async () => {
-  for (const file of ['api/public/admin/.htaccess', 'api/public/admin/index.html']) await required(file)
-  adminFiles = await filesBelow(path.join(apiRoot, 'public', 'admin'))
+  for (const file of ['admin/dist/.htaccess', 'admin/dist/index.html']) await required(file)
+  adminFiles = await filesBelow(path.join(adminRoot, 'dist'))
   assert.ok(adminFiles.some((file) => file.includes(`${path.sep}assets${path.sep}`)), 'Admin assets are missing')
   return { files: adminFiles.length, bytes: await totalBytes(adminFiles) }
 })
@@ -125,8 +139,8 @@ await check('API runtime artifact', async () => {
 await check('built files contain no local origins or source maps', async () => {
   const files = [...frontendFiles, ...adminFiles]
   assert.ok(files.length > 0, 'Build artifacts were not loaded')
-  const forbidden = await findText(files, /(?:localhost|127\.0\.0\.1|rm-api\.localhost|rm\.localhost|sourceMappingURL)/i)
-  assert.deepEqual(forbidden, [])
+  assert.deepEqual(await findLocalOrigins(files), [])
+  assert.deepEqual(await findText(files, /sourceMappingURL/i), [])
   assert.deepEqual(files.filter((file) => file.toLowerCase().endsWith('.map')), [])
 })
 await check('built files contain configured production origins', async () => {
@@ -140,7 +154,7 @@ await check('public deployment selection excludes development and secrets', asyn
   const forbiddenNames = /(?:^|\/)(?:_dev|tests?|node_modules|vendor|storage|database)(?:\/|$)|(?:^|\/)(?:\.env|composer\.(?:json|lock))$/i
   const selected = [
     ...frontendFiles.map((file) => path.relative(path.join(frontendRoot, 'dist'), file).replaceAll('\\', '/')),
-    ...adminFiles.map((file) => `admin/${path.relative(path.join(apiRoot, 'public', 'admin'), file).replaceAll('\\', '/')}`),
+    ...adminFiles.map((file) => `admin/${path.relative(path.join(adminRoot, 'dist'), file).replaceAll('\\', '/')}`),
     'index.php', '.htaccess', 'uploads/.htaccess',
   ]
   assert.deepEqual(selected.filter((name) => forbiddenNames.test(name)), [])
@@ -151,9 +165,11 @@ await check('uploads are a separate required artifact', async () => {
   assert.ok(uploadFiles.some((file) => path.basename(file) === '.htaccess'))
   return { files: uploadFiles.length, bytes: await totalBytes(uploadFiles), restoreSeparately: true }
 })
-await check('local credentials are excluded and Gmail delivery remains disabled', async () => {
+await check('local credentials are excluded and Gmail delivery defaults off', async () => {
   const gmail = await readFile(path.join(apiRoot, 'config', 'gmail.php'), 'utf8')
-  assert.match(gmail, /['"]delivery_enabled['"]\s*=>\s*false/)
+  const example = await readFile(path.join(apiRoot, 'config', 'gmail.example.php'), 'utf8')
+  assert.match(gmail, /GMAIL_DELIVERY_ENABLED/)
+  assert.match(example, /['"]delivery_enabled['"]\s*=>\s*false/)
   const excluded = [
     'api/config/local.php', 'api/config/auth.local.php', 'api/config/media.local.php',
     'api/config/gmail.local.php', 'api/storage/auth.key', 'api/storage/local-test-account.json',

@@ -18,8 +18,8 @@ if (!is_string($bootstrap) || $bootstrap === '') {
     }
 }
 try {
-    // PHP 7.4 cannot catch a failed require of a missing file. Check first so a
-    // missing deployment/bootstrap still returns the intended safe 503 page.
+    // Check before require so a missing private bootstrap returns the intended
+    // safe 503 page without exposing a filesystem path.
     if (!is_file($bootstrap) || !is_readable($bootstrap)) {
         throw new RuntimeException('Frontend bootstrap unavailable.');
     }

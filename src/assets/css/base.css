@@ -1,0 +1,8 @@
+* {
+  font-family: var(--font-sans);
+}
+
+a:focus,
+a:active {
+  outline: none;
+}

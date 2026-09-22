@@ -1,6 +1,11 @@
 #home-banner-section{
-    @apply w-full  h-dvh  relative bg-black;
+    height: 100vh;
+    @apply w-full relative bg-black;
     @apply flex items-center justify-center px-10;
+}
+
+@supports (height: 100dvh) {
+    #home-banner-section { height: 100dvh; }
 }
 
 #home-banner-section .background-box{

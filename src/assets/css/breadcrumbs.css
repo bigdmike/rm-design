@@ -1,42 +1,30 @@
 .main-breadcrumbs {
-  padding-block: 18px;
-  color: inherit;
-  font-size: 14px;
-  line-height: 1.6;
-  letter-spacing: 0.04em;
-  display: none;
+  @apply hidden py-[18px] text-sm leading-[1.6] tracking-[0.04em] text-inherit;
 }
 .main-breadcrumbs ol {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 12px;
+  @apply flex flex-wrap gap-x-3 gap-y-1.5;
 }
 .main-breadcrumbs li {
-  display: flex;
-  gap: 12px;
-  min-width: 0;
+  @apply flex min-w-0 gap-3;
   overflow-wrap: anywhere;
 }
 .main-breadcrumbs li + li::before {
   content: "/";
-  opacity: 0.45;
+  @apply opacity-45;
 }
 .main-breadcrumbs a {
-  text-underline-offset: 4px;
+  @apply underline-offset-4;
 }
 .main-breadcrumbs a:hover,
 .main-breadcrumbs a:focus-visible {
-  text-decoration: underline;
+  @apply underline;
 }
 .main-breadcrumbs [aria-current] {
-  opacity: 0.7;
+  @apply opacity-70;
 }
 #work-page .main-breadcrumbs {
-  margin-top: 18px;
-  color: #fff;
+  @apply mt-[18px] text-white;
 }
 #work-list-page .main-breadcrumbs {
-  width: 100%;
-  position: relative;
-  z-index: 10;
+  @apply relative z-10 w-full;
 }

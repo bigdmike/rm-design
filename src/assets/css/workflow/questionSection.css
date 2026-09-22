@@ -1,6 +1,6 @@
 #workflow-question-section{
     @apply w-full relative z-10 md:py-30 sm:py-20 py-15;
-    @apply bg-[#EBE7DA];
+    @apply bg-surface-workflow;
 }
 #workflow-question-section .main-container{
     @apply 2xl:px-0 sm:px-10 px-5;

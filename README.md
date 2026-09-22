@@ -26,6 +26,13 @@ depend on `dist/index.php`, `dist/app-shell.html` and `dist/.htaccess`.
 
 See `../docs/frontend-seo.md` for local checks and hosting requirements.
 
+Frontend styling conventions and the Vue/PHP shared-class contract are documented in
+[`STYLE_GUIDE.md`](./STYLE_GUIDE.md).
+
+## Browser support
+
+The frontend supports Chrome 111+, Edge 111+, Firefox 128+, Safari 16.4+, and iOS Safari 16.4+. Vite locks this baseline for JavaScript and CSS builds; older browsers and a legacy bundle are intentionally out of scope. Run `npm run test:compatibility` after changing build targets or viewport-related CSS, and use the release matrix in [`STYLE_GUIDE.md`](./STYLE_GUIDE.md) for native-browser verification.
+
 ## Pre-launch validation (Stage 5)
 
 Run against the built PHP site on port 8080 and the API on 8081, not Vite preview:
