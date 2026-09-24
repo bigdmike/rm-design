@@ -10,7 +10,7 @@ import { usePublicPage } from "./common/usePublicPage.js";
 import MainHeader from "./components/MainHeader.vue";
 import MainMenu from "./components/MainMenu.vue";
 import MainFooter from "./components/MainFooter.vue";
-import SitePrivacyDialog from "./components/SitePrivacyDialog.vue";
+// import SitePrivacyDialog from "./components/SitePrivacyDialog.vue";
 import MainDialog from "./components/MainDialog.vue";
 import MainLoading from "./components/MainLoading.vue";
 import NotFoundView from './views/NotFoundView.vue';
@@ -49,7 +49,7 @@ usePageMetaHead(seo);
   <router-view v-if="location" />
   <NotFoundView v-else />
   <MainFooter :categories="navigationCategories" :settings="site?.settings" :locations="site?.locations" />
-  <SitePrivacyDialog :content="sharedPageData?.sections?.['shared.privacy_notice']?.content" />
+  <!-- <SitePrivacyDialog :content="sharedPageData?.sections?.['shared.privacy_notice']?.content" /> -->
   <MainDialog />
   <MainLoading />
 </template>
